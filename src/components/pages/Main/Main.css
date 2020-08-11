@@ -1,0 +1,29 @@
+.App {
+  text-align: center;
+}
+
+.header {
+  background-color: white;
+  height: 14vh;
+}
+
+.sidebar {
+  background-color: white;
+  border: 5px solid #009149;
+}
+
+.content {
+  background-color: white;
+  height: 76vh;
+  border: 5px solid #161345;
+}
+
+.footer {
+  background-color: #009149;
+  height: 10vh;
+}
+
+.logo {
+  width: 300px;
+  height: 40px;
+}
