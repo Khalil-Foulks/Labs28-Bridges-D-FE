@@ -4,7 +4,7 @@
 
 🚫 Each student has a required minimum number of meaningful PRs each week per the rubric. Contributing to docs does NOT count as a PR to meet your weekly requirements.
 
-# 1️⃣ Title of project goes here
+# 1️⃣ Bridges to Prosperity
 
 1️⃣ You can find the deployed project at [🚫URL NAME GOES HERE](🚫copy and paste URL here).
 
@@ -12,11 +12,17 @@
 
 🚫Add contributor info below, make sure add images and edit the social links for each member. Add to or delete these place-holders as needed
 
-|                                                      [Student 1](https://github.com/)                                                       |                                                       [Student 2](https://github.com/)                                                        |                                                      [Student 3](https://github.com/)                                                       |                                                       [Student 4](https://github.com/)                                                        |                                                      [Student 5](https://github.com/)                                                       |
+|                                                      [Vrndavana Hines (WEB)](https://github.com/Vrndavana)                                                       |                                                       [Jason Hemann (WEB)](https://github.com/JasonRHemann)                                                        |                                                      [Matthew Kearney (WEB)](https://github.com/matthew-kearney)                                                       |                                                       [David Ortega (WEB)](https://github.com/adortega5185)                                                        |                                                      [Ous Bayaa أوس بياعه (WEB)](https://github.com/ousbayaa)                                                       |
 | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/) |
-|                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                                |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/honda0306)                             |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Mister-Corn)                           |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/NandoTheessen)                           |                           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wvandolah)                            |
+| [<img src="https://ca.slack-edge.com/ESZCHB482-W0123RRNMK9-6d226361ac51-512" width = "200" />](https://github.com/Vrndavana) | [<img src="https://ca.slack-edge.com/ESZCHB482-W0123RRBPAT-8dee2a8687ff-512" width = "200" />](https://github.com/JasonRHemann) | [<img src="https://avatars1.githubusercontent.com/u/60892407?s=400&u=5e96888c83f4660d3c8a01333ea4bea51f5cc648&v=4" width = "200" />](https://github.com/matthew-kearney) | [<img src="https://ca.slack-edge.com/ESZCHB482-W012QNX80JG-cf6f496913b1-512" width = "200" />](https://github.com/adortega5185) | [<img src="https://ca.slack-edge.com/ESZCHB482-W012H6SD745-f826199ac274-512" width = "200" />](https://github.com/ousbayaa) |
+|                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/ShotaKiko)                                |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/JasonRHemann)                             |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Jtmbern)                           |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/adxpillar)                           |                           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/ousbayaa)                            |
 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |
+
+|                                                      [Shota Kikozashvili (TPL)](https://github.com/ShotaKiko)                                                       |                                                       [Trent Bernhisel (DS)](https://github.com/tmbern)                                                        |                                                      [Adewale Adeagbo (DS)](https://github.com/adxpillar)                                                     |
+| :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
+| [<img src="https://avatars1.githubusercontent.com/u/45377559?s=400&u=a6b6690c055a0615b3ca7fb5f9781e9beafadfce&v=4" width = "200" />](https://github.com/ShotaKiko) | [<img src="https://ca.slack-edge.com/ESZCHB482-W0138D9AF9N-6e8cd5a45f02-512" width = "200" />](https://github.com/tmbern) | [<img src="https://ca.slack-edge.com/ESZCHB482-W012H6SQN9K-ba93800c21c8-512" width = "200" />](https://github.com/adxpillar) |
+|                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/ShotaKiko)                                |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/tmbern)                             |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/adxpillar)                           |                            |
+|                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |
 
 <br>
 <br>
@@ -33,17 +39,21 @@
 
 ## Project Overview
 
-1️⃣ [Trello Board](🚫add link to trello board here)
+1️⃣ Trello Board - https://trello.com/b/xnDcYuZ4/labs25bridgesshota
 
 1️⃣ [Product Canvas](🚫add link to product canvas here)
 
-1️⃣ [UX Design files](🚫add link to design files here) - 🚫 delete if not applicable
+1️⃣ UX Design files - Files provided by stakeholder 
+    Brand Guide and Assets 
+         https://bridges.app.box.com/s/d9xafgdnzukar2f5frdn4stciud35e1y
+    B2P Site Assessment Data 
+         https://bridges.app.box.com/s/vbgy6a9h0ohunzcuqgfg2mq8r0btvln5
+    Rwanda Administrative Levels and Codes 
+         https://bridges.app.box.com/s/21mix7vjnoi0v7q099fbr9ojl1gyy29j
 
 🚫 Replace lorem ipsum with a description of your project
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+ Bridges to Prosperity is a nonprofit that helps build footbridges in east african communities. They have collected a lot of data about various villages and we need to match it to government data. Afterwards, we will create predictions and visualizations as to where are the best places for footbridges.
 
 ### 4️⃣ Key Features
 
