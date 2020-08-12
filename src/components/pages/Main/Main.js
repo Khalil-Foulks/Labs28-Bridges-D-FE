@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layout } from 'antd';
 import './Main.css';
+import Map from '../Map/Map';
 
 //destructing components out of Layout component
 const { Header } = Layout;
@@ -20,14 +21,7 @@ const Main = () => {
             <h1>Bridges</h1>
           </Sider>
           <Content className="content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            <div>Random text</div>
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            <Map />
           </Content>
         </Layout>
         <Footer className="footer">footer</Footer>

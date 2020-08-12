@@ -1,0 +1,81 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.115072, 29.700843]
+      },
+      "properties": {
+        "bridgeId": 1,
+        "ProjectCode": 1009445,
+        "Province": "Southern Province",
+        "District": "Muhanga",
+        "Sector": "Nyarusange",
+        "Cell": "Rusovu",
+        "BridgeSiteName": "Rukurazo",
+        "ProjectStage": "Complete",
+        "BridgeType": "Suspended",
+        "Span": "49"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.71578, 29.67607]
+      },
+      "properties": {
+        "bridgeId": 2,
+        "ProjectCode": 1007544,
+        "Province": "Southern Province",
+        "District": "Nyaruguru",
+        "Sector": "Ngera",
+        "Cell": "Yaramba",
+        "BridgeSiteName": "Runyani",
+        "ProjectStage": "Complete",
+        "BridgeType": "Suspended",
+        "Span": "85"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.11713, 29.31672]
+      },
+      "properties": {
+        "bridgeId": 3,
+        "ProjectCode": 1015561,
+        "Province": "Western Province",
+        "District": "Karongi",
+        "Sector": "Mubuga",
+        "Cell": "Kagabiro-Ryaruhanga",
+        "BridgeSiteName": "Nyakabande-Bitaba",
+        "ProjectStage": "Confirmed",
+        "BridgeType": "Suspended",
+        "Span": "56"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.540715, 29.503838]
+      },
+      "properties": {
+        "bridgeId": 4,
+        "ProjectCode": 1012997,
+        "Province": "Southern Province",
+        "District": "Nyamagabe",
+        "Sector": "Tare",
+        "Cell": "Nkumbure-Gatovu",
+        "BridgeSiteName": "Uwumugeti-Kigusa",
+        "ProjectStage": "Confirmed",
+        "BridgeType": "Suspended",
+        "Span": "55"
+      }
+    }
+  ]
+}
