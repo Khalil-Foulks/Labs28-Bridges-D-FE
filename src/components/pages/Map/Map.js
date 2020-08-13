@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ReactMapGL, { Marker } from 'react-map-gl';
+import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 import * as bridgeData from './bridges.json';
 
 import './map.css';
@@ -12,6 +12,7 @@ const Map = () => {
     height: '79.3vh',
     zoom: 7.4,
   });
+  const [selectedBridge, setSelectedBridge] = useState(null);
 
   return (
     <ReactMapGL
@@ -30,9 +31,28 @@ const Map = () => {
           latitude={bridge.geometry.coordinates[0]}
           longitude={bridge.geometry.coordinates[1]}
         >
-          <img className="markder-btn" src="bridge.svg" alt="bridge icon" />
+          <img
+            className="marker-btn"
+            src="bridge.svg"
+            alt="bridge icon"
+            onClick={e => {
+              e.preventDefault();
+              setSelectedBridge(bridge);
+            }}
+          />
         </Marker>
       ))}
+
+      {selectedBridge ? (
+        <Popup
+          latitude={selectedBridge.geometry.coordinates[0]}
+          longitude={selectedBridge.geometry.coordinates[1]}
+        >
+          <div>
+            <h4> </h4>
+          </div>
+        </Popup>
+      ) : null}
     </ReactMapGL>
   );
 };
