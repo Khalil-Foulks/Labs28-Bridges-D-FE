@@ -1,0 +1,233 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.115072, 29.700843]
+      },
+      "properties": {
+        "bridgeId": 1,
+        "ProjectCode": 1009445,
+        "Province": "Southern Province",
+        "District": "Muhanga",
+        "Sector": "Nyarusange",
+        "Cell": "Rusovu",
+        "BridgeSiteName": "Rukurazo",
+        "ProjectStage": "Complete",
+        "BridgeType": "Suspended",
+        "Span": "49"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.71578, 29.67607]
+      },
+      "properties": {
+        "bridgeId": 2,
+        "ProjectCode": 1007544,
+        "Province": "Southern Province",
+        "District": "Nyaruguru",
+        "Sector": "Ngera",
+        "Cell": "Yaramba",
+        "BridgeSiteName": "Runyani",
+        "ProjectStage": "Complete",
+        "BridgeType": "Suspended",
+        "Span": "85"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.11713, 29.31672]
+      },
+      "properties": {
+        "bridgeId": 3,
+        "ProjectCode": 1015561,
+        "Province": "Western Province",
+        "District": "Karongi",
+        "Sector": "Mubuga",
+        "Cell": "Kagabiro-Ryaruhanga",
+        "BridgeSiteName": "Nyakabande-Bitaba",
+        "ProjectStage": "Confirmed",
+        "BridgeType": "Suspended",
+        "Span": "56"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.540715, 29.503838]
+      },
+      "properties": {
+        "bridgeId": 4,
+        "ProjectCode": 1012997,
+        "Province": "Southern Province",
+        "District": "Nyamagabe",
+        "Sector": "Tare",
+        "Cell": "Nkumbure-Gatovu",
+        "BridgeSiteName": "Uwumugeti-Kigusa",
+        "ProjectStage": "Confirmed",
+        "BridgeType": "Suspended",
+        "Span": "55"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-1.870868, 29.877686]
+      },
+      "properties": {
+        "bridgeId": 5,
+        "ProjectCode": 1014318,
+        "Province": "Southern Province",
+        "District": "Kamonyi",
+        "Sector": "Kayenzi",
+        "Cell": "Kirwa",
+        "BridgeSiteName": "Gisizi",
+        "ProjectStage": "Identified",
+        "BridgeType": "Suspended",
+        "Span": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-1.934919, 29.819397]
+      },
+      "properties": {
+        "bridgeId": 6,
+        "ProjectCode": 1014322,
+        "Province": "Southern Province",
+        "District": "Kamonyi",
+        "Sector": "Karama",
+        "Cell": "Bunyonga",
+        "BridgeSiteName": "Bunyonga 1",
+        "ProjectStage": "Identified",
+        "BridgeType": "Suspended",
+        "Span": 54
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.13838, 29.33504]
+      },
+      "properties": {
+        "bridgeId": 7,
+        "ProjectCode": 1013867,
+        "Province": "Western Province",
+        "District": "Karongi",
+        "Sector": "Mubuga sector",
+        "Cell": "Kagabiro",
+        "BridgeSiteName": "Kagarama",
+        "ProjectStage": "Prospecting",
+        "BridgeType": "Suspended",
+        "Span": 58
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.360876, 29.157374]
+      },
+      "properties": {
+        "bridgeId": 8,
+        "ProjectCode": 1013894,
+        "Province": "Western Province",
+        "District": "Nyamasheke",
+        "Sector": "Kanjongo",
+        "Cell": "Raro",
+        "BridgeSiteName": "Gasihe",
+        "ProjectStage": "Prospecting",
+        "BridgeType": "Suspended",
+        "Span": 79
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.42056, 28.9662]
+      },
+      "properties": {
+        "bridgeId": 9,
+        "ProjectCode": 1014107,
+        "Province": "Western Province",
+        "District": "Rusizi",
+        "Sector": "Giheke",
+        "Cell": "Gakomeye",
+        "BridgeSiteName": "Buzi",
+        "ProjectStage": "Rejected",
+        "BridgeType": "Suspended",
+        "Span": 79
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-1.72053, 30.08124]
+      },
+      "properties": {
+        "bridgeId": 10,
+        "ProjectCode": 1007651,
+        "Province": "Northern Province",
+        "District": "Rulindo",
+        "Sector": "Buyoga",
+        "Cell": "Gahororo-Gipfundo",
+        "BridgeSiteName": "Gipfundo",
+        "ProjectStage": "Rejected",
+        "BridgeType": "Suspended",
+        "Span": 8
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.69808, 29.54557]
+      },
+      "properties": {
+        "bridgeId": 11,
+        "ProjectCode": 1007563,
+        "Province": "Southern Province",
+        "District": "Nyaruguru",
+        "Sector": "Munini-Kibeho",
+        "Cell": "Ngarurira",
+        "BridgeSiteName": "Agatare",
+        "ProjectStage": "Under Construction",
+        "BridgeType": "Suspended",
+        "Span": 96
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.7891, 29.56721]
+      },
+      "properties": {
+        "bridgeId": 12,
+        "ProjectCode": 1007572,
+        "Province": "Southern Province",
+        "District": "Nyaruguru",
+        "Sector": "Busanze-Cyahinda",
+        "Cell": "Nteko-Muhambara(Gisoro-Busanza)",
+        "BridgeSiteName": "Gisoro",
+        "ProjectStage": "Under Construction",
+        "BridgeType": "Suspended",
+        "Span": 82
+      }
+    }
+  ]
+}
