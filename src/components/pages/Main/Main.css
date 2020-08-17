@@ -30,15 +30,20 @@
 }
 
 .logoFtr {
-  width: 150px;
-  height: 20px;
+  width: 210px;
+  height: 30px;
 }
 
 .ftrWebsiteLinks {
-  font-size: 14px;
+  font-size: 1.2em;
   display: inline-block;
   width: 300px;
   height: 10vh;
+}
+
+.singlePageLinks {
+  color: white;
+  transition: ease-in-out 0.3 rgb(232, 114, 79)
 }
 
 .ftrSocialLinks {
@@ -48,6 +53,11 @@
   margin-left: 30%;
 }
 
+.mediaText {
+  color: white;
+  transition: ease-in-out 0.3 rgb(232, 114, 79)
+}
+
 .ftrInfo {
   width:500px;
   float: right;
@@ -55,4 +65,7 @@
   height: 15vh
 }
 
+.address {
+  color: rgb(196, 195, 207)
+}
 
