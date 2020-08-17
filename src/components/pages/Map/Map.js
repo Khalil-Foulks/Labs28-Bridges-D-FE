@@ -45,7 +45,7 @@ const Map = () => {
           {/* image used to display point on map */}
           <img
             className="marker-btn"
-            src="bridge.svg"
+            src="bridge.png"
             alt="bridge icon"
             onClick={e => {
               e.preventDefault();
