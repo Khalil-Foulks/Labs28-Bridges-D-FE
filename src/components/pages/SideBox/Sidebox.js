@@ -1,18 +1,32 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Context } from '../Store';
-import { BorderRightOutlined } from '@ant-design/icons';
 
 const Sidebox = () => {
-  const [state, setState] = useContext(Context);
+  const [state] = useContext(Context);
   console.log('SideBox', state);
 
   return (
-    <div>
-      <p>Bridge Site: {state.bridge.properties.BridgeSiteName}</p>
-      <p>{state.bridge.properties.ProjectCode}</p>
-      <p>{state.bridge.properties.Province}</p>
-      <p>{state.bridge.properties.District}</p>
-      <p>{state.bridge.properties.Sector}</p>
+    <div class="Info">
+      <p className="Section">
+        Bridge Site:{' '}
+        <span className="S"> {state.bridge.properties.BridgeSiteName} </span>{' '}
+      </p>
+      <p className="Section">
+        Bridge ID:{' '}
+        <span className="S"> {state.bridge.properties.ProjectCode} </span>{' '}
+      </p>
+      <p className="Section">
+        Province:{' '}
+        <span className="S"> {state.bridge.properties.Province} </span>{' '}
+      </p>
+      <p className="Section">
+        District:{' '}
+        <span className="S"> {state.bridge.properties.District} </span>{' '}
+      </p>
+      <p className="Section">
+        Sector: <span className="S"> {state.bridge.properties.Sector} </span>{' '}
+      </p>
+      <br></br>
     </div>
   );
 };
