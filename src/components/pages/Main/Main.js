@@ -8,6 +8,8 @@ import {
 } from '@ant-design/icons';
 import './Main.css';
 import Map from '../Map/Map';
+import Store from '../Store';
+import Sidebox from '../SideBox/Sidebox';
 
 //destructing components out of Layout component
 const { Header } = Layout;
@@ -23,12 +25,14 @@ const Main = () => {
           <img className="logo" src="B2P_Symbol_Green.svg" alt="B2P Logo" />
         </Header>
         <Layout>
-          <Sider width="30vw" className="sidebar">
-            <h1>Bridges</h1>
-          </Sider>
-          <Content className="content">
-            <Map />
-          </Content>
+          <Store>
+            <Sider width="30vw" className="sidebar">
+              <Sidebox />
+            </Sider>
+            <Content className="content">
+              <Map />
+            </Content>
+          </Store>
         </Layout>
         <Footer className="footer">
           <div className="ftrWebsiteLinks">

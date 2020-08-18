@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 import * as bridgeData from './bridges.json';
+import { Context } from '../Store';
 
 import './map.css';
 
@@ -14,6 +15,7 @@ const Map = () => {
   });
 
   const [selectedBridge, setSelectedBridge] = useState(null);
+  const [state, setState] = useContext(Context);
 
   useEffect(() => {
     const listener = e => {
@@ -43,13 +45,16 @@ const Map = () => {
           longitude={bridge.geometry.coordinates[1]}
         >
           {/* image used to display point on map */}
+
           <img
             className="marker-btn"
-            src="bridge.png"
+            src="bridge_black.png"
             alt="bridge icon"
             onClick={e => {
               e.preventDefault();
               setSelectedBridge(bridge);
+              setState({ bridge });
+              console.log(state);
             }}
           />
         </Marker>
@@ -70,6 +75,7 @@ const Map = () => {
             <p>Status: {selectedBridge.properties.ProjectStage}</p>
             <p>Type: {selectedBridge.properties.BridgeType}</p>
             <p>Span: {selectedBridge.properties.Span} meters</p>
+            <p>Bridge Name: {state.BridgeSiteName}</p>
           </div>
         </Popup>
       ) : null}
