@@ -10,7 +10,7 @@ const Map = () => {
     latitude: -1.9402,
     longitude: 29.8738,
     width: '70vw',
-    height: '79.3vh',
+    height: '74.3vh',
     zoom: 7.4,
   });
 
