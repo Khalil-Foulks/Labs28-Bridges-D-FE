@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 import * as bridgeData from './bridges.json';
+
 import { Context } from '../Store';
 
 import './map.css';
@@ -9,8 +10,8 @@ const Map = () => {
   const [viewport, setViewport] = useState({
     latitude: -1.9402,
     longitude: 29.8738,
-    width: '70vw',
-    height: '74.3vh',
+    width: '100vw',
+    height: '100vh',
     zoom: 7.4,
   });
 
@@ -31,6 +32,7 @@ const Map = () => {
       {...viewport}
       mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
       //custom style... edit later
+      // mapStyle="mapbox://styles/jrhemann/cke28to9u0ixf19oevvv3kw8u"
       mapStyle="mapbox://styles/jrhemann/ckdiatyxk0eki1imx64uew7yw"
       //enable dragging
       onViewportChange={viewport => {
@@ -48,7 +50,7 @@ const Map = () => {
 
           <img
             className="marker-btn"
-            src="bridge_black.png"
+            src={`${bridge.properties.ProjectStage}.png`}
             alt="bridge icon"
             onClick={e => {
               e.preventDefault();
@@ -75,7 +77,6 @@ const Map = () => {
             <p>Status: {selectedBridge.properties.ProjectStage}</p>
             <p>Type: {selectedBridge.properties.BridgeType}</p>
             <p>Span: {selectedBridge.properties.Span} meters</p>
-            <p>Bridge Name: {state.BridgeSiteName}</p>
           </div>
         </Popup>
       ) : null}
