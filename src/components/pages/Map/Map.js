@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
-import ReactMapGL, { Marker, Popup } from 'react-map-gl';
+import ReactMapGL, { Marker, Popup, NavigationControl } from 'react-map-gl';
 import * as bridgeData from './bridges.json';
-
+import axios from 'axios';
 import { Context } from '../Store';
 
 import './map.css';
@@ -9,14 +9,28 @@ import './map.css';
 const Map = () => {
   const [viewport, setViewport] = useState({
     latitude: -1.9402,
-    longitude: 29.8738,
+    longitude: 30.1738,
     width: '100vw',
     height: '100vh',
-    zoom: 7.4,
+    zoom: 8.2,
+    pitch: 0,
+    bearing: -22,
   });
 
+  const [data, setData] = useState(null);
   const [selectedBridge, setSelectedBridge] = useState(null);
   const [state, setState] = useContext(Context);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios('http://b2ptc.herokuapp.com/bridges');
+
+      setData(result.data);
+      console.log(result.data);
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const listener = e => {
@@ -33,7 +47,9 @@ const Map = () => {
       mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
       //custom style... edit later
       // mapStyle="mapbox://styles/jrhemann/cke28to9u0ixf19oevvv3kw8u"
-      mapStyle="mapbox://styles/jrhemann/ckdiatyxk0eki1imx64uew7yw"
+      mapStyle="mapbox://styles/jrhemann/cked1kdcz2s261aql8jg3trbw"
+      //mapStyle="mapbox://styles/jrhemann/cked11c6y2rjj1aqlvukjnnji"
+
       //enable dragging
       onViewportChange={viewport => {
         setViewport(viewport);
@@ -80,6 +96,9 @@ const Map = () => {
           </div>
         </Popup>
       ) : null}
+      <div className="zoom-controls">
+        <NavigationControl showZoom={true} />
+      </div>
     </ReactMapGL>
   );
 };

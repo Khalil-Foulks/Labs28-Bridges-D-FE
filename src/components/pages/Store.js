@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 const initialState = {
+  bridgeStyle: 'mapbox://styles/jrhemann/cke28to9u0ixf19oevvv3kw8u',
   bridge: {
     geometry: { type: '', coordinates: Array(0) },
     properties: {

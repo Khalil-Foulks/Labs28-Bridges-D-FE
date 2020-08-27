@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { Context } from '../Store';
 import Search from 'antd/lib/input/Search';
@@ -9,7 +9,7 @@ import './LeftSideBar.css';
 // const MenuItemGroup = Menu.ItemGroup;
 
 const LeftSideBar = () => {
-  const [state] = useContext(Context);
+  const [state, setState] = useContext(Context);
   console.log('SideBox', state);
 
   return (
