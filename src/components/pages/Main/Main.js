@@ -9,7 +9,8 @@ import {
 import './Main.css';
 import Map from '../Map/Map';
 import Store from '../Store';
-import Sidebox from '../SideBox/Sidebox';
+import LeftSideBar from '../LeftSideBar/LeftSideBar';
+import RightSideBar from '../RightSideBar/RightSideBar';
 
 //destructing components out of Layout component
 const { Header } = Layout;
@@ -21,20 +22,20 @@ const Main = () => {
   return (
     <div>
       <Layout>
-        <Header className="header">
+        {/* <Header className="header">
           <img className="logo" src="B2P_Symbol_Green.svg" alt="B2P Logo" />
-        </Header>
-        <Layout>
-          <Store>
-            <Sider width="30vw" className="sidebar">
-              <Sidebox />
-            </Sider>
-            <Content className="content">
-              <Map />
-            </Content>
-          </Store>
-        </Layout>
-        <Footer className="footer">
+        </Header> */}
+
+        <Store>
+          <Sider width="20vw" className="sidebar">
+            <LeftSideBar />
+          </Sider>
+          <Content className="content">
+            <Map />
+          </Content>
+        </Store>
+
+        {/* <Footer className="footer">
           <div className="ftrWebsiteLinks">
             <a
               className="singlePageLinks"
@@ -131,7 +132,7 @@ const Main = () => {
               2018 © Bridges to Prosperity. All rights reserved.
             </h6>
           </div>
-        </Footer>
+        </Footer> */}
       </Layout>
     </div>
   );

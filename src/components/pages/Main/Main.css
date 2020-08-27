@@ -2,20 +2,18 @@
   text-align: center;
 }
 
-.header {
+/* .header {
   background-color: white;
   height: 14vh;
-}
+} */
 
 .sidebar {
   background-color: white;
-  border: 5px solid #009149;
 }
 
 .content {
   background-color: white;
-  height: 76vh;
-  border: 5px solid #161345;
+  height: 100vh;
 }
 
 .logo {
@@ -26,7 +24,7 @@
 .footer {
   background-color: #161345;
   height: 18vh;
-  display: flex; 
+  display: flex;
 }
 
 .logoFtr {
@@ -43,7 +41,7 @@
 
 .singlePageLinks {
   color: white;
-  transition: ease-in-out 0.3 rgb(232, 114, 79)
+  transition: ease-in-out 0.3 rgb(232, 114, 79);
 }
 
 .ftrSocialLinks {
@@ -55,17 +53,16 @@
 
 .mediaText {
   color: white;
-  transition: ease-in-out 0.3 rgb(232, 114, 79)
+  transition: ease-in-out 0.3 rgb(232, 114, 79);
 }
 
 .ftrInfo {
-  width:500px;
+  width: 500px;
   float: right;
   margin-left: 25%;
-  height: 15vh
+  height: 15vh;
 }
 
 .address {
-  color: rgb(196, 195, 207)
+  color: rgb(196, 195, 207);
 }
-
