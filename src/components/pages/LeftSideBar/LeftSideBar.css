@@ -1,3 +1,14 @@
+*{
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+}
+
+h2{
+  font-family: 'Domine', serif;
+  font-style: semi-bold;
+  font-weight: 600;
+}
+
 .bridgeImg {
   width: 20vw;
   height: 200px;
