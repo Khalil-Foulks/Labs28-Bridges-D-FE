@@ -1,23 +1,14 @@
 .marker-btn {
-  width: 20px;
+  width: 15px;
   height: 20px;
 }
 
-/*  SideBox Stylings  */
-
-/* .Info{
-  border-bottom: 2px solid rgb(155, 194, 164);
-  background:rgba(70, 233, 211, 0.171);
-  height: 75vh;
+.zoom-controls {
+  /* border: 2px solid orange; */
+  margin-top: 10px;
+  width: 2vw;
+  height: 12vh;
+  position: fixed;
+  top: 0;
+  right: 0;
 }
-
-.Section{
-  margin: 0 8%;
-  padding: 3% 0;
-  font-size:2rem;
-  border-bottom: 2px solid rgba(155, 194, 164, 0.521);
-}
-
-.S{
-  font-size:1.5rem;
-} */
