@@ -6,6 +6,7 @@
 .zoom-controls {
   /* border: 2px solid orange; */
   margin-top: 10px;
+  margin-right: 10px;
   width: 2vw;
   height: 12vh;
   position: fixed;
