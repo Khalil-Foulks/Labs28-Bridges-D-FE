@@ -1,0 +1,17 @@
+[
+  {
+    "bridge_image": "Waiting on Data",
+    "bridge_name": "Kamigisha",
+    "bridge_type": "Suspended",
+    "district_id": 36,
+    "district_name": "Rusizi",
+    "id": 1,
+    "individuals_served": 0,
+    "latitude": -2.42486,
+    "longitude": 28.95726,
+    "project_code": 1014106,
+    "project_stage": "Rejected",
+    "province_id": 3,
+    "province_name": "Western Province"
+  }
+]

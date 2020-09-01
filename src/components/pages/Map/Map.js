@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ReactMapGL, { Marker, Popup, NavigationControl } from 'react-map-gl';
 import * as bridgeData from './bridges.json';
+import * as testData from './test.json';
 import axios from 'axios';
 import { Context } from '../Store';
+import GeoJSON from 'geojson';
 
 import './map.css';
 
 const Map = () => {
   const [viewport, setViewport] = useState({
-    latitude: -1.9402,
-    longitude: 30.1738,
+    latitude: -1.9602,
+    longitude: 30.138,
     width: '100vw',
     height: '100vh',
     zoom: 8.2,
@@ -17,20 +19,53 @@ const Map = () => {
     bearing: -22,
   });
 
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [selectedBridge, setSelectedBridge] = useState(null);
   const [state, setState] = useContext(Context);
-
+  let array = [];
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios('http://b2ptc.herokuapp.com/bridges');
-
-      setData(result.data);
-      console.log(result.data);
-    };
-
-    fetchData();
+    axios
+      .get('http://b2pds.eba-xv3jd3sp.us-east-1.elasticbeanstalk.com/projects')
+      .then(response => {
+        response.data.map(element => {
+          array.push(element);
+        });
+        // console.log(array);
+        setData([array]);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }, []);
+  // console.log(array);
+  console.log('Array?', data[1]);
+  // var bridges = Array.from(data);
+  // console.log(typeof bridges);
+
+  var geojson = {
+    type: 'FeatureCollection',
+    features: [],
+  };
+
+  // for (let i = 0; i < bridges.length; i++) {
+  //   geojson.features.push({
+  //     type: 'Feature',
+  //     geometry: {
+  //       type: 'Point',
+  //       coordinates: [bridges[i].latitude, bridges[i].longitude],
+  //     },
+  //     properties: {
+  //       id: bridges.id,
+  //     },
+  //   });
+  // }
+
+  // console.log('geo', geojson);
+
+  // console.log('stringifyed', bridges);
+
+  var test = JSON.stringify(testData);
+  // console.log(test.length);
 
   useEffect(() => {
     const listener = e => {
@@ -82,6 +117,8 @@ const Map = () => {
         <Popup
           latitude={selectedBridge.geometry.coordinates[0]}
           longitude={selectedBridge.geometry.coordinates[1]}
+          //this is supposed to close the tooltip when map is clicked
+          closeOnClick={true}
           //Closes popup when X is clicked by resetting state to null
           onClose={() => {
             setSelectedBridge(null);
