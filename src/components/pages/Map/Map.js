@@ -134,8 +134,9 @@ const Map = () => {
           </div>
         </Popup>
       ) : null}
+
       <div className="zoom-controls">
-        <NavigationControl showZoom={true} />
+        <NavigationControl showZoom={true} showCompass={true} />
       </div>
     </ReactMapGL>
   );

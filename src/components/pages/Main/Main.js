@@ -1,16 +1,15 @@
 import React from 'react';
 import { Layout } from 'antd';
-import {
-  FacebookFilled,
-  TwitterOutlined,
-  InstagramOutlined,
-  LinkedinFilled,
-} from '@ant-design/icons';
+// import {
+//   FacebookFilled,
+//   TwitterOutlined,
+//   InstagramOutlined,
+//   LinkedinFilled,
+// } from '@ant-design/icons';
 import './Main.css';
 import Map from '../Map/Map';
 import Store from '../Store';
 import LeftSideBar from '../LeftSideBar/LeftSideBar';
-import RightSideBar from '../RightSideBar/RightSideBar';
 
 //destructing components out of Layout component
 const { Header } = Layout;
