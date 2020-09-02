@@ -23,7 +23,7 @@ const Map = () => {
 
   useEffect(() => {
     axios
-      .get('http://b2pds.eba-xv3jd3sp.us-east-1.elasticbeanstalk.com/projects')
+      .get('https://b2pds.eba-xv3jd3sp.us-east-1.elasticbeanstalk.com/projects')
       .then(response => {
         response.data.map(element => {
           //pushes every element to array variable
