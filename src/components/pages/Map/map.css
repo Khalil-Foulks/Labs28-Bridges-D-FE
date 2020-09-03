@@ -4,11 +4,10 @@
 }
 
 .zoom-controls {
-  /* border: 2px solid orange; */
   margin-top: 10px;
   margin-right: 10px;
-  width: 2vw;
-  height: 12vh;
+  width: 30px;
+  height: 100px;
   position: fixed;
   top: 0;
   right: 0;
