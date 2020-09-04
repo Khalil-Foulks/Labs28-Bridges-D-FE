@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 
-import { Context } from '../Store';
+import { Context, ContextStatus } from '../Store';
 import Search from 'antd/lib/input/Search';
 
 import './LeftSideBar.css';
@@ -10,10 +10,10 @@ import './LeftSideBar.css';
 
 const LeftSideBar = () => {
   const [state, setState] = useContext(Context);
-  console.log('SideBox', state);
+  const [status, setStatus] = useContext(ContextStatus);
 
   return (
-    <div class="Info">
+    <div className="Info">
       <h2>Search by bridge name</h2>
       <Search></Search>
       <br></br>
@@ -23,21 +23,56 @@ const LeftSideBar = () => {
       <br></br>
       <p className="Section">
         Bridge Site:{' '}
-        <span className="S"> {state.bridge.properties.BridgeSiteName} </span>{' '}
+        <span className="S"> {state.bridge.properties.bridge_name} </span>{' '}
       </p>
       <p className="Section">
         District:{' '}
-        <span className="S"> {state.bridge.properties.District} </span>{' '}
-      </p>
-      <p className="Section">
-        Project Stage:{' '}
-        <span className="S"> {state.bridge.properties.ProjectStage} </span>{' '}
-      </p>
-      <p className="Section">
-        Individuals Served:{' '}
-        <span className="S"> {state.bridge.properties.District} </span>{' '}
+        <span className="S"> {state.bridge.properties.district_name} </span>{' '}
       </p>
 
+      <button
+        onClick={e => {
+          setStatus('Complete');
+        }}
+      >
+        Completed
+      </button>
+      <button
+        onClick={e => {
+          setStatus('Confirmed');
+        }}
+      >
+        Confirmed
+      </button>
+      <button
+        onClick={e => {
+          setStatus('Under Construction');
+        }}
+      >
+        Under Construction
+      </button>
+      <button
+        onClick={e => {
+          setStatus('Identified');
+        }}
+      >
+        Identified
+      </button>
+      <button
+        onClick={e => {
+          setStatus('Prospecting');
+        }}
+      >
+        Prospecting
+      </button>
+
+      <button
+        onClick={e => {
+          setStatus('Rejected');
+        }}
+      >
+        Rejected
+      </button>
       <br></br>
       <br></br>
       <br></br>

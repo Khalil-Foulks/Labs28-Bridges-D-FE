@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ReactMapGL, { Marker, Popup, NavigationControl } from 'react-map-gl';
 import axios from 'axios';
-import { Context } from '../Store';
+import { Context, ContextStatus } from '../Store';
 import './map.css';
 
 const Map = () => {
@@ -18,8 +18,10 @@ const Map = () => {
   const [data, setData] = useState([]);
   const [selectedBridge, setSelectedBridge] = useState(null);
   const [state, setState] = useContext(Context);
-
+  const [status, setStatus] = useContext(ContextStatus);
   const array = [];
+
+  console.log('Status', status);
 
   useEffect(() => {
     axios
@@ -44,7 +46,7 @@ const Map = () => {
 
   for (let i = 0; i < data.length; i++) {
     //if statement filters rejected bridges out
-    if (data[i].project_stage !== 'Rejected') {
+    if (data[i].project_stage === status) {
       bridge.features.push({
         type: 'Feature',
         geometry: {
@@ -95,7 +97,7 @@ const Map = () => {
       {/* Maps through all the data in bridges.json grabbing lat and lon to display markers */}
       {bridge.features.map(bridge => (
         <Marker
-          key={bridge.properties.bridge_id}
+          key={bridge.properties.id}
           latitude={bridge.geometry.coordinates[0]}
           longitude={bridge.geometry.coordinates[1]}
         >
@@ -108,7 +110,6 @@ const Map = () => {
               e.preventDefault();
               setSelectedBridge(bridge);
               setState({ bridge });
-              console.log(state);
             }}
           />
         </Marker>
@@ -138,6 +139,30 @@ const Map = () => {
       <div className="zoom-controls">
         <NavigationControl showZoom={true} showCompass={true} />
       </div>
+      <button
+        onClick={e => {
+          e.preventDefault();
+          setStatus('Complete');
+        }}
+      >
+        Complete
+      </button>
+      <button
+        onClick={e => {
+          e.preventDefault();
+          setStatus('Rejected');
+        }}
+      >
+        Rejected
+      </button>
+      <button
+        onClick={e => {
+          e.preventDefault();
+          setStatus('Identified');
+        }}
+      >
+        Identified
+      </button>
     </ReactMapGL>
   );
 };
