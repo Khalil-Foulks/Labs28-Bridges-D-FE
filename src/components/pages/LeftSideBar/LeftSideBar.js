@@ -1,16 +1,25 @@
 import React, { useContext } from 'react';
-
-import { Context, ContextStatus } from '../Store';
+import { Switch } from 'antd';
+import { Context, ContextStatus, ContextStyle } from '../Store';
 import Search from 'antd/lib/input/Search';
 
 import './LeftSideBar.css';
 
-// const SubMenu = Menu.SubMenu;
-// const MenuItemGroup = Menu.ItemGroup;
-
 const LeftSideBar = () => {
   const [state, setState] = useContext(Context);
   const [status, setStatus] = useContext(ContextStatus);
+  const [style, setStyle] = useContext(ContextStyle);
+
+  // Function to toggle map style state with toggle switch
+  function onChange(checked) {
+    console.log(`switch to ${checked}`);
+    if (checked == true) {
+      setStyle('mapbox://styles/jrhemann/ckeu55hbw0qcy19l999jtufn9');
+    }
+    if (checked == false) {
+      setStyle('mapbox://styles/jrhemann/cked1kdcz2s261aql8jg3trbw');
+    }
+  }
 
   return (
     <div className="Info">
@@ -29,7 +38,6 @@ const LeftSideBar = () => {
         District:{' '}
         <span className="S"> {state.bridge.properties.district_name} </span>{' '}
       </p>
-
       <button
         onClick={e => {
           setStatus('Complete');
@@ -53,19 +61,18 @@ const LeftSideBar = () => {
       </button>
       <button
         onClick={e => {
-          setStatus('Identified');
-        }}
-      >
-        Identified
-      </button>
-      <button
-        onClick={e => {
           setStatus('Prospecting');
         }}
       >
         Prospecting
       </button>
-
+      <button
+        onClick={e => {
+          setStatus('Identified');
+        }}
+      >
+        Identified
+      </button>
       <button
         onClick={e => {
           setStatus('Rejected');
@@ -77,8 +84,14 @@ const LeftSideBar = () => {
       <br></br>
       <br></br>
       <br></br>
+      <br></br>
 
-      <img className="bridgeImg" src="sampleBridgePic.jpg" alt="test"></img>
+      <Switch
+        checkedChildren="Satellite View"
+        unCheckedChildren="Regular View"
+        defaultUnChecked
+        onChange={onChange}
+      />
       <br></br>
     </div>
   );
