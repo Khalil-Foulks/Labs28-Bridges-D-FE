@@ -1,11 +1,11 @@
 import React from 'react';
 import { Layout } from 'antd';
-// import {
-//   FacebookFilled,
-//   TwitterOutlined,
-//   InstagramOutlined,
-//   LinkedinFilled,
-// } from '@ant-design/icons';
+import {
+  FacebookFilled,
+  TwitterOutlined,
+  InstagramOutlined,
+  LinkedinFilled,
+} from '@ant-design/icons';
 import './Main.css';
 import Map from '../Map/Map';
 import Store from '../Store';
@@ -15,7 +15,7 @@ import LeftSideBar from '../LeftSideBar/LeftSideBar';
 // const { Header } = Layout;
 const { Sider } = Layout;
 const { Content } = Layout;
-// const { Footer } = Layout;
+const { Footer } = Layout;
 
 const Main = () => {
   return (
@@ -26,15 +26,17 @@ const Main = () => {
         </Header> */}
 
         <Store>
-          <Sider width="20vw" className="sidebar">
-            <LeftSideBar />
-          </Sider>
-          <Content className="content">
-            <Map />
-          </Content>
+          <Layout>
+            <Sider width="20vw" className="sidebar">
+              <LeftSideBar />
+            </Sider>
+            <Content className="content">
+              <Map />
+            </Content>
+          </Layout>
         </Store>
 
-        {/* <Footer className="footer">
+        <Footer className="footer">
           <div className="ftrWebsiteLinks">
             <a
               className="singlePageLinks"
@@ -131,7 +133,7 @@ const Main = () => {
               2018 © Bridges to Prosperity. All rights reserved.
             </h6>
           </div>
-        </Footer> */}
+        </Footer>
       </Layout>
     </div>
   );
