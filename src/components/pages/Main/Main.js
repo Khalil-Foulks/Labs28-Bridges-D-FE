@@ -12,10 +12,10 @@ import Store from '../Store';
 import LeftSideBar from '../LeftSideBar/LeftSideBar';
 
 //destructing components out of Layout component
-const { Header } = Layout;
+// const { Header } = Layout;
 const { Sider } = Layout;
 const { Content } = Layout;
-const { Footer } = Layout;
+// const { Footer } = Layout;
 
 const Main = () => {
   return (

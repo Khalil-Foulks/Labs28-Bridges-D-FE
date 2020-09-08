@@ -4,22 +4,29 @@ const initialState = {
   bridge: {
     geometry: { type: '', coordinates: Array(0) },
     properties: {
-      bridgeId: null,
-      ProjectCode: null,
-      Province: '',
-      District: '',
-      Sector: '',
-      Cell: '',
+      id: null,
+      project_code: null,
+      bridge_type: null,
+      project_stage: null,
+      bridge_name: '',
+      district_name: '',
     },
   },
 };
+
+const initialStatus = 'Complete';
+
 export const Context = React.createContext();
+export const ContextStatus = React.createContext();
 
 const Store = ({ children }) => {
   const [state, setState] = useState(initialState);
+  const [status, setStatus] = useState(initialStatus);
 
   return (
-    <Context.Provider value={[state, setState]}>{children}</Context.Provider>
+    <ContextStatus.Provider value={[status, setStatus]}>
+      <Context.Provider value={[state, setState]}>{children}</Context.Provider>{' '}
+    </ContextStatus.Provider>
   );
 };
 
