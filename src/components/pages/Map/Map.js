@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ReactMapGL, { Marker, Popup, NavigationControl } from 'react-map-gl';
 import axios from 'axios';
-import { Context, ContextStatus } from '../Store';
+import { Context, ContextStatus, ContextStyle } from '../Store';
 import './map.css';
 
 const Map = () => {
@@ -19,9 +19,8 @@ const Map = () => {
   const [selectedBridge, setSelectedBridge] = useState(null);
   const [state, setState] = useContext(Context);
   const [status, setStatus] = useContext(ContextStatus);
+  const [style, setStyle] = useContext(ContextStyle);
   const array = [];
-
-  console.log('Status', status);
 
   useEffect(() => {
     axios
@@ -45,7 +44,7 @@ const Map = () => {
   };
 
   for (let i = 0; i < data.length; i++) {
-    //if statement filters rejected bridges out
+    //if statement filters bridges based on status
     if (data[i].project_stage === status) {
       bridge.features.push({
         type: 'Feature',
@@ -79,16 +78,13 @@ const Map = () => {
     };
     window.addEventListener('keydown', listener);
   }, []);
-
+  console.log(style);
   return (
     <ReactMapGL
       {...viewport}
       mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-      //custom style... edit later
-      // mapStyle="mapbox://styles/jrhemann/cke28to9u0ixf19oevvv3kw8u"
-      mapStyle="mapbox://styles/jrhemann/cked1kdcz2s261aql8jg3trbw"
-      //mapStyle="mapbox://styles/jrhemann/cked11c6y2rjj1aqlvukjnnji"
-
+      //Style of the map set. Initial state set in Context store
+      mapStyle={style}
       //enable dragging
       onViewportChange={viewport => {
         setViewport(viewport);
@@ -139,30 +135,6 @@ const Map = () => {
       <div className="zoom-controls">
         <NavigationControl showZoom={true} showCompass={true} />
       </div>
-      <button
-        onClick={e => {
-          e.preventDefault();
-          setStatus('Complete');
-        }}
-      >
-        Complete
-      </button>
-      <button
-        onClick={e => {
-          e.preventDefault();
-          setStatus('Rejected');
-        }}
-      >
-        Rejected
-      </button>
-      <button
-        onClick={e => {
-          e.preventDefault();
-          setStatus('Identified');
-        }}
-      >
-        Identified
-      </button>
     </ReactMapGL>
   );
 };
