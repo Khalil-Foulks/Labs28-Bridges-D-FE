@@ -2,8 +2,9 @@ import React, { useContext, useState } from 'react';
 import { Switch, Drawer, Button, Radio, Input } from 'antd';
 import { Context, ContextStatus, ContextStyle } from '../Store';
 import Search from 'antd/lib/input/Search';
-
+import '../Map/map.css';
 import './LeftSideBar.css';
+import Sider from 'antd/lib/layout/Sider';
 
 const LeftSideBar = () => {
   const [visible, setVisible] = useState(true);
@@ -45,7 +46,7 @@ const LeftSideBar = () => {
   }
 
   return (
-    <div>
+    <div id="sidebar">
       <Button className="SideButton" type="primary" onClick={showDrawer}>
         Bridge Info
       </Button>
@@ -140,8 +141,8 @@ const LeftSideBar = () => {
         <br></br>
         <br></br>
         <Switch
-          checkedChildren="Satellite View"
-          unCheckedChildren="Regular View"
+          checkedChildren="Satellite Off"
+          unCheckedChildren="Satellite On"
           defaultUnChecked
           onChange={mapStyle}
         />

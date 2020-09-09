@@ -14,7 +14,7 @@ import B2PFooter from '../Footer/Footer';
 
 //destructing components out of Layout component
 // const { Header } = Layout;
-const { Sider } = Layout;
+
 const { Content } = Layout;
 const { Footer } = Layout;
 

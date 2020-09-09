@@ -9,8 +9,8 @@ const Map = () => {
   const [viewport, setViewport] = useState({
     latitude: -1.9602,
     longitude: 30.138,
-    width: '100vw',
-    height: '100vh',
+    width: '90vw',
+    height: '90vh',
     zoom: 8.2,
     pitch: 0,
     bearing: -22,
@@ -91,8 +91,9 @@ const Map = () => {
         setViewport(viewport);
       }}
     >
-      <LeftSideBar />
-
+      <div className="sidebar">
+        <LeftSideBar />
+      </div>
       {/* Maps through all the data in bridges.json grabbing lat and lon to display markers */}
       {bridge.features.map(bridge => (
         <Marker
@@ -102,6 +103,7 @@ const Map = () => {
         >
           {/* image used to display point on map */}
           <img
+            hover
             className="marker-btn"
             src={`${bridge.properties.project_stage}.png`}
             alt="bridge icon"
@@ -121,6 +123,7 @@ const Map = () => {
           //this is supposed to close the tooltip when map is clicked
           closeOnClick={true}
           //Closes popup when X is clicked by resetting state to null
+
           onClose={() => {
             setSelectedBridge(null);
           }}

@@ -10,12 +10,15 @@ h2 {
 }
 
 .SideButton {
-  border: 3px solid green;
-  margin-left: 20px;
-  margin-top: 20px;
-}
+  margin-top: 10px;
+  margin-left: 10px;
 
-/* .bridgeImg {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+/* 
+.bridgeImg {
   width: 20vw;
   height: 200px;
 } */

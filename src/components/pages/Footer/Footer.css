@@ -1,6 +1,7 @@
 .footer {
   background-color: #161345;
   height: 18vh;
+  z-index: 2000;
   /* display: flex; */
 }
 
