@@ -1,0 +1,45 @@
+.footer {
+  background-color: #161345;
+  height: 18vh;
+  /* display: flex; */
+}
+
+.logoFtr {
+  width: 210px;
+  height: 30px;
+}
+
+.ftrWebsiteLinks {
+  font-size: 1.2em;
+  display: inline-block;
+  width: 300px;
+  height: 10vh;
+}
+
+.singlePageLinks {
+  color: white;
+  transition: ease-in-out 0.3 rgb(232, 114, 79);
+}
+
+.ftrSocialLinks {
+  font-size: 15px;
+  display: inline-block;
+  width: 500px;
+  margin-left: 30%;
+}
+
+.mediaText {
+  color: white;
+  transition: ease-in-out 0.3 rgb(232, 114, 79);
+}
+
+.ftrInfo {
+  width: 500px;
+  float: right;
+  margin-left: 25%;
+  height: 15vh;
+}
+
+.address {
+  color: rgb(196, 195, 207);
+}
