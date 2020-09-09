@@ -1,18 +1,24 @@
-*{
+* {
   font-family: 'IBM Plex Sans', sans-serif;
   font-style: bold;
   font-weight: 600;
 }
 
-h2{
+h2 {
   font-family: 'Domine', serif;
   font-weight: 400;
 }
 
-.bridgeImg {
+.SideButton {
+  border: 3px solid green;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+/* .bridgeImg {
   width: 20vw;
   height: 200px;
-}
+} */
 
 /* 
 Header Font

@@ -3,6 +3,7 @@ import ReactMapGL, { Marker, Popup, NavigationControl } from 'react-map-gl';
 import axios from 'axios';
 import { Context, ContextStatus, ContextStyle } from '../Store';
 import './map.css';
+import LeftSideBar from '../LeftSideBar/LeftSideBar';
 
 const Map = () => {
   const [viewport, setViewport] = useState({
@@ -90,6 +91,8 @@ const Map = () => {
         setViewport(viewport);
       }}
     >
+      <LeftSideBar />
+
       {/* Maps through all the data in bridges.json grabbing lat and lon to display markers */}
       {bridge.features.map(bridge => (
         <Marker
