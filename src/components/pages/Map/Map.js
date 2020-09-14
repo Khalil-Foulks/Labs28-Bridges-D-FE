@@ -14,6 +14,7 @@ import Geocoder from 'react-map-gl-geocoder';
 import { Context, ContextStatus, ContextStyle, ContextMargin } from '../Store';
 import './map.css';
 import LeftSideBar from '../LeftSideBar/LeftSideBar';
+import Footer from '../Footer/Footer';
 
 const Map = width => {
   const [viewport, setViewport] = useState({
@@ -177,6 +178,11 @@ const Map = width => {
             </div>
           </Popup>
         ) : null}
+
+        <div className="footerHolder">
+          <Footer />
+        </div>
+
         <div className="zoom-controls">
           <NavigationControl showZoom={true} showCompass={true} />
         </div>
