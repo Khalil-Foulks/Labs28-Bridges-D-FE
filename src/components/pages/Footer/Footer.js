@@ -8,7 +8,7 @@ import {
 import './Footer.css';
 const B2PFooter = () => {
   return (
-    <div className="footer">
+    <div className="container">
       <div className="ftrWebsiteLinks">
         <a className="singlePageLinks" href="https://bridgestoprosperity.org/">
           Home

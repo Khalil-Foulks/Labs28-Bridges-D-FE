@@ -14,7 +14,7 @@ import B2PFooter from '../Footer/Footer';
 
 //destructing components out of Layout component
 // const { Header } = Layout;
-const { Sider } = Layout;
+
 const { Content } = Layout;
 const { Footer } = Layout;
 
@@ -22,21 +22,13 @@ const Main = () => {
   return (
     <div>
       <Layout>
-        {/* <Header className="header">
-          <img className="logo" src="B2P_Symbol_Green.svg" alt="B2P Logo" />
-        </Header> */}
-
         <Store>
-          <Layout>
+          <Layout className="layout">
             <Content className="content">
               <Map />
             </Content>
           </Layout>
         </Store>
-
-        <Footer className="footer">
-          <B2PFooter />
-        </Footer>
       </Layout>
     </div>
   );

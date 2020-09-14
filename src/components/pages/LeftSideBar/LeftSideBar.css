@@ -9,13 +9,33 @@ h2 {
   font-weight: 400;
 }
 
-.SideButton {
-  border: 3px solid green;
-  margin-left: 20px;
-  margin-top: 20px;
+.switch {
+  background-color: #ea7149;
 }
 
-/* .bridgeImg {
+.drawer {
+  background-color: green;
+}
+
+.SideButton {
+  background-color: white;
+  color: black;
+  border: none;
+  margin-top: 21px;
+  transition: 0.3s ease;
+  height: 36px;
+  position: fixed;
+
+  z-index: 3;
+  /* border: 1px solid red; */
+}
+
+.SideButton:hover {
+  color: black;
+  background-color: white;
+}
+/* 
+.bridgeImg {
   width: 20vw;
   height: 200px;
 } */
