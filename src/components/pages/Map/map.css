@@ -12,7 +12,15 @@
   top: 0;
   right: 0;
 }
-
+.footerHolder {
+  margin-top: 20px;
+  margin-right: 75px;
+  width: 30px;
+  height: 100px;
+  position: fixed;
+  top: 0;
+  right: 0;
+}
 #ReactMapGL {
   position: absolute;
   top: 0;
