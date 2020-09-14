@@ -18,10 +18,17 @@
   top: 0;
   bottom: 0;
   width: 100%;
-  border: 5px solid red;
 }
 
 body {
   margin: 0;
   padding: 0;
+}
+
+.search {
+  /* border: 1px solid red; */
+  transition: 1s;
+  position: absolute;
+  z-index: 1;
+  width: 250px;
 }

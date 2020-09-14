@@ -1,26 +1,58 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+  useRef,
+} from 'react';
 import ReactMapGL, { Marker, Popup, NavigationControl } from 'react-map-gl';
 import axios from 'axios';
-import { Context, ContextStatus, ContextStyle } from '../Store';
+import './mapbox-gl.css';
+import Geocoder from 'react-map-gl-geocoder';
+// import MapGL from 'react-map-gl';
+
+import { Context, ContextStatus, ContextStyle, ContextMargin } from '../Store';
 import './map.css';
 import LeftSideBar from '../LeftSideBar/LeftSideBar';
 
-const Map = () => {
+const Map = width => {
   const [viewport, setViewport] = useState({
     latitude: -1.9602,
     longitude: 30.138,
-    width: '90vw',
-    height: '90vh',
+    width: '100vw',
+    height: '100vh',
     zoom: 8.2,
     pitch: 0,
     bearing: -22,
   });
+
+  const mapRef = useRef();
+
+  const geocoderContainerRef = useRef();
+
+  const handleViewportChange = useCallback(
+    newViewport => setViewport(newViewport),
+    []
+  );
+
+  const handleGeocoderViewportChange = useCallback(
+    newViewport => {
+      const geocoderDefaultOverrides = { transitionDuration: 1000 };
+
+      return handleViewportChange({
+        ...newViewport,
+        ...geocoderDefaultOverrides,
+      });
+    },
+    [handleViewportChange]
+  );
 
   const [data, setData] = useState([]);
   const [selectedBridge, setSelectedBridge] = useState(null);
   const [state, setState] = useContext(Context);
   const [status, setStatus] = useContext(ContextStatus);
   const [style, setStyle] = useContext(ContextStyle);
+  const [collapseMargin, setCollapseMargin] = useContext(ContextMargin);
   const array = [];
 
   useEffect(() => {
@@ -81,67 +113,84 @@ const Map = () => {
   }, []);
   console.log(style);
   return (
-    <ReactMapGL
-      {...viewport}
-      mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-      //Style of the map set. Initial state set in Context store
-      mapStyle={style}
-      //enable dragging
-      onViewportChange={viewport => {
-        setViewport(viewport);
-      }}
-    >
-      <div className="sidebar">
-        <LeftSideBar />
-      </div>
-      {/* Maps through all the data in bridges.json grabbing lat and lon to display markers */}
-      {bridge.features.map(bridge => (
-        <Marker
-          key={bridge.properties.id}
-          latitude={bridge.geometry.coordinates[0]}
-          longitude={bridge.geometry.coordinates[1]}
-        >
-          {/* image used to display point on map */}
-          <img
-            hover
-            className="marker-btn"
-            src={`${bridge.properties.project_stage}.png`}
-            alt="bridge icon"
-            onClick={e => {
-              e.preventDefault();
-              setSelectedBridge(bridge);
-              setState({ bridge });
+    <div style={{ height: '100vh' }}>
+      <div
+        className="search"
+        ref={geocoderContainerRef}
+        style={{
+          position: 'absolute',
+          zIndex: 1001,
+          marginLeft: { collapseMargin },
+          marginTop: 20,
+        }}
+      />
+
+      <ReactMapGL
+        ref={mapRef}
+        {...viewport}
+        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+        //Style of the map set. Initial state set in Context store
+        mapStyle={style}
+        //enable dragging
+        onViewportChange={handleViewportChange}
+      >
+        <div className="sidebar">
+          <LeftSideBar />
+        </div>
+        {/* Maps through all the data in bridges.json grabbing lat and lon to display markers */}
+        {bridge.features.map(bridge => (
+          <Marker
+            key={bridge.properties.id}
+            latitude={bridge.geometry.coordinates[0]}
+            longitude={bridge.geometry.coordinates[1]}
+          >
+            {/* image used to display point on map */}
+            <img
+              className="marker-btn"
+              src={`${bridge.properties.project_stage}.png`}
+              alt="bridge icon"
+              onClick={e => {
+                e.preventDefault();
+                setSelectedBridge(bridge);
+                setState({ bridge });
+              }}
+            />
+          </Marker>
+        ))}
+        {selectedBridge ? (
+          <Popup
+            latitude={selectedBridge.geometry.coordinates[0]}
+            longitude={selectedBridge.geometry.coordinates[1]}
+            //this is supposed to close the tooltip when map is clicked
+            closeOnClick={true}
+            //Closes popup when X is clicked by resetting state to null
+            onClose={() => {
+              setSelectedBridge(null);
             }}
-          />
-        </Marker>
-      ))}
-
-      {selectedBridge ? (
-        <Popup
-          latitude={selectedBridge.geometry.coordinates[0]}
-          longitude={selectedBridge.geometry.coordinates[1]}
-          //this is supposed to close the tooltip when map is clicked
-          closeOnClick={true}
-          //Closes popup when X is clicked by resetting state to null
-
-          onClose={() => {
-            setSelectedBridge(null);
-          }}
-        >
-          {/* Div to display what data is wanted in the popup*/}
-          <div>
-            <h4>{selectedBridge.properties.bridge_name}</h4>
-            <p>District: {selectedBridge.properties.district_name}</p>
-            <p>Status: {selectedBridge.properties.project_stage}</p>
-            <p>Type: {selectedBridge.properties.bridge_type}</p>
-          </div>
-        </Popup>
-      ) : null}
-
-      <div className="zoom-controls">
-        <NavigationControl showZoom={true} showCompass={true} />
-      </div>
-    </ReactMapGL>
+          >
+            {/* Div to display what data is wanted in the popup*/}
+            <div>
+              <h4>{selectedBridge.properties.bridge_name}</h4>
+              <p>District: {selectedBridge.properties.district_name}</p>
+              <p>Status: {selectedBridge.properties.project_stage}</p>
+              <p>Type: {selectedBridge.properties.bridge_type}</p>
+            </div>
+          </Popup>
+        ) : null}
+        <div className="zoom-controls">
+          <NavigationControl showZoom={true} showCompass={true} />
+        </div>
+        {/* 
+        <Geocoder
+          mapRef={mapRef}
+          containerRef={geocoderContainerRef}
+          onViewportChange={handleGeocoderViewportChange}
+          mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+          position="top-left"
+          marker="false"
+        /> */}
+      </ReactMapGL>
+    </div>
   );
 };
 
