@@ -56,6 +56,7 @@ const Map = width => {
   const [data, setData] = useState([]);
   const [selectedBridge, setSelectedBridge] = useState(null);
   const [state, setState] = useContext(Context);
+  const [toggle, setToggle] = useState(false);
   const [status, setStatus] = useContext(ContextStatus);
   const [style, setStyle] = useContext(ContextStyle);
   const [collapseMargin, setCollapseMargin] = useContext(ContextMargin);
@@ -76,6 +77,15 @@ const Map = width => {
         console.error(error);
       });
   }, []);
+
+  // Function to toggle map style state with toggle switch
+  const mapStyle = () => {
+    if (style === 'mapbox://styles/jrhemann/ckeu55hbw0qcy19l999jtufn9')
+      setStyle('mapbox://styles/jrhemann/cked1kdcz2s261aql8jg3trbw');
+
+    if (style === 'mapbox://styles/jrhemann/cked1kdcz2s261aql8jg3trbw')
+      setStyle('mapbox://styles/jrhemann/ckeu55hbw0qcy19l999jtufn9');
+  };
 
   //function to convert json data to geojson
   var bridge = {
@@ -197,6 +207,25 @@ const Map = width => {
             showCompass={true}
             showFullscreen={true}
           />
+        </div>
+
+        <div
+          className="mini-view"
+          onClick={() => {
+            setToggle(!toggle);
+            mapStyle();
+            console.log(style);
+          }}
+        >
+          {toggle ? (
+            <div className="sat-button">
+              <img className="satellite" src="./mapButton.png" />
+            </div>
+          ) : (
+            <div className="nav-button">
+              <img className="satellite" src="./satelliteButton.png" />
+            </div>
+          )}
         </div>
 
         {/* Makes map fullscreen */}
