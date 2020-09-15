@@ -5,7 +5,12 @@ import React, {
   useCallback,
   useRef,
 } from 'react';
-import ReactMapGL, { Marker, Popup, NavigationControl } from 'react-map-gl';
+import ReactMapGL, {
+  Marker,
+  Popup,
+  NavigationControl,
+  FullscreenControl,
+} from 'react-map-gl';
 import axios from 'axios';
 import './mapbox-gl.css';
 import Geocoder from 'react-map-gl-geocoder';
@@ -21,8 +26,8 @@ const Map = width => {
     latitude: -2.1602,
     longitude: 29.538,
     width: '100vw',
-    height: '100vh',
-    zoom: 8.0,
+    height: '110vh',
+    zoom: 8.2,
     pitch: 0,
     bearing: -22,
   });
@@ -124,8 +129,8 @@ const Map = width => {
         style={{
           position: 'absolute',
           zIndex: 1001,
-          marginLeft: collapseMargin - 250,
-          marginTop: 20,
+          marginLeft: collapseMargin - 270,
+          marginTop: 75,
         }}
       />
 
@@ -187,8 +192,17 @@ const Map = width => {
         </div>
 
         <div className="zoom-controls">
-          <NavigationControl showZoom={true} showCompass={true} />
+          <NavigationControl
+            showZoom={true}
+            showCompass={true}
+            showFullscreen={true}
+          />
         </div>
+
+        {/* Makes map fullscreen */}
+        {/* <div style={{ position: 'absolute', right: 0 }}>
+          <FullscreenControl container={document.querySelector('body')} />
+        </div> */}
 
         <Geocoder
           mapRef={mapRef}
