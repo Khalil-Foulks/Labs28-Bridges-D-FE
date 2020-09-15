@@ -18,9 +18,34 @@
   top: 0;
   bottom: 0;
   width: 100%;
+  display: flex;
+  border: solid 1px red;
 }
 
 body {
   margin: 0;
   padding: 0;
+}
+
+.mini-view {
+  align-self: flex-end;
+  margin-top: 75.99vh;
+  margin-left: 87vw;
+  border-radius: 4px;
+  margin-bottom: 100px;
+  height: 65px;
+  width: 97px;
+  box-shadow: 1px 0px 1px 0.9px #008a44;
+}
+
+.satellite {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.sat-button {
+}
+
+.nav-button {
 }
