@@ -9,30 +9,46 @@ h2 {
   font-weight: 400;
 }
 
-.SideButton {
-  border: 3px solid green;
-  margin-left: 20px;
-  margin-top: 20px;
+.switch {
+  background-color: #ea7149;
 }
 
-/* .bridgeImg {
-  width: 20vw;
-  height: 200px;
-} */
+.SideButton {
+  background-color: #008a44;
+  color: black;
+  margin-top: 21px;
+  transition: 0.3s ease;
+  height: 50px;
+  position: fixed;
+  z-index: 3;
+  outline: none;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  /* border: 1px solid red; */
+}
 
-/* 
-Header Font
-font-family: 'IBM Plex Sans', sans-serif;
-font-style: bold;
-font-weight: 600;
+.SideButton img {
+  width: 15px;
+  height: 15px;
+}
 
-SubHeader Font
-font-family: 'Domine', serif;
-font-style: regular;
-font-weight: 400;
+.SideButton:hover {
+  color: black;
+}
 
+.iconBox {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
 
-font-family: 'IBM Plex Sans', sans-serif;
-font-style: regular;
-font-weight: 400;
-*/
+.icons {
+  flex-direction: row;
+  align-items: center;
+  margin: auto;
+  width: 50%;
+}
+
+.icons:hover {
+  background-color: #d3d3d3;
+}

@@ -1,19 +1,31 @@
 import React, { useContext, useState } from 'react';
 import { Switch, Drawer, Button, Radio, Input } from 'antd';
-import { Context, ContextStatus, ContextStyle } from '../Store';
+import { Context, ContextStatus, ContextStyle, ContextMargin } from '../Store';
 import Search from 'antd/lib/input/Search';
-
+import '../Map/map.css';
 import './LeftSideBar.css';
+import Sider from 'antd/lib/layout/Sider';
 
 const LeftSideBar = () => {
   const [visible, setVisible] = useState(true);
   const [state, setState] = useContext(Context);
   const [status, setStatus] = useContext(ContextStatus);
   const [style, setStyle] = useContext(ContextStyle);
-  console.log(status);
+  const [collapseMargin, setCollapseMargin] = useContext(ContextMargin);
+  const [buttonImage, setButtonImage] = useState('back.png');
+
+  console.log('test', status);
 
   const showDrawer = () => {
-    setVisible(true);
+    if (visible === true) setVisible(false);
+    if (visible === false) setVisible(true);
+    if (visible === false) setButtonImage('back.png');
+    if (visible === true) setButtonImage('next.png');
+  };
+
+  const moveButton = () => {
+    if (visible === true) setCollapseMargin(0);
+    if (visible === false) setCollapseMargin(300);
   };
 
   const onClose = () => {
@@ -40,29 +52,45 @@ const LeftSideBar = () => {
   }
 
   function onChange(e) {
-    console.log('radio checked', e.target.value);
-    setStatus(e.target.value);
+    setStatus(value);
   }
 
   return (
-    <div>
-      <Button className="SideButton" type="primary" onClick={showDrawer}>
-        Bridge Info
-      </Button>
+    <div id="sidebar">
+      {/* button that toggles sidebar in and out */}
+      <button
+        className="SideButton"
+        style={{ marginLeft: collapseMargin }}
+        type="primary"
+        onClick={() => {
+          moveButton();
+          showDrawer();
+        }}
+      >
+        <img src={buttonImage} />
+      </button>
+
       <Drawer
+        drawerStyle={{ backgroundColor: 'white' }}
         placement="left"
-        closable={true}
+        width={300}
+        closable={false}
         onClose={onClose}
         visible={visible}
         mask={false}
       >
-        <h2>Search by bridge name</h2>
-        <Search></Search>
+        <img src="B2P_Symbol_Green.svg" />
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+
         <br></br>
         <br></br>
         <br></br>
         <br></br>
         <br></br>
+
         <p className="Section">
           Bridge Site:{' '}
           <span className="S"> {state.bridge.properties.bridge_name} </span>{' '}
@@ -71,81 +99,87 @@ const LeftSideBar = () => {
           District:{' '}
           <span className="S"> {state.bridge.properties.district_name} </span>{' '}
         </p>
-        {/* <button
-          onClick={e => {
-            setStatus('Complete');
-          }}
-        >
-          Completed
-        </button>
-        <button
-          onClick={e => {
-            setStatus('Confirmed');
-          }}
-        >
-          Confirmed
-        </button>
-        <button
-          onClick={e => {
-            setStatus('Under Construction');
-          }}
-        >
-          Under Construction
-        </button>
-        <button
-          onClick={e => {
-            setStatus('Prospecting');
-          }}
-        >
-          Prospecting
-        </button>
-        <button
-          onClick={e => {
-            setStatus('Identified');
-          }}
-        >
-          Identified
-        </button>
-        <button
-          onClick={e => {
-            setStatus('Rejected');
-          }}
-        >
-          Rejected
-        </button> */}
-        <Radio.Group onChange={onChange} setStatus={value}>
-          <Radio style={radioStyle} value="Complete">
-            Complete
-          </Radio>
-          <Radio style={radioStyle} value={'Confirmed'}>
-            Confirmed
-          </Radio>
-          <Radio style={radioStyle} value={'Under Construction'}>
-            Under Construction
-          </Radio>
-          <Radio style={radioStyle} value={'Prospecting'}>
-            Prospecting
-          </Radio>
-          <Radio style={radioStyle} value={'Identified'}>
-            Identified
-          </Radio>
-          <Radio style={radioStyle} value={'Rejected'}>
-            Rejected
-          </Radio>
-        </Radio.Group>
 
         <br></br>
         <br></br>
         <br></br>
         <br></br>
         <br></br>
-        <Switch
-          checkedChildren="Satellite View"
-          unCheckedChildren="Regular View"
-          defaultUnChecked
-          onChange={mapStyle}
-        />
         <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+
+        <div className="iconGroup">
+          <div className="iconBox">
+            <div className="icons" value={'Complete'}>
+              <img
+                src="bridge-icon.png"
+                alt=""
+                onClick={() => {
+                  setStatus('Complete');
+                }}
+              />
+              Completed
+            </div>
+            <div className="icons">
+              <img
+                src="construction-icon.png"
+                alt=""
+                onClick={() => {
+                  setStatus('Under Construction');
+                }}
+              />
+              Building
+            </div>
+            <div className="icons">
+              <img
+                src="checked-icon.png"
+                alt=""
+                onClick={() => {
+                  setStatus('Confirmed');
+                }}
+              />
+              Confirmed
+            </div>
+          </div>
+          <div className="iconBox">
+            <div className="icons">
+              <img
+                src="binoculars-icon.png"
+                alt=""
+                onClick={() => {
+                  setStatus('Prospecting');
+                }}
+              />
+              Prospecting
+            </div>
+            <div className="icons">
+              <img
+                src="detective-icon.png"
+                alt=""
+                onClick={() => {
+                  setStatus('Identified');
+                }}
+              />
+              Identified
+            </div>
+            <div className="icons">
+              <img
+                src="rejected-icon.png"
+                alt=""
+                onClick={() => {
+                  setStatus('Rejected');
+                }}
+              />
+              Rejected
+            </div>
+          </div>
+        </div>
       </Drawer>
     </div>
   );

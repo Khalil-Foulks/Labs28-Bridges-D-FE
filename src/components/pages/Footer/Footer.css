@@ -1,45 +1,54 @@
-.footer {
-  background-color: #161345;
-  height: 18vh;
-  /* display: flex; */
+.container {
+  display: flex;
 }
+.logo {
+  height: 50px;
+  width: 50px;
+}
+.Info {
+  display: flex;
+  flex-direction: column;
+  width: 36%;
+  margin-top: -4%;
+} 
 
 .logoFtr {
-  width: 210px;
-  height: 30px;
+  width: 350px;
+  height: 17vh;
+  margin-bottom: 5px;
 }
 
-.ftrWebsiteLinks {
-  font-size: 1.2em;
-  display: inline-block;
-  width: 300px;
-  height: 10vh;
+ .address {
+   font-size: .75rem;
+  color: white;
+  width: 350px;
+  height: 3vh;
+ }
+
+.WebsiteLinks {
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+ width: 33%;
+ padding-left: 7%;
+ margin-top: 1%;
 }
 
 .singlePageLinks {
   color: white;
-  transition: ease-in-out 0.3 rgb(232, 114, 79);
+  margin: 21px;
 }
 
-.ftrSocialLinks {
-  font-size: 15px;
-  display: inline-block;
-  width: 500px;
-  margin-left: 30%;
+.SocialLinks {
+  width: 33%;
+  height: 25vh;
+  padding: 5px;
 }
 
-.mediaText {
-  color: white;
-  transition: ease-in-out 0.3 rgb(232, 114, 79);
+.socialText {
+   color: white;
+   height: 4vh;
+font-size: .75rem;
+margin:10px;
 }
 
-.ftrInfo {
-  width: 500px;
-  float: right;
-  margin-left: 25%;
-  height: 15vh;
-}
-
-.address {
-  color: rgb(196, 195, 207);
-}

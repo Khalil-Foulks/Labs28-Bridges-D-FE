@@ -12,7 +12,15 @@
   top: 0;
   right: 0;
 }
-
+.footerHolder {
+  margin-top: 20px;
+  margin-right: 75px;
+  width: 30px;
+  height: 100px;
+  position: fixed;
+  top: 0;
+  right: 0;
+}
 #ReactMapGL {
   position: absolute;
   top: 0;
@@ -29,8 +37,8 @@ body {
 
 .mini-view {
   align-self: flex-end;
-  margin-top: 75.99vh;
-  margin-left: 87vw;
+  margin-top: 87vh;
+  margin-left: 92vw;
   border-radius: 4px;
   margin-bottom: 100px;
   height: 65px;
@@ -44,8 +52,9 @@ body {
   border-radius: 4px;
 }
 
-.sat-button {
-}
-
-.nav-button {
+.search {
+  position: absolute;
+  z-index: 1;
+  width: 250px;
+  transition: 0.3s ease;
 }
