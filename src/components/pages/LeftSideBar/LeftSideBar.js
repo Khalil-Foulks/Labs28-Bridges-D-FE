@@ -12,10 +12,15 @@ const LeftSideBar = () => {
   const [status, setStatus] = useContext(ContextStatus);
   const [style, setStyle] = useContext(ContextStyle);
   const [collapseMargin, setCollapseMargin] = useContext(ContextMargin);
+  const [buttonImage, setButtonImage] = useState('back.png');
+
+  console.log('test', status);
 
   const showDrawer = () => {
     if (visible === true) setVisible(false);
     if (visible === false) setVisible(true);
+    if (visible === false) setButtonImage('back.png');
+    if (visible === true) setButtonImage('next.png');
   };
 
   const moveButton = () => {
@@ -63,7 +68,7 @@ const LeftSideBar = () => {
           showDrawer();
         }}
       >
-        {`${'<'}`}
+        <img src={buttonImage} />
       </button>
 
       <Drawer
@@ -88,8 +93,8 @@ const LeftSideBar = () => {
           <span className="S"> {state.bridge.properties.district_name} </span>{' '}
         </p>
 
-        <Radio.Group onChange={onChange} setStatus={value}>
-          <Radio style={radioStyle} value="Complete">
+        <Radio.Group onChange={onChange} setStatus={value} value={status}>
+          <Radio style={radioStyle} value={'Complete'}>
             Complete
           </Radio>
           <Radio style={radioStyle} value={'Confirmed'}>
@@ -118,7 +123,7 @@ const LeftSideBar = () => {
           className="switch"
           checkedChildren="Satellite Off"
           unCheckedChildren="Satellite On"
-          defaultUnChecked
+          defaultunhecked
           onChange={mapStyle}
         />
         <br></br>

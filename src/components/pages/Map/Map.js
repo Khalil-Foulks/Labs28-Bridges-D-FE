@@ -18,11 +18,11 @@ import Footer from '../Footer/Footer';
 
 const Map = width => {
   const [viewport, setViewport] = useState({
-    latitude: -1.9602,
-    longitude: 30.138,
+    latitude: -2.1602,
+    longitude: 29.538,
     width: '100vw',
     height: '100vh',
-    zoom: 8.2,
+    zoom: 8.0,
     pitch: 0,
     bearing: -22,
   });
@@ -38,7 +38,7 @@ const Map = width => {
 
   const handleGeocoderViewportChange = useCallback(
     newViewport => {
-      const geocoderDefaultOverrides = { transitionDuration: 1000 };
+      const geocoderDefaultOverrides = { transitionDuration: 3000 };
 
       return handleViewportChange({
         ...newViewport,
@@ -54,6 +54,7 @@ const Map = width => {
   const [status, setStatus] = useContext(ContextStatus);
   const [style, setStyle] = useContext(ContextStyle);
   const [collapseMargin, setCollapseMargin] = useContext(ContextMargin);
+  console.log(collapseMargin);
   const array = [];
 
   useEffect(() => {
@@ -103,6 +104,8 @@ const Map = width => {
     }
   }
 
+  console.log(status);
+
   // allows user to press "ESC" key to exit popup
   useEffect(() => {
     const listener = e => {
@@ -112,7 +115,7 @@ const Map = width => {
     };
     window.addEventListener('keydown', listener);
   }, []);
-  console.log(style);
+
   return (
     <div style={{ height: '100vh' }}>
       <div
@@ -121,7 +124,7 @@ const Map = width => {
         style={{
           position: 'absolute',
           zIndex: 1001,
-          marginLeft: { collapseMargin },
+          marginLeft: collapseMargin - 250,
           marginTop: 20,
         }}
       />
@@ -186,7 +189,7 @@ const Map = width => {
         <div className="zoom-controls">
           <NavigationControl showZoom={true} showCompass={true} />
         </div>
-        {/* 
+
         <Geocoder
           mapRef={mapRef}
           containerRef={geocoderContainerRef}
@@ -194,7 +197,7 @@ const Map = width => {
           mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
           position="top-left"
           marker="false"
-        /> */}
+        />
       </ReactMapGL>
     </div>
   );

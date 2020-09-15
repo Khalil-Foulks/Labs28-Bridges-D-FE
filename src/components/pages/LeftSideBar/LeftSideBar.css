@@ -23,11 +23,15 @@ h2 {
   border: none;
   margin-top: 21px;
   transition: 0.3s ease;
-  height: 36px;
+  height: 40px;
   position: fixed;
-
   z-index: 3;
   /* border: 1px solid red; */
+}
+
+.SideButton img {
+  width: 10px;
+  height: 10px;
 }
 
 .SideButton:hover {
