@@ -16,7 +16,7 @@ const initialState = {
 
 const initialStatus = 'Complete';
 const initialStyle = 'mapbox://styles/jrhemann/cked1kdcz2s261aql8jg3trbw';
-const initialMargin = 260;
+const initialMargin = 300;
 
 export const Context = React.createContext();
 export const ContextStatus = React.createContext();

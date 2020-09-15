@@ -25,7 +25,7 @@ const LeftSideBar = () => {
 
   const moveButton = () => {
     if (visible === true) setCollapseMargin(0);
-    if (visible === false) setCollapseMargin(260);
+    if (visible === false) setCollapseMargin(300);
   };
 
   const onClose = () => {
@@ -52,8 +52,7 @@ const LeftSideBar = () => {
   }
 
   function onChange(e) {
-    console.log('radio checked', e.target.value);
-    setStatus(e.target.value);
+    setStatus(value);
   }
 
   return (
@@ -74,12 +73,20 @@ const LeftSideBar = () => {
       <Drawer
         drawerStyle={{ backgroundColor: 'white' }}
         placement="left"
-        width={260}
+        width={300}
         closable={false}
         onClose={onClose}
         visible={visible}
         mask={false}
       >
+        <img src="B2P_Symbol_Green.svg" />
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+
+        <br></br>
+        <br></br>
         <br></br>
         <br></br>
         <br></br>
@@ -93,40 +100,86 @@ const LeftSideBar = () => {
           <span className="S"> {state.bridge.properties.district_name} </span>{' '}
         </p>
 
-        <Radio.Group onChange={onChange} setStatus={value} value={status}>
-          <Radio style={radioStyle} value={'Complete'}>
-            Complete
-          </Radio>
-          <Radio style={radioStyle} value={'Confirmed'}>
-            Confirmed
-          </Radio>
-          <Radio style={radioStyle} value={'Under Construction'}>
-            Under Construction
-          </Radio>
-          <Radio style={radioStyle} value={'Prospecting'}>
-            Prospecting
-          </Radio>
-          <Radio style={radioStyle} value={'Identified'}>
-            Identified
-          </Radio>
-          <Radio style={radioStyle} value={'Rejected'}>
-            Rejected
-          </Radio>
-        </Radio.Group>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
 
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <Switch
-          className="switch"
-          checkedChildren="Satellite Off"
-          unCheckedChildren="Satellite On"
-          defaultunhecked
-          onChange={mapStyle}
-        />
-        <br></br>
+        <div className="iconGroup">
+          <div className="iconBox">
+            <div className="icons" value={'Complete'}>
+              <img
+                src="bridge-icon.png"
+                alt=""
+                onClick={() => {
+                  setStatus('Complete');
+                }}
+              />
+              Completed
+            </div>
+            <div className="icons">
+              <img
+                src="construction-icon.png"
+                alt=""
+                onClick={() => {
+                  setStatus('Under Construction');
+                }}
+              />
+              Building
+            </div>
+            <div className="icons">
+              <img
+                src="checked-icon.png"
+                alt=""
+                onClick={() => {
+                  setStatus('Confirmed');
+                }}
+              />
+              Confirmed
+            </div>
+          </div>
+          <div className="iconBox">
+            <div className="icons">
+              <img
+                src="binoculars-icon.png"
+                alt=""
+                onClick={() => {
+                  setStatus('Prospecting');
+                }}
+              />
+              Prospecting
+            </div>
+            <div className="icons">
+              <img
+                src="detective-icon.png"
+                alt=""
+                onClick={() => {
+                  setStatus('Identified');
+                }}
+              />
+              Identified
+            </div>
+            <div className="icons">
+              <img
+                src="rejected-icon.png"
+                alt=""
+                onClick={() => {
+                  setStatus('Rejected');
+                }}
+              />
+              Rejected
+            </div>
+          </div>
+        </div>
       </Drawer>
     </div>
   );
