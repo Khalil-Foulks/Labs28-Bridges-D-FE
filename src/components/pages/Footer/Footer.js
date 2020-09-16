@@ -1,11 +1,4 @@
 import React, { useState } from 'react';
-
-import {
-  FacebookFilled,
-  TwitterOutlined,
-  InstagramOutlined,
-  LinkedinFilled,
-} from '@ant-design/icons';
 import './Footer.css';
 import { Modal } from 'antd';
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -36,11 +29,8 @@ const B2PFooter = () => {
 
   return (
     <>
-      <img
-        className="logo"
-        src="B2P_Symbol_GreenSmall.svg"
-        onClick={showModal}
-      ></img>
+      <img className="logo" src="menubutton.svg" onClick={showModal}></img>
+
       <Modal
         visible={visible}
         onOk={handleOk}
