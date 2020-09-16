@@ -108,14 +108,14 @@ const B2PFooter = () => {
               fontSize="large"
               color="primary"
               style={{ color: 'white' }}
-            >
-              onClick=
-              {() =>
+              onClick={() =>
                 window.open(
                   'https://www.facebook.com/BridgestoProsperity/',
                   '_blank'
                 )
               }
+            >
+              {' '}
               > - @BridgestoProsperity
             </FacebookIcon>
 
