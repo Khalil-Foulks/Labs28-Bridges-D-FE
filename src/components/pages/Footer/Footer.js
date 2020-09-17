@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import {
-  FacebookFilled,
-  TwitterOutlined,
-  InstagramOutlined,
-  LinkedinFilled,
-} from '@ant-design/icons';
 import './Footer.css';
 import { Modal } from 'antd';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+
 const B2PFooter = () => {
   const [visible, setVisible] = useState(false);
   const showModal = () => {
@@ -30,11 +29,8 @@ const B2PFooter = () => {
 
   return (
     <>
-      <img
-        className="logo"
-        src="B2P_Symbol_GreenSmall.svg"
-        onClick={showModal}
-      ></img>
+      <img className="logo" src="menubutton.svg" onClick={showModal}></img>
+
       <Modal
         visible={visible}
         onOk={handleOk}
@@ -97,62 +93,69 @@ const B2PFooter = () => {
           </div>
 
           <div className="SocialLinks">
-            <FacebookFilled
+            <FacebookIcon
               className="socialText"
-              style={{ fontSize: '30px', color: 'white', marginRight: '3px' }}
-            />
-            <a
-              className="socialText"
-              href="https://www.facebook.com/BridgestoProsperity/"
+              fontSize="large"
+              color="primary"
+              style={{ color: 'white' }}
+              onClick={() =>
+                window.open(
+                  'https://www.facebook.com/BridgestoProsperity/',
+                  '_blank'
+                )
+              }
             >
-              - @BridgestoProsperity
-            </a>{' '}
-            <br></br>
-            <TwitterOutlined
-              className="socialText"
-              style={{
-                fontSize: '30px',
-                color: 'white',
-                marginRight: '-1px',
-                marginTop: '3px',
-              }}
-            />
-            <a className="socialText" href="https://twitter.com/b2p">
               {' '}
-              - @B2P
-            </a>
+              > - @BridgestoProsperity
+            </FacebookIcon>
+
             <br></br>
-            <InstagramOutlined
+
+            <TwitterIcon
               className="socialText"
-              style={{
-                fontSize: '30px',
-                color: 'white',
-                marginRight: '3px',
-                marginTop: '3px',
-              }}
-            />
-            <a
-              className="socialText"
-              href="https://www.instagram.com/bridgestoprosperity/"
+              fontSize="large"
+              color="primary"
+              onClick={() =>
+                window.open('https://twitter.com/b2p?lang=en/', '_blank')
+              }
+              style={{ color: 'white' }}
             >
-              - @bridgestoprosperity
-            </a>
+              > - @B2P
+            </TwitterIcon>
+
             <br></br>
-            <LinkedinFilled
+
+            <InstagramIcon
               className="socialText"
-              style={{
-                fontSize: '30px',
-                color: 'white',
-                marginRight: '3px',
-                marginTop: '3px',
-              }}
-            />
-            <a
-              className="socialText"
-              href="https://www.linkedin.com/company/bridges-to-prosperity"
+              fontSize="large"
+              color="primary"
+              onClick={() =>
+                window.open(
+                  'https://www.instagram.com/bridgestoprosperity/',
+                  '_blank'
+                )
+              }
+              style={{ color: 'white' }}
             >
-              - Bridges to Prosperity
-            </a>
+              > - @bridgestoprosperity
+            </InstagramIcon>
+
+            <br></br>
+
+            <LinkedInIcon
+              className="socialText"
+              fontSize="large"
+              color="primary"
+              onClick={() =>
+                window.open(
+                  'https://www.linkedin.com/company/bridges-to-prosperity',
+                  '_blank'
+                )
+              }
+              style={{ color: 'white' }}
+            >
+              >- Bridges to Prosperity
+            </LinkedInIcon>
           </div>
         </div>
       </Modal>
