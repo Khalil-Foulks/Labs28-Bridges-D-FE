@@ -5,23 +5,24 @@ import React, {
   useCallback,
   useRef,
 } from 'react';
-import ReactMapGL, {
-  Marker,
-  Popup,
-  NavigationControl,
-  FullscreenControl,
-} from 'react-map-gl';
+import ReactMapGL, { Marker, Popup, NavigationControl } from 'react-map-gl';
 import axios from 'axios';
 import './mapbox-gl.css';
 import Geocoder from 'react-map-gl-geocoder';
-// import MapGL from 'react-map-gl';
 
-import { Context, ContextStatus, ContextStyle, ContextMargin } from '../Store';
+import {
+  Context,
+  ContextStatus,
+  ContextStyle,
+  ContextMargin,
+  ContextSearchData,
+} from '../Store';
 import './map.css';
 import LeftSideBar from '../LeftSideBar/LeftSideBar';
 import Footer from '../Footer/Footer';
 
-const Map = width => {
+const Map = props => {
+  //initial state of view when the map first renders
   const [viewport, setViewport] = useState({
     latitude: -2.1602,
     longitude: 29.538,
@@ -54,15 +55,16 @@ const Map = width => {
   );
 
   const [data, setData] = useState([]);
+  const [searchData, setSearchData] = useContext(ContextSearchData);
   const [selectedBridge, setSelectedBridge] = useState(null);
   const [state, setState] = useContext(Context);
   const [toggle, setToggle] = useState(false);
   const [status, setStatus] = useContext(ContextStatus);
   const [style, setStyle] = useContext(ContextStyle);
   const [collapseMargin, setCollapseMargin] = useContext(ContextMargin);
-  console.log(collapseMargin);
   const array = [];
 
+  //hits endpoint and gets all bridges
   useEffect(() => {
     axios
       .get('https://b2ptc.herokuapp.com/bridges')
@@ -72,6 +74,7 @@ const Map = width => {
           array.push(element);
         });
         setData(array);
+        setSearchData(array);
       })
       .catch(error => {
         console.error(error);
@@ -119,8 +122,7 @@ const Map = width => {
     }
   }
 
-  console.log(status);
-
+  console.log('data', data);
   // allows user to press "ESC" key to exit popup
   useEffect(() => {
     const listener = e => {
@@ -132,6 +134,7 @@ const Map = width => {
   }, []);
 
   return (
+    // This is the container for the search bar that works with the GeoCoder
     <div style={{ height: '100vh' }}>
       <div
         className="search"
@@ -201,6 +204,7 @@ const Map = width => {
           <Footer />
         </div>
 
+        {/* controls for zooming in and out*/}
         <div className="zoom-controls">
           <NavigationControl
             showZoom={true}
@@ -214,7 +218,6 @@ const Map = width => {
           onClick={() => {
             setToggle(!toggle);
             mapStyle();
-            console.log(style);
           }}
         >
           {toggle ? (
@@ -228,19 +231,15 @@ const Map = width => {
           )}
         </div>
 
-        {/* Makes map fullscreen */}
-        {/* <div style={{ position: 'absolute', right: 0 }}>
-          <FullscreenControl container={document.querySelector('body')} />
-        </div> */}
-
-        <Geocoder
+        {/* this is the mapbox tool for searching locations */}
+        {/* <Geocoder
           mapRef={mapRef}
           containerRef={geocoderContainerRef}
           onViewportChange={handleGeocoderViewportChange}
           mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
           position="top-left"
           marker="false"
-        />
+        /> */}
       </ReactMapGL>
     </div>
   );

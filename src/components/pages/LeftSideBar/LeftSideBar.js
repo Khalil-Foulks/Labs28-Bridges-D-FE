@@ -1,21 +1,25 @@
 import React, { useContext, useState } from 'react';
-import { Switch, Drawer, Button, Radio, Input } from 'antd';
-import { Context, ContextStatus, ContextStyle, ContextMargin } from '../Store';
-import Search from 'antd/lib/input/Search';
+import { Drawer } from 'antd';
+import {
+  Context,
+  ContextStatus,
+  ContextMargin,
+  ContextSearchData,
+} from '../Store';
 import '../Map/map.css';
 import './LeftSideBar.css';
-import Sider from 'antd/lib/layout/Sider';
 
 const LeftSideBar = () => {
   const [visible, setVisible] = useState(true);
   const [state, setState] = useContext(Context);
   const [status, setStatus] = useContext(ContextStatus);
-  const [style, setStyle] = useContext(ContextStyle);
   const [collapseMargin, setCollapseMargin] = useContext(ContextMargin);
+  const [searchData, setSearchData] = useContext(ContextSearchData);
+  const [filterDataList, setFilterDataList] = useState([]);
+  const [searchText, setSearchText] = useState('');
   const [buttonImage, setButtonImage] = useState('back.png');
 
-  console.log('test', status);
-
+  console.log('test', searchData);
   const showDrawer = () => {
     if (visible === true) setVisible(false);
     if (visible === false) setVisible(true);
@@ -32,28 +36,38 @@ const LeftSideBar = () => {
     setVisible(false);
   };
 
-  const radioStyle = {
-    display: 'block',
-    height: '30px',
-    lineHeight: '30px',
+  const dataList = searchData;
+  console.log('search', searchData);
+  console.log('list', dataList);
+
+  //List everything to exclude with filtering
+  const exclude = ['id', 'bridge_type'];
+
+  //filter function for filtering search data out of dataList
+  const filterData = value => {
+    const lowercasedValue = value.toLowerCase().trim();
+    if (lowercasedValue === '') setFilterDataList([]);
+    else {
+      const filteredData = dataList.filter(item => {
+        return Object.keys(item).some(key =>
+          exclude.includes(key)
+            ? false
+            : item[key]
+                .toString()
+                .toLowerCase()
+                .includes(lowercasedValue)
+        );
+      });
+      setFilterDataList(filteredData);
+      console.log('test2', searchData);
+    }
   };
 
-  const { value } = status;
-
-  // Function to toggle map style state with toggle switch
-  function mapStyle(checked) {
-    console.log(`switch to ${checked}`);
-    if (checked == true) {
-      setStyle('mapbox://styles/jrhemann/ckeu55hbw0qcy19l999jtufn9');
-    }
-    if (checked == false) {
-      setStyle('mapbox://styles/jrhemann/cked1kdcz2s261aql8jg3trbw');
-    }
-  }
-
-  function onChange(e) {
-    setStatus(value);
-  }
+  //Handle change for search box
+  const handleChange = value => {
+    setSearchText(value);
+    filterData(value);
+  };
 
   return (
     <div id="sidebar">
@@ -79,41 +93,41 @@ const LeftSideBar = () => {
         visible={visible}
         mask={false}
       >
-        <img src="B2P_Symbol_Green.svg" />
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-
+        <img src="B2P_Symbol_Green.svg" alt="B2P Logo" />
+        {/* search bar */}
+        Search:{' '}
+        <input
+          style={{ marginLeft: 5 }}
+          type="text"
+          placeholder="Type to search..."
+          value={searchText}
+          onChange={e => handleChange(e.target.value)}
+        />
+        {/* Container for rendering search data */}
+        <div className="box-container">
+          {filterDataList.map((d, i) => {
+            return (
+              <div key={i} className="box" style={{ backgroundColor: 'green' }}>
+                <b>Bridge Name: </b>
+                {d.bridge_name}
+                <br />
+                <b>Project Code: </b>
+                {d.project_code}
+                <br />
+                <b>District: </b>
+                {d.district_name}
+                <br />
+              </div>
+            );
+          })}
+          <div className="clearboth"></div>
+        </div>
         <p className="Section">
-          Bridge Site:{' '}
-          <span className="S"> {state.bridge.properties.bridge_name} </span>{' '}
+          Bridge Site: <span> {state.bridge.properties.bridge_name} </span>{' '}
         </p>
-        <p className="Section">
-          District:{' '}
-          <span className="S"> {state.bridge.properties.district_name} </span>{' '}
+        <p>
+          District: <span> {state.bridge.properties.district_name} </span>{' '}
         </p>
-
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-
         <div className="iconGroup">
           <div className="iconBox">
             <div className="icons" value={'Complete'}>

@@ -22,23 +22,27 @@ export const Context = React.createContext();
 export const ContextStatus = React.createContext();
 export const ContextStyle = React.createContext();
 export const ContextMargin = React.createContext();
+export const ContextSearchData = React.createContext();
 
 const Store = ({ children }) => {
+  const [searchData, setSearchData] = useState([]);
   const [state, setState] = useState(initialState);
   const [status, setStatus] = useState(initialStatus);
   const [style, setStyle] = useState(initialStyle);
   const [collapseMargin, setCollapseMargin] = useState(initialMargin);
 
   return (
-    <ContextMargin.Provider value={[collapseMargin, setCollapseMargin]}>
-      <ContextStyle.Provider value={[style, setStyle]}>
-        <ContextStatus.Provider value={[status, setStatus]}>
-          <Context.Provider value={[state, setState]}>
-            {children}
-          </Context.Provider>{' '}
-        </ContextStatus.Provider>
-      </ContextStyle.Provider>
-    </ContextMargin.Provider>
+    <ContextSearchData.Provider value={[searchData, setSearchData]}>
+      <ContextMargin.Provider value={[collapseMargin, setCollapseMargin]}>
+        <ContextStyle.Provider value={[style, setStyle]}>
+          <ContextStatus.Provider value={[status, setStatus]}>
+            <Context.Provider value={[state, setState]}>
+              {children}
+            </Context.Provider>{' '}
+          </ContextStatus.Provider>
+        </ContextStyle.Provider>
+      </ContextMargin.Provider>
+    </ContextSearchData.Provider>
   );
 };
 
