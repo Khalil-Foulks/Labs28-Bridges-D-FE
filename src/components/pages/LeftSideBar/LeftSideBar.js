@@ -1,11 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Drawer } from 'antd';
-import {
-  Context,
-  ContextStatus,
-  ContextMargin,
-  ContextSearchData,
-} from '../Store';
+import Search from '../Search/Search';
+import { Context, ContextStatus, ContextMargin } from '../Store';
 import '../Map/map.css';
 import './LeftSideBar.css';
 
@@ -14,12 +10,8 @@ const LeftSideBar = () => {
   const [state, setState] = useContext(Context);
   const [status, setStatus] = useContext(ContextStatus);
   const [collapseMargin, setCollapseMargin] = useContext(ContextMargin);
-  const [searchData, setSearchData] = useContext(ContextSearchData);
-  const [filterDataList, setFilterDataList] = useState([]);
-  const [searchText, setSearchText] = useState('');
   const [buttonImage, setButtonImage] = useState('back.png');
 
-  console.log('test', searchData);
   const showDrawer = () => {
     if (visible === true) setVisible(false);
     if (visible === false) setVisible(true);
@@ -34,39 +26,6 @@ const LeftSideBar = () => {
 
   const onClose = () => {
     setVisible(false);
-  };
-
-  const dataList = searchData;
-  console.log('search', searchData);
-  console.log('list', dataList);
-
-  //List everything to exclude with filtering
-  const exclude = ['id', 'bridge_type'];
-
-  //filter function for filtering search data out of dataList
-  const filterData = value => {
-    const lowercasedValue = value.toLowerCase().trim();
-    if (lowercasedValue === '') setFilterDataList([]);
-    else {
-      const filteredData = dataList.filter(item => {
-        return Object.keys(item).some(key =>
-          exclude.includes(key)
-            ? false
-            : item[key]
-                .toString()
-                .toLowerCase()
-                .includes(lowercasedValue)
-        );
-      });
-      setFilterDataList(filteredData);
-      console.log('test2', searchData);
-    }
-  };
-
-  //Handle change for search box
-  const handleChange = value => {
-    setSearchText(value);
-    filterData(value);
   };
 
   return (
@@ -94,34 +53,10 @@ const LeftSideBar = () => {
         mask={false}
       >
         <img src="B2P_Symbol_Green.svg" alt="B2P Logo" />
-        {/* search bar */}
-        Search:{' '}
-        <input
-          style={{ marginLeft: 5 }}
-          type="text"
-          placeholder="Type to search..."
-          value={searchText}
-          onChange={e => handleChange(e.target.value)}
-        />
-        {/* Container for rendering search data */}
-        <div className="box-container">
-          {filterDataList.map((d, i) => {
-            return (
-              <div key={i} className="box" style={{ backgroundColor: 'green' }}>
-                <b>Bridge Name: </b>
-                {d.bridge_name}
-                <br />
-                <b>Project Code: </b>
-                {d.project_code}
-                <br />
-                <b>District: </b>
-                {d.district_name}
-                <br />
-              </div>
-            );
-          })}
-          <div className="clearboth"></div>
-        </div>
+
+        {/* Render search component */}
+        <Search />
+
         <p className="Section">
           Bridge Site: <span> {state.bridge.properties.bridge_name} </span>{' '}
         </p>
