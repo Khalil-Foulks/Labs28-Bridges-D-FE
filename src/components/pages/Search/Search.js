@@ -7,6 +7,7 @@ import {
 } from '../Store';
 import * as d3 from 'd3';
 import ReactMapGL, { FlyToInterpolator } from 'react-map-gl';
+import './Search.css';
 
 const Search = () => {
   const [searchData, setSearchData] = useContext(ContextSearchData);
@@ -71,22 +72,23 @@ const Search = () => {
   return (
     <div>
       {/* search bar */}
-      Search:{' '}
-      <input
-        style={{ marginLeft: 5 }}
-        type="text"
-        placeholder="Type to search..."
-        value={searchText}
-        onChange={e => handleChange(e.target.value)}
-      />
+      <div className="searchbar">
+        <input
+          style={{ margin: 15 }}
+          type="text"
+          placeholder="Type to search..."
+          value={searchText}
+          onChange={e => handleChange(e.target.value)}
+        />
+      </div>
       {/* Container for rendering search data */}
-      <div className="box-container">
+      <div className="bridgeCard-container">
         {filterDataList.map((d, i) => {
           return (
             <div
+              className="bridgeCard"
               key={i}
-              className="box"
-              style={{ backgroundColor: 'green' }}
+              // style={{ margin: 0 }}
               onMouseEnter={() => setCoord(d.latitude, d.longitude)}
               onClick={() => {
                 FlyTo();
@@ -109,7 +111,6 @@ const Search = () => {
             </div>
           );
         })}
-        <div className="clearboth"></div>
       </div>
     </div>
   );

@@ -232,6 +232,69 @@ const Map = () => {
         />
       </div>
 
+      {/* <div className="iconGroup">
+        <div className="icons" value={'Complete'}>
+          <img
+            src="bridge-icon.png"
+            alt=""
+            onClick={() => {
+              setStatus('Complete');
+            }}
+          />
+          Completed
+        </div>
+        <div className="icons">
+          <img
+            src="construction-icon.png"
+            alt=""
+            onClick={() => {
+              setStatus('Under Construction');
+            }}
+          />
+          Building
+        </div>
+        <div className="icons">
+          <img
+            src="checked-icon.png"
+            alt=""
+            onClick={() => {
+              setStatus('Confirmed');
+            }}
+          />
+          Confirmed
+        </div>
+        <div className="icons">
+          <img
+            src="binoculars-icon.png"
+            alt=""
+            onClick={() => {
+              setStatus('Prospecting');
+            }}
+          />
+          Prospecting
+        </div>
+        <div className="icons">
+          <img
+            src="detective-icon.png"
+            alt=""
+            onClick={() => {
+              setStatus('Identified');
+            }}
+          />
+          Identified
+        </div>
+        <div className="icons">
+          <img
+            src="rejected-icon.png"
+            alt=""
+            onClick={() => {
+              setStatus('Rejected');
+            }}
+          />
+          Rejected
+        </div>
+      </div> */}
+
       <div
         className="mini-view"
         onClick={() => {

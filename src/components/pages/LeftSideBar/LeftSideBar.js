@@ -51,8 +51,11 @@ const LeftSideBar = () => {
         onClose={onClose}
         visible={visible}
         mask={false}
+        overflow={false}
       >
-        <img src="B2P_Symbol_Green.svg" alt="B2P Logo" />
+        <div className="b2pLogo">
+          <img src="B2P_Symbol_Green.svg" alt="B2P Logo" />
+        </div>
 
         {/* Render search component */}
         <Search />
@@ -63,7 +66,7 @@ const LeftSideBar = () => {
         <p>
           District: <span> {state.bridge.properties.district_name} </span>{' '}
         </p>
-        <div className="iconGroup">
+        {/* <div className="iconGroup">
           <div className="iconBox">
             <div className="icons" value={'Complete'}>
               <img
@@ -128,7 +131,7 @@ const LeftSideBar = () => {
               Rejected
             </div>
           </div>
-        </div>
+        </div> */}
       </Drawer>
     </div>
   );

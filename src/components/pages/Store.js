@@ -18,7 +18,7 @@ const initialView = {
   latitude: -2.1602,
   longitude: 29.538,
   width: '100vw',
-  height: '110vh',
+  height: '100vh',
   zoom: 8.2,
   pitch: 0,
   bearing: -22,
