@@ -51,18 +51,22 @@ const LeftSideBar = () => {
         onClose={onClose}
         visible={visible}
         mask={false}
+        overflow={false}
       >
-        <img src="B2P_Symbol_Green.svg" alt="B2P Logo" />
+        <div className="b2pLogo">
+          <img src="B2P_Symbol_Green.svg" alt="B2P Logo" />
+        </div>
 
         {/* Render search component */}
         <Search />
 
-        <p className="Section">
+        {/* <p className="Section">
           Bridge Site: <span> {state.bridge.properties.bridge_name} </span>{' '}
         </p>
         <p>
           District: <span> {state.bridge.properties.district_name} </span>{' '}
-        </p>
+        </p> */}
+
         <div className="iconGroup">
           <div className="iconBox">
             <div className="icons" value={'Complete'}>

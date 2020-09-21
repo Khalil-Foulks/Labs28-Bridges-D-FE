@@ -31,29 +31,6 @@ import LeftSideBar from '../LeftSideBar/LeftSideBar';
 import Footer from '../Footer/Footer';
 
 const Map = () => {
-  const [long, setLong] = useContext(ContextLong);
-  const [lat, setLat] = useContext(ContextLat);
-  //initial state of view when the map first renders
-  const [viewport, setViewport] = useContext(ContextView);
-
-  // test fly function
-  // const FlyTo = () => {
-  //   const flyViewport = {
-  //     ...viewport,
-  //     // center: [lat, long],
-  //     zoom: 14,
-  //     // longitude: -90.20031,
-  //     // latitude: 38.63028,
-  //     latitude: -1.723639,
-  //     longitude: 29.366194,
-  //     transitionDuration: 5000,
-  //     transitionInterpolator: new FlyToInterpolator(),
-  //     transitionEasing: d3.easeCubic,
-  //   };
-  //   setViewport(flyViewport);
-  //   console.log('fly to in map', viewport);
-  // };
-
   const mapRef = useRef();
 
   const geocoderContainerRef = useRef();
@@ -63,12 +40,15 @@ const Map = () => {
     []
   );
 
+  //state of longitude and latitude for fly to function
+  const [long, setLong] = useContext(ContextLong);
+  const [lat, setLat] = useContext(ContextLat);
+
+  //initial state of view when the map first renders
+  const [viewport, setViewport] = useContext(ContextView);
+
   //initial data that it pulled in from web-endpoint
   const [data, setData] = useState([]);
-
-  //State of Longitude and Latitude
-  // const [long, setLong] = useContext(ContextLong);
-  // const [lat, setLat] = useContext(ContextLat);
 
   //data passed to search bar in map component
   const [searchData, setSearchData] = useContext(ContextSearchData);
@@ -113,11 +93,11 @@ const Map = () => {
 
   // Function to toggle map style state with toggle switch
   const mapStyle = () => {
-    if (style === 'mapbox://styles/jrhemann/ckeu55hbw0qcy19l999jtufn9')
-      setStyle('mapbox://styles/jrhemann/cked1kdcz2s261aql8jg3trbw');
-
-    if (style === 'mapbox://styles/jrhemann/cked1kdcz2s261aql8jg3trbw')
+    if (style === 'mapbox://styles/jrhemann/ckfcmzx8d3s9y19qt9fuvfcn0')
       setStyle('mapbox://styles/jrhemann/ckeu55hbw0qcy19l999jtufn9');
+
+    if (style === 'mapbox://styles/jrhemann/ckeu55hbw0qcy19l999jtufn9')
+      setStyle('mapbox://styles/jrhemann/ckfcmzx8d3s9y19qt9fuvfcn0');
   };
 
   //function to convert json data to geojson
@@ -167,7 +147,7 @@ const Map = () => {
       ref={mapRef}
       {...viewport}
       mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-      //Style of the map set. Initial state set in Context store
+      //Style of the map. Initial state set in Context store
       mapStyle={style}
       //enable dragging
       onViewportChange={handleViewportChange}
@@ -175,8 +155,6 @@ const Map = () => {
       <div className="sidebar">
         <LeftSideBar />
       </div>
-
-      {/* <button onClick={FlyTo}>FLY</button> */}
 
       {/* Maps through all the data in bridges.json grabbing lat and lon to display markers */}
       {bridge.features.map(bridge => (
@@ -205,6 +183,7 @@ const Map = () => {
           //this is supposed to close the tooltip when map is clicked
           closeOnClick={true}
           //Closes popup when X is clicked by resetting state to null
+          // dynamicPosition={false}
           onClose={() => {
             setSelectedBridge(null);
           }}
@@ -212,9 +191,9 @@ const Map = () => {
           {/* Div to display what data is wanted in the popup*/}
           <div>
             <h4>{selectedBridge.properties.bridge_name}</h4>
-            <p>District: {selectedBridge.properties.district_name}</p>
+            {/* <p>District: {selectedBridge.properties.district_name}</p>
             <p>Status: {selectedBridge.properties.project_stage}</p>
-            <p>Type: {selectedBridge.properties.bridge_type}</p>
+            <p>Type: {selectedBridge.properties.bridge_type}</p> */}
           </div>
         </Popup>
       ) : null}
@@ -232,6 +211,7 @@ const Map = () => {
         />
       </div>
 
+      {/* Toggle view to satellite and regular view */}
       <div
         className="mini-view"
         onClick={() => {
@@ -249,6 +229,71 @@ const Map = () => {
           </div>
         )}
       </div>
+
+      {/* <div className="iconGroup">
+        <div className="iconBox">
+          <div className="icons" value={'Complete'}>
+            <img
+              src="bridge-icon.png"
+              alt=""
+              onClick={() => {
+                setStatus('Complete');
+              }}
+            />
+            Completed
+          </div>
+          <div className="icons">
+            <img
+              src="construction-icon.png"
+              alt=""
+              onClick={() => {
+                setStatus('Under Construction');
+              }}
+            />
+            Building
+          </div>
+          <div className="icons">
+            <img
+              src="checked-icon.png"
+              alt=""
+              onClick={() => {
+                setStatus('Confirmed');
+              }}
+            />
+            Confirmed
+          </div>
+          <div className="icons">
+            <img
+              src="binoculars-icon.png"
+              alt=""
+              onClick={() => {
+                setStatus('Prospecting');
+              }}
+            />
+            Prospecting
+          </div>
+          <div className="icons">
+            <img
+              src="detective-icon.png"
+              alt=""
+              onClick={() => {
+                setStatus('Identified');
+              }}
+            />
+            Identified
+          </div>
+          <div className="icons">
+            <img
+              src="rejected-icon.png"
+              alt=""
+              onClick={() => {
+                setStatus('Rejected');
+              }}
+            />
+            Rejected
+          </div>
+        </div>
+      </div> */}
     </ReactMapGL>
   );
 };

@@ -3,6 +3,11 @@
   height: 20px;
 }
 
+/* .marker-btn:hover {
+  width: 30px;
+  height: 10px;
+} */
+
 .zoom-controls {
   margin-top: 10px;
   margin-right: 10px;
@@ -32,23 +37,24 @@
 body {
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 .mini-view {
-  align-self: flex-end;
+  /* align-self: flex-end; */
   margin-top: 87vh;
   margin-left: 92vw;
   border-radius: 4px;
   margin-bottom: 100px;
   height: 65px;
   width: 97px;
-  box-shadow: 1px 0px 1px 0.9px #008a44;
+  /* box-shadow: 1px 1px 1px 1px #008a44; */
 }
 
 .satellite {
   max-width: 100%;
   height: auto;
-  border-radius: 4px;
+  border-radius: 5px;
 }
 
 .search {
@@ -57,3 +63,27 @@ body {
   width: 250px;
   transition: 0.3s ease;
 }
+
+/* .iconGroup {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+}
+
+.iconBox {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.icons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  width: 20vw;
+}
+
+.icons:hover {
+  background-color: #d3d3d3;
+} */

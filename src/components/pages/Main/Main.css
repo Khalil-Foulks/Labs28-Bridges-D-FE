@@ -13,10 +13,10 @@
 
 .content {
   background-color: white;
-  overflow: hidden;
+  /* overflow: hidden; */
   height: 100vh;
-  width: 100vw;
-  margin: auto;
+  width: 110vw;
+  /* margin: auto; */
 }
 
 .logo {

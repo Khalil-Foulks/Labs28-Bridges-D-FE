@@ -4,18 +4,19 @@ import {
   ContextLong,
   ContextLat,
   ContextView,
+  ContextStatus,
 } from '../Store';
 import * as d3 from 'd3';
 import ReactMapGL, { FlyToInterpolator } from 'react-map-gl';
+import './Search.css';
 
 const Search = () => {
   const [searchData, setSearchData] = useContext(ContextSearchData);
   const [filterDataList, setFilterDataList] = useState([]);
   const [searchText, setSearchText] = useState('');
-  // const [long, setLong] = useContext(ContextLong);
-  // const [lat, setLat] = useContext(ContextLat);
   const [long, setLong] = useState();
   const [lat, setLat] = useState();
+  const [status, setStatus] = useContext(ContextStatus);
   const [viewport, setViewport] = useContext(ContextView);
   const dataList = searchData;
 
@@ -71,25 +72,28 @@ const Search = () => {
   return (
     <div>
       {/* search bar */}
-      Search:{' '}
-      <input
-        style={{ marginLeft: 5 }}
-        type="text"
-        placeholder="Type to search..."
-        value={searchText}
-        onChange={e => handleChange(e.target.value)}
-      />
+      <div className="searchbar">
+        <input
+          style={{ margin: 15 }}
+          type="text"
+          placeholder="Type to search..."
+          value={searchText}
+          onChange={e => handleChange(e.target.value)}
+        />
+      </div>
+
       {/* Container for rendering search data */}
-      <div className="box-container">
+      <div className="bridgeCard-container">
         {filterDataList.map((d, i) => {
           return (
             <div
+              className="bridgeCard"
               key={i}
-              className="box"
-              style={{ backgroundColor: 'green' }}
+              // style={{ margin: 0 }}
               onMouseEnter={() => setCoord(d.latitude, d.longitude)}
               onClick={() => {
                 FlyTo();
+                setStatus(d.project_stage);
               }}
             >
               <b>Bridge Name: </b>
@@ -98,18 +102,17 @@ const Search = () => {
               <b>Project Code: </b>
               {d.project_code}
               <br />
-              <b>Pojedct Stage: </b>
+              <b>Poject Stage: </b>
               {d.project_stage}
               <br />
-              <b>Latitude: </b>
+              {/* <b>Latitude: </b>
               {d.latitude}
               <br />
               <b>Longitude: </b>
-              {d.longitude}
+              {d.longitude} */}
             </div>
           );
         })}
-        <div className="clearboth"></div>
       </div>
     </div>
   );
