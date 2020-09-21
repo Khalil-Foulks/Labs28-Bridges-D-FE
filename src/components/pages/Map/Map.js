@@ -14,6 +14,7 @@ import ReactMapGL, {
 import * as d3 from 'd3';
 import axios from 'axios';
 import './mapbox-gl.css';
+import Tooltip from '@material-ui/core/Tooltip';
 import Geocoder from 'react-map-gl-geocoder';
 
 import {
@@ -155,7 +156,6 @@ const Map = () => {
       <div className="sidebar">
         <LeftSideBar />
       </div>
-
       {/* Maps through all the data in bridges.json grabbing lat and lon to display markers */}
       {bridge.features.map(bridge => (
         <Marker
@@ -164,19 +164,29 @@ const Map = () => {
           longitude={bridge.geometry.coordinates[1]}
         >
           {/* image used to display point on map */}
-          <img
-            className="marker-btn"
-            src={`${bridge.properties.project_stage}.png`}
-            alt="bridge icon"
-            onClick={e => {
-              e.preventDefault();
-              setSelectedBridge(bridge);
-              setState({ bridge });
-            }}
-          />
+          <Tooltip
+            title={
+              <h2 style={{ color: 'white', margin: 'auto' }}>
+                {bridge.properties.bridge_name}
+              </h2>
+            }
+            arrow
+            placement="top"
+          >
+            <img
+              className="marker-btn"
+              src={`${bridge.properties.project_stage}.png`}
+              alt="bridge icon"
+              onClick={e => {
+                e.preventDefault();
+                setSelectedBridge(bridge);
+                setState({ bridge });
+              }}
+            />
+          </Tooltip>
         </Marker>
       ))}
-      {selectedBridge ? (
+      {/* {selectedBridge ? (
         <Popup
           latitude={selectedBridge.geometry.coordinates[0]}
           longitude={selectedBridge.geometry.coordinates[1]}
@@ -189,19 +199,17 @@ const Map = () => {
           }}
         >
           {/* Div to display what data is wanted in the popup*/}
-          <div>
-            <h4>{selectedBridge.properties.bridge_name}</h4>
-            {/* <p>District: {selectedBridge.properties.district_name}</p>
+      {/* <div>
+            <h4>{selectedBridge.properties.bridge_name}</h4> */}
+      {/* <p>District: {selectedBridge.properties.district_name}</p>
             <p>Status: {selectedBridge.properties.project_stage}</p>
             <p>Type: {selectedBridge.properties.bridge_type}</p> */}
-          </div>
-        </Popup>
-      ) : null}
-
+      {/* </div> */}
+      {/* </Popup> */}
+      {/* ) : null} */}
       <div className="footerHolder">
         <Footer />
       </div>
-
       {/* controls for zooming in and out*/}
       <div className="zoom-controls">
         <NavigationControl
@@ -210,7 +218,6 @@ const Map = () => {
           showFullscreen={true}
         />
       </div>
-
       {/* Toggle view to satellite and regular view */}
       <div
         className="mini-view"
@@ -229,7 +236,6 @@ const Map = () => {
           </div>
         )}
       </div>
-
       {/* <div className="iconGroup">
         <div className="iconBox">
           <div className="icons" value={'Complete'}>

@@ -59,8 +59,8 @@ const LeftSideBar = () => {
 
         {/* Render search component */}
         <Search />
-
-        {/* <p className="Section">
+        {/* 
+        <p className="Section">
           Bridge Site: <span> {state.bridge.properties.bridge_name} </span>{' '}
         </p>
         <p>
