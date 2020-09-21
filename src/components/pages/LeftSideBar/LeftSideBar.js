@@ -60,13 +60,14 @@ const LeftSideBar = () => {
         {/* Render search component */}
         <Search />
 
-        <p className="Section">
+        {/* <p className="Section">
           Bridge Site: <span> {state.bridge.properties.bridge_name} </span>{' '}
         </p>
         <p>
           District: <span> {state.bridge.properties.district_name} </span>{' '}
-        </p>
-        {/* <div className="iconGroup">
+        </p> */}
+
+        <div className="iconGroup">
           <div className="iconBox">
             <div className="icons" value={'Complete'}>
               <img
@@ -131,7 +132,7 @@ const LeftSideBar = () => {
               Rejected
             </div>
           </div>
-        </div> */}
+        </div>
       </Drawer>
     </div>
   );

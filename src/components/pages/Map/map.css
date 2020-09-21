@@ -3,6 +3,11 @@
   height: 20px;
 }
 
+/* .marker-btn:hover {
+  width: 30px;
+  height: 10px;
+} */
+
 .zoom-controls {
   margin-top: 10px;
   margin-right: 10px;
@@ -32,10 +37,11 @@
 body {
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 .mini-view {
-  align-self: flex-end;
+  /* align-self: flex-end; */
   margin-top: 87vh;
   margin-left: 92vw;
   border-radius: 4px;

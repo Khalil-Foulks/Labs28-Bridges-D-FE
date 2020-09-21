@@ -4,6 +4,7 @@ import {
   ContextLong,
   ContextLat,
   ContextView,
+  ContextStatus,
 } from '../Store';
 import * as d3 from 'd3';
 import ReactMapGL, { FlyToInterpolator } from 'react-map-gl';
@@ -13,10 +14,9 @@ const Search = () => {
   const [searchData, setSearchData] = useContext(ContextSearchData);
   const [filterDataList, setFilterDataList] = useState([]);
   const [searchText, setSearchText] = useState('');
-  // const [long, setLong] = useContext(ContextLong);
-  // const [lat, setLat] = useContext(ContextLat);
   const [long, setLong] = useState();
   const [lat, setLat] = useState();
+  const [status, setStatus] = useContext(ContextStatus);
   const [viewport, setViewport] = useContext(ContextView);
   const dataList = searchData;
 
@@ -81,6 +81,7 @@ const Search = () => {
           onChange={e => handleChange(e.target.value)}
         />
       </div>
+
       {/* Container for rendering search data */}
       <div className="bridgeCard-container">
         {filterDataList.map((d, i) => {
@@ -92,6 +93,7 @@ const Search = () => {
               onMouseEnter={() => setCoord(d.latitude, d.longitude)}
               onClick={() => {
                 FlyTo();
+                setStatus(d.project_stage);
               }}
             >
               <b>Bridge Name: </b>
@@ -100,14 +102,14 @@ const Search = () => {
               <b>Project Code: </b>
               {d.project_code}
               <br />
-              <b>Pojedct Stage: </b>
+              <b>Poject Stage: </b>
               {d.project_stage}
               <br />
-              <b>Latitude: </b>
+              {/* <b>Latitude: </b>
               {d.latitude}
               <br />
               <b>Longitude: </b>
-              {d.longitude}
+              {d.longitude} */}
             </div>
           );
         })}

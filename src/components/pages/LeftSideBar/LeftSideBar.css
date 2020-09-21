@@ -40,8 +40,12 @@ h2 {
   color: black;
 }
 
-/* .iconGroup {
-  margin-top: 35vh;
+.iconGroup {
+  position: absolute;
+  margin-right: 3vh;
+  bottom: 1vh;
+  z-index: 5001;
+  /* border: 1px solid red; */
 }
 
 .iconBox {
@@ -59,4 +63,4 @@ h2 {
 
 .icons:hover {
   background-color: #d3d3d3;
-} */
+}
