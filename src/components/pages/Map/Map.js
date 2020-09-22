@@ -16,6 +16,7 @@ import axios from 'axios';
 import './mapbox-gl.css';
 import Tooltip from '@material-ui/core/Tooltip';
 import Geocoder from 'react-map-gl-geocoder';
+import { Drawer } from 'antd';
 
 import {
   Context,
@@ -40,6 +41,17 @@ const Map = () => {
     newViewport => setViewport(newViewport),
     []
   );
+
+  const showDrawer = () => {
+    // if (visible === true) setVisible(false);
+    if (visible === false) setVisible(true);
+  };
+
+  const [visible, setVisible] = useState(false);
+
+  const onClose = () => {
+    setVisible(false);
+  };
 
   //state of longitude and latitude for fly to function
   const [long, setLong] = useContext(ContextLong);
@@ -181,6 +193,7 @@ const Map = () => {
                 e.preventDefault();
                 setSelectedBridge(bridge);
                 setState({ bridge });
+                showDrawer();
               }}
             />
           </Tooltip>
@@ -207,6 +220,7 @@ const Map = () => {
       {/* </div> */}
       {/* </Popup> */}
       {/* ) : null} */}
+
       <div className="footerHolder">
         <Footer />
       </div>
@@ -300,6 +314,29 @@ const Map = () => {
           </div>
         </div>
       </div> */}
+
+      <Drawer
+        className="infoDrawer"
+        title={<h2>Bridge Info</h2>}
+        drawerStyle={{ backgroundColor: 'white' }}
+        placement="right"
+        closable={true}
+        onClose={onClose}
+        visible={visible}
+        mask={false}
+        maskClosable={true}
+        overflow={false}
+      >
+        <h3>Bridge Name: {state.bridge.properties.bridge_name}</h3>
+        <h3>Province: {state.bridge.properties.province_name}</h3>
+        <h3>District: {state.bridge.properties.district_name}</h3>
+        <h3>Project Stage: {state.bridge.properties.project_stage}</h3>
+        <h3>Project Code: {state.bridge.properties.project_code}</h3>
+        <h3>Bridge Type: {state.bridge.properties.bridge_type}</h3>
+        <h3>
+          Individuals Served: {state.bridge.properties.individuals_served}
+        </h3>
+      </Drawer>
     </ReactMapGL>
   );
 };
