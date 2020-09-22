@@ -1,67 +1,191 @@
-# Basic SPA
+#  Bridges to Prosperity
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/5e37932c610a83213715/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/labs-spa-starter/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/5e37932c610a83213715/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/labs-spa-starter/test_coverage)
+##### https://main.d2gmbwiyrajcos.amplifyapp.com/
 
-> **Disclaimer:** This application is currently in Alpha (as of June 08, 2020) and is not ready for production. Please use at your own risk as things will change almost daily.
+## Contributors
 
-- Welcome to your `Basic Single Page Application Repository`. Use this to start your own Greenfield Project using ReactJS and common industry standards.
 
-- This repository assumes a handful of industry practices and standards. We strive to keep you on the bleeding edge of the industry and as a result, we have made some opinions for you so that you don't have to; you're welcome.
 
-- The following was built using [Create React App](https://reactjs.org/docs/create-a-new-react-app.html) for base boiler-plating. We will maintain the dependencies as according to their specifications as an Engineering Organization.
+|                                                      [Vrndavana Hines (WEB)](https://github.com/Vrndavana)                                                       |                                                       [Jason Hemann (WEB)](https://github.com/JasonRHemann)                                                        |                                                      [Matthew Kearney (WEB)](https://github.com/matthew-kearney)                                                       |                                                       [David Ortega (WEB)](https://github.com/adortega5185)                                                        |                                                      [Ous Bayaa أوس بياعه (WEB)](https://github.com/ousbayaa)                                                       |
+| :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
+| [<img src="https://ca.slack-edge.com/ESZCHB482-W0123RRNMK9-6d226361ac51-512" width = "200" />](https://github.com/Vrndavana) | [<img src="https://ca.slack-edge.com/ESZCHB482-W0123RRBPAT-8dee2a8687ff-512" width = "200" />](https://github.com/JasonRHemann) | [<img src="https://avatars1.githubusercontent.com/u/60892407?s=400&u=5e96888c83f4660d3c8a01333ea4bea51f5cc648&v=4" width = "200" />](https://github.com/matthew-kearney) | [<img src="https://ca.slack-edge.com/ESZCHB482-W012QNX80JG-cf6f496913b1-512" width = "200" />](https://github.com/adortega5185) | [<img src="https://ca.slack-edge.com/ESZCHB482-W012H6SD745-f826199ac274-512" width = "200" />](https://github.com/ousbayaa) |
+|                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/ShotaKiko)                                |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/JasonRHemann)                             |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Jtmbern)                           |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/adxpillar)                           |                           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/ousbayaa)                            |
+|                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |
 
-## StoryBook
+|                                                      [Shota Kikozashvili (TPL)](https://github.com/ShotaKiko)                                                       |                                                       [Trent Bernhisel (DS)](https://github.com/tmbern)                                                        |                                                      [Adewale Adeagbo (DS)](https://github.com/adxpillar)                                                     |
+| :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
+| [<img src="https://avatars1.githubusercontent.com/u/45377559?s=400&u=a6b6690c055a0615b3ca7fb5f9781e9beafadfce&v=4" width = "200" />](https://github.com/ShotaKiko) | [<img src="https://ca.slack-edge.com/ESZCHB482-W0138D9AF9N-6e8cd5a45f02-512" width = "200" />](https://github.com/tmbern) | [<img src="https://ca.slack-edge.com/ESZCHB482-W012H6SQN9K-ba93800c21c8-512" width = "200" />](https://github.com/adxpillar) |
+|                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/ShotaKiko)                                |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/tmbern)                             |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/adxpillar)                           |                            |
+|                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |
 
-- All of the reusable components for this repository can be [found here using a Storybook](https://lambda-school-labs.github.io/labs-spa-starter/?path=/story/form-button--basic-usage).
-- For more information on contributing to our Storybook for this application [you can see here](./src/stories/README.md).
+<br>
+<br>
 
-## Requirements
+🚫 4️⃣ Optional examples of using images with links for your tech stack, make sure to change these to fit your project
 
-- [Labs Engineering Standard requirements found here](https://labs.lambdaschool.com/topics/node-js/)
+![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
+![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)
+![Typescript](https://img.shields.io/npm/types/typescript.svg?style=flat)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b5c4db1c-b10d-42c3-b157-3746edd9e81d/deploy-status)](netlify link goes in these parenthesis)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-## Getting Started
+🚫 more info on using badges [here](https://github.com/badges/shields)
 
-### Environment variables
+## Project Overview
 
-- `REACT_APP_CLIENT_ID` Okta client id
-- `REACT_APP_OKTA_ISSUER_URI` Okta api authorization server issuer uri (eg. `https://name-438r8hr.okta.com/oauth2/default`)
-- `REACT_APP_API_URI` The URL (localhost or live) for the Backend that you're building
+ Trello Board - https://trello.com/b/xnDcYuZ4/labs25bridgesshota
 
-- Fork and clone the repo to install it as your own remote.
-  - **note** please [be sure to set your remote](https://help.github.jp/enterprise/2.11/user/articles/changing-a-remote-s-url/) for this repo to your to point to your Labs Team Front End Repository.
-- run: `npm install` to download all dependencies.
-- run: `npm start` to start your local development server.
+ Product Canvas - https://whimsical.com/LJC7f3n28cAwvU2uSrKYri
 
-## Deploying Your App
+ UX Design files - Files provided by stakeholder 
+    Brand Guide and Assets 
+         https://bridges.app.box.com/s/d9xafgdnzukar2f5frdn4stciud35e1y
+    B2P Site Assessment Data 
+         https://bridges.app.box.com/s/vbgy6a9h0ohunzcuqgfg2mq8r0btvln5
+    Rwanda Administrative Levels and Codes 
+         https://bridges.app.box.com/s/21mix7vjnoi0v7q099fbr9ojl1gyy29j
 
-- We recommend you deploy this project using [AWS amplify](https://aws.amazon.com/amplify/). You can find a step-by-step deployment guide [here](./DEPLOYMENT_GUIDE.md).
 
-## Components
 
-- We feel that you shouldn't have to spend time as a developer worrying about where your files should go and your architectural decisions that you'd have to make if you started from scratch.
-- Following the patterns we've laid out for your and the definitions of 'components' will help you focus on getting work done, rather than spending time deliberating on 'how' your work will get done.
-- Please see [the following documentation](./src/components/README.md) on how to work with and structure your components in this app.
+#### Bridges to Prosperity is a nonprofit that helps build footbridges in east african communities. They have collected a lot of data about various villages and we need to match it to government data. Afterwards, we will create predictions and visualizations as to where are the best places for footbridges.
 
-## Styling Your App
+### 4️⃣ Key Features
 
-- In order to provide an experience for you to dive right into a code base and have everything you need to successfully style and craft your UI Components we'd like for you to gain some practice using the [`ANT Design Library`](https://ant.design/).
+- feature one
+- feature two
+- feature three
+- feature four
+- feature five
 
-- Instructions on how to use components.
+## 1️⃣ Tech Stack
 
-## Data Visualization - Working with Hybrid Teams
+### Front end built using:
 
-- We have provided and example of a simple Plot Charting component that can be built, configured, and delivered for your use by the Data Science Team.
-- We strongly urge you to work in constant collaboration with the data scientists in order to pull in their work into your application, ensure that their work matches the theme and style of your team's application, and that the data you pull in represents what problem that team was trying to solve. **This will be a process that requires work and dedication and give-and-take.**
-- **Example Components**: [Please see here for an example](./src/components/pages/ExampleDataViz/README.md) of how to work w/ `Plotly.js` and `React-Plotly.js`.
+#### _Front end framework goes here_
 
-## Testing your App.
+🚫 Why did you choose this framework?
 
-- In accordance with our [Labs Engineering Standards](https://labs.lambdaschool.com/) this app uses common practices for Unit/Integration Testing using:
-  [React Testing Library](https://github.com/testing-library/react-testing-library)
-  [Jest](https://jestjs.io/)
-- For examples on how to test your application and more information please see [the following documentation](./src/__tests__/README.md).
+- point one
+- point two
+- point three
+- point four
 
-## Contributing
+🚫List the rest of the front end features and libraries in the same format as the framework above.
 
-- As this repository is a Work In Progress (WIP) we'd love to hear more about what is working for you and what could be improved. [Please use the `Issues` tab in Github](https://github.com/Lambda-School-Labs/labs-spa-starter/issues) to submit and file any issues that come up during your development cycle. Issues should be related to things like, documentation, bugs that come up with the existing flow, architectural discussion, suggestions for improvements, and anything that you find cumbersome about getting started and working through a product cycle using these tools.
-- **Please use `Labels` when filing issues** try and include screenshots of bugs and steps to reproduce.
+#### Front end deployed to `🚫insert service here`
+
+#### [Back end](🚫link to back end repo here) built using:
+
+#### 🚫 back end framework goes here
+
+- point one
+- point two
+- point three
+
+🚫 List the rest of the back end end features and libraries in the same format as the framework above
+
+# APIs
+
+![Image of Yaktocat](api.png)
+
+## 3️⃣ Misc API here
+
+🚫Replace text below with a description of the API
+
+You can do anything your heart can imagine. In life you need colors. This is where you take out all your hostilities and frustrations. It's better than kicking the puppy dog around and all that so. I'm sort of a softy, I couldn't shoot Bambi except with a camera. Trees get lonely too, so we'll give him a little friend. We'll lay all these little funky little things in there.
+
+## 3️⃣ Misc API here
+
+🚫Replace text below with a description of the API
+
+When you do it your way you can go anywhere you choose. Let your heart take you to wherever you want to be. If I paint something, I don't want to have to explain what it is. A tree needs to be your friend if you're going to paint him. That's a son of a gun of a cloud. Even the worst thing we can do here is good.
+
+## 3️⃣ Misc API here
+
+🚫Replace text below with a description of the API
+
+Volunteering your time; it pays you and your whole community fantastic dividends. Maybe there's a happy little waterfall happening over here. You can spend all day playing with mountains. We don't have to be committed. We are just playing here. You have freedom here. The only guide is your heart. It's cold, but it's beautiful.
+
+# 3️⃣ Environment Variables
+
+In order for the app to function correctly, the user must set up their own environment variables. There should be a .env file containing the following:
+
+🚫These are just examples, replace them with the specifics for your app
+
+    *  REACT_APP_apiKey - this is your Google API key, which can be generated in the Google Cloud Console
+    *  REACT_APP_authDomain - when you set up your Firebase project, this information will be in the dashboard
+    *  REACT_APP_databaseURL - in the Firebase dashboard
+    *  REACT_APP_projectID - in the Firebase dashboard
+    *  REACT_APP_storageBucket - in the Firebase dashboard
+    *  REACT_APP_messagingSenderId - in the Firebase dashboard
+    *  REACT_APP_stripe_API - this is your public Stripe API key, generated in the Stripe dashboard
+    *  REACT_APP_backendURL - optional for your local development server
+    *  REACT_APP_clientid - this is the Stripe_connect clientID, generated in Stripe_connect settings
+    *  REACT_APP_stripe_plan - this is the ID for a second Stripe subscription plan, generated under Stripe products
+
+# 5️⃣ Content Licenses
+
+🚫For all content - images, icons, etc, use this table to document permission of use. Remove the two placeholders and add you content to this table
+
+| Image Filename | Source / Creator | License                                                                      |
+| -------------- | ---------------- | ---------------------------------------------------------------------------- |
+| doodles.png    | Nicole Bennett   | [Creative Commons](https://www.toptal.com/designers/subtlepatterns/doodles/) |
+| rings.svg      | Sam Herbert      | [MIT](https://github.com/SamHerbert/SVG-Loaders)                             |
+
+# 4️⃣ Testing
+
+🚫Document what you used for testing and why
+
+# 4️⃣ Installation Instructions
+
+🚫explain how to install the required dependencies to get this project up and running with yarn and NPM
+
+## Other Scripts
+
+🚫replace these examples with your own
+
+    * typecheck - runs the TypeScript compiler
+    * build - creates a build of the application
+    * start - starts the production server after a build is created
+    * test - runs tests in **tests** directory \* eject - copy the configuration files and dependencies into the project so you have full control over them
+
+# Contributing
+
+When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
+
+Please note we have a [code of conduct](./CODE_OF_CONDUCT.md). Please follow it in all your interactions with the project.
+
+## Issue/Bug Request
+
+**If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
+
+- Check first to see if your issue has already been reported.
+- Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
+- Create a live example of the problem.
+- Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes, where you believe the issue is originating from, and any potential solutions you have considered.
+
+### Feature Requests
+
+We would love to hear from you about new features which would improve this app and further the aims of our project. Please provide as much detail and information as possible to show us why you think your new feature should be implemented.
+
+### Pull Requests
+
+If you have developed a patch, bug fix, or new feature that would improve this app, please submit a pull request. It is best to communicate your ideas with the developers first before investing a great deal of time into a pull request to ensure that it will mesh smoothly with the project.
+
+Remember that this project is licensed under the MIT license, and by submitting a pull request, you agree that your work will be, too.
+
+#### Pull Request Guidelines
+
+- Ensure any install or build dependencies are removed before the end of the layer when doing a build.
+- Update the README.md with details of changes to the interface, including new plist variables, exposed ports, useful file locations and container parameters.
+- Ensure that your code conforms to our existing code conventions and test coverage.
+- Include the relevant issue number, if applicable.
+- You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that, you may request the second reviewer to merge it for you.
+
+### Attribution
+
+These contribution guidelines have been adapted from [this good-Contributing.md-template](https://gist.github.com/PurpleBooth/b24679402957c63ec426).
+
+## Documentation
+
+See [Backend Documentation](🚫*link to your backend readme here*) for details on the backend of our project.
