@@ -29,7 +29,12 @@ const B2PFooter = () => {
 
   return (
     <>
-      <img className="logo" src="menubutton.svg" onClick={showModal}></img>
+      <img
+        className="logo"
+        src="menubutton.svg"
+        onClick={showModal}
+        alt="Menu Button"
+      ></img>
 
       <Modal
         visible={visible}
@@ -106,7 +111,6 @@ const B2PFooter = () => {
               }
             >
               {' '}
-              > - @BridgestoProsperity
             </FacebookIcon>
 
             <br></br>
@@ -119,9 +123,7 @@ const B2PFooter = () => {
                 window.open('https://twitter.com/b2p?lang=en/', '_blank')
               }
               style={{ color: 'white' }}
-            >
-              > - @B2P
-            </TwitterIcon>
+            ></TwitterIcon>
 
             <br></br>
 
@@ -136,9 +138,7 @@ const B2PFooter = () => {
                 )
               }
               style={{ color: 'white' }}
-            >
-              > - @bridgestoprosperity
-            </InstagramIcon>
+            ></InstagramIcon>
 
             <br></br>
 
@@ -153,9 +153,7 @@ const B2PFooter = () => {
                 )
               }
               style={{ color: 'white' }}
-            >
-              >- Bridges to Prosperity
-            </LinkedInIcon>
+            ></LinkedInIcon>
           </div>
         </div>
       </Modal>

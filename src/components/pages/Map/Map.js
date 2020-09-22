@@ -5,17 +5,10 @@ import React, {
   useCallback,
   useRef,
 } from 'react';
-import ReactMapGL, {
-  Marker,
-  Popup,
-  NavigationControl,
-  FlyToInterpolator,
-} from 'react-map-gl';
-import * as d3 from 'd3';
+import ReactMapGL, { Marker, NavigationControl } from 'react-map-gl';
 import axios from 'axios';
 import './mapbox-gl.css';
 import Tooltip from '@material-ui/core/Tooltip';
-import Geocoder from 'react-map-gl-geocoder';
 import { Drawer } from 'antd';
 
 import {
@@ -34,8 +27,6 @@ import Footer from '../Footer/Footer';
 
 const Map = () => {
   const mapRef = useRef();
-
-  const geocoderContainerRef = useRef();
 
   const handleViewportChange = useCallback(
     newViewport => setViewport(newViewport),
@@ -199,27 +190,6 @@ const Map = () => {
           </Tooltip>
         </Marker>
       ))}
-      {/* {selectedBridge ? (
-        <Popup
-          latitude={selectedBridge.geometry.coordinates[0]}
-          longitude={selectedBridge.geometry.coordinates[1]}
-          //this is supposed to close the tooltip when map is clicked
-          closeOnClick={true}
-          //Closes popup when X is clicked by resetting state to null
-          // dynamicPosition={false}
-          onClose={() => {
-            setSelectedBridge(null);
-          }}
-        >
-          {/* Div to display what data is wanted in the popup*/}
-      {/* <div>
-            <h4>{selectedBridge.properties.bridge_name}</h4> */}
-      {/* <p>District: {selectedBridge.properties.district_name}</p>
-            <p>Status: {selectedBridge.properties.project_stage}</p>
-            <p>Type: {selectedBridge.properties.bridge_type}</p> */}
-      {/* </div> */}
-      {/* </Popup> */}
-      {/* ) : null} */}
 
       <div className="footerHolder">
         <Footer />
@@ -250,70 +220,6 @@ const Map = () => {
           </div>
         )}
       </div>
-      {/* <div className="iconGroup">
-        <div className="iconBox">
-          <div className="icons" value={'Complete'}>
-            <img
-              src="bridge-icon.png"
-              alt=""
-              onClick={() => {
-                setStatus('Complete');
-              }}
-            />
-            Completed
-          </div>
-          <div className="icons">
-            <img
-              src="construction-icon.png"
-              alt=""
-              onClick={() => {
-                setStatus('Under Construction');
-              }}
-            />
-            Building
-          </div>
-          <div className="icons">
-            <img
-              src="checked-icon.png"
-              alt=""
-              onClick={() => {
-                setStatus('Confirmed');
-              }}
-            />
-            Confirmed
-          </div>
-          <div className="icons">
-            <img
-              src="binoculars-icon.png"
-              alt=""
-              onClick={() => {
-                setStatus('Prospecting');
-              }}
-            />
-            Prospecting
-          </div>
-          <div className="icons">
-            <img
-              src="detective-icon.png"
-              alt=""
-              onClick={() => {
-                setStatus('Identified');
-              }}
-            />
-            Identified
-          </div>
-          <div className="icons">
-            <img
-              src="rejected-icon.png"
-              alt=""
-              onClick={() => {
-                setStatus('Rejected');
-              }}
-            />
-            Rejected
-          </div>
-        </div>
-      </div> */}
 
       <Drawer
         className="infoDrawer"
