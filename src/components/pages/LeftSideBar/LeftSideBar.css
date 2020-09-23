@@ -45,6 +45,7 @@ h2 {
   margin-right: 3vh;
   bottom: 1vh;
   z-index: 5001;
+  background-color: white;
   /* border: 1px solid red; */
 }
 
