@@ -8,7 +8,7 @@ import './LeftSideBar.css';
 const LeftSideBar = () => {
   const [visible, setVisible] = useState(true);
 
-  const [setStatus] = useContext(ContextStatus);
+  const [status, setStatus] = useContext(ContextStatus);
   const [collapseMargin, setCollapseMargin] = useContext(ContextMargin);
   const [buttonImage, setButtonImage] = useState('back.png');
 
