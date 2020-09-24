@@ -1,13 +1,7 @@
 import React, { useState, useContext } from 'react';
-import {
-  ContextSearchData,
-  ContextLong,
-  ContextLat,
-  ContextView,
-  ContextStatus,
-} from '../Store';
+import { ContextSearchData, ContextView, ContextStatus } from '../Store';
 import * as d3 from 'd3';
-import ReactMapGL, { FlyToInterpolator } from 'react-map-gl';
+import { FlyToInterpolator } from 'react-map-gl';
 import './Search.css';
 
 const Search = () => {
@@ -50,9 +44,6 @@ const Search = () => {
 
   const FlyTo = () => {
     const flyViewport = {
-      // ...viewport,
-      // latitude: -1.723639,
-      // longitude: 29.366194,
       latitude: lat,
       longitude: long,
       zoom: 14,
@@ -61,7 +52,6 @@ const Search = () => {
       transitionEasing: d3.easeCubic,
     };
     setViewport(flyViewport);
-    console.log('fly viewport', flyViewport);
   };
 
   const setCoord = (lat, long) => {
@@ -105,11 +95,6 @@ const Search = () => {
               <b>Poject Stage: </b>
               {d.project_stage}
               <br />
-              {/* <b>Latitude: </b>
-              {d.latitude}
-              <br />
-              <b>Longitude: </b>
-              {d.longitude} */}
             </div>
           );
         })}

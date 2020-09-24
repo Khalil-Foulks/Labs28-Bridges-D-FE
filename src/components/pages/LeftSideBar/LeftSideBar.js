@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { Drawer } from 'antd';
 import Search from '../Search/Search';
-import { Context, ContextStatus, ContextMargin } from '../Store';
+import { ContextStatus, ContextMargin } from '../Store';
 import '../Map/map.css';
 import './LeftSideBar.css';
 
 const LeftSideBar = () => {
   const [visible, setVisible] = useState(true);
-  const [state, setState] = useContext(Context);
+
   const [status, setStatus] = useContext(ContextStatus);
   const [collapseMargin, setCollapseMargin] = useContext(ContextMargin);
   const [buttonImage, setButtonImage] = useState('back.png');
@@ -40,7 +40,7 @@ const LeftSideBar = () => {
           showDrawer();
         }}
       >
-        <img src={buttonImage} />
+        <img src={buttonImage} alt="Close drawer button" />
       </button>
 
       <Drawer
@@ -59,13 +59,6 @@ const LeftSideBar = () => {
 
         {/* Render search component */}
         <Search />
-        {/* 
-        <p className="Section">
-          Bridge Site: <span> {state.bridge.properties.bridge_name} </span>{' '}
-        </p>
-        <p>
-          District: <span> {state.bridge.properties.district_name} </span>{' '}
-        </p> */}
 
         <div className="iconGroup">
           <div className="iconBox">
