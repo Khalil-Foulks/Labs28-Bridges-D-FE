@@ -1,6 +1,9 @@
 #  Bridges to Prosperity
 
-##### https://main.d2gmbwiyrajcos.amplifyapp.com/
+##### https://main.d2gmbwiyrajcos.amplifyapp.com/ --- Deployed Site
+### https://youtu.be/fYHp5s21uws --- Stakeholder Demo at end of Labs25
+### https://youtu.be/yhBqqsxCLm4 --- Demo for Labs27 Team
+
 
 ## Contributors
 
