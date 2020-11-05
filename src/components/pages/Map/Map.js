@@ -114,9 +114,36 @@ const Map = () => {
     features: [],
   };
 
+  let items = [
+    'Complete',
+    'Under Construction',
+    'Confirmed',
+    'Prospecting',
+    'Identified',
+    'Rejected',
+  ];
+
+  const newWord = word => {
+    console.log(items.includes(word));
+    if (items.includes(word) === true) {
+      return word;
+    } else {
+      return null;
+    }
+  };
+
+  console.log(newWord('Confirmed'));
+
   for (let i = 0; i < data.length; i++) {
     //if statement filters bridges based on status
-    if (data[i].project_stage === status) {
+    if (
+      data[i].project_stage === newWord('Complete') ||
+      data[i].project_stage === newWord('Under Construction') ||
+      data[i].project_stage === newWord('Confirmed') ||
+      data[i].project_stage === newWord('Prospecting') ||
+      data[i].project_stage === newWord('Identified') ||
+      data[i].project_stage === newWord('Rejected')
+    ) {
       bridge.features.push({
         type: 'Feature',
         geometry: {
