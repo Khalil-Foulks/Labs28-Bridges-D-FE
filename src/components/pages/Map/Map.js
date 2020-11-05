@@ -97,11 +97,15 @@ const Map = () => {
 
   // Function to toggle map style state with toggle switch
   const mapStyle = () => {
-    if (style === 'mapbox://styles/jrhemann/ckfcmzx8d3s9y19qt9fuvfcn0')
-      setStyle('mapbox://styles/jrhemann/ckeu55hbw0qcy19l999jtufn9');
+    if (
+      style === 'mapbox://styles/bridgestoprosperity/ckh3x490s06uf1atng20ald51'
+    )
+      setStyle('mapbox://styles/bridgestoprosperity/ckf5rf05204ln19o7o0sdv860');
 
-    if (style === 'mapbox://styles/jrhemann/ckeu55hbw0qcy19l999jtufn9')
-      setStyle('mapbox://styles/jrhemann/ckfcmzx8d3s9y19qt9fuvfcn0');
+    if (
+      style === 'mapbox://styles/bridgestoprosperity/ckf5rf05204ln19o7o0sdv860'
+    )
+      setStyle('mapbox://styles/bridgestoprosperity/ckh3x490s06uf1atng20ald51');
   };
 
   //function to convert json data to geojson
