@@ -56,7 +56,7 @@ const LeftSideBar = () => {
   const handleClickComplete = () => {
     setStatusComplete(!statusComplete);
 
-    if (statusComplete) {
+    if (!statusComplete) {
       let newState = [...activeFilters, 'Complete'];
       setActiveFilters(newState);
     } else {
@@ -72,7 +72,7 @@ const LeftSideBar = () => {
   const handleClickUnderConstruction = () => {
     setStatusUnderConstruction(!statusUnderConstruction);
 
-    if (statusUnderConstruction) {
+    if (!statusUnderConstruction) {
       let newState = [...activeFilters, 'Under Construction'];
       setActiveFilters(newState);
     } else {
@@ -88,7 +88,7 @@ const LeftSideBar = () => {
   const handleClickConfirmed = () => {
     setStatusConfirmed(!statusConfirmed);
 
-    if (statusConfirmed) {
+    if (!statusConfirmed) {
       let newState = [...activeFilters, 'Confirmed'];
       setActiveFilters(newState);
     } else {
@@ -104,7 +104,7 @@ const LeftSideBar = () => {
   const handleClickProspecting = () => {
     setStatusProspecting(!statusProspecting);
 
-    if (statusProspecting) {
+    if (!statusProspecting) {
       let newState = [...activeFilters, 'Prospecting'];
       setActiveFilters(newState);
     } else {
@@ -120,7 +120,7 @@ const LeftSideBar = () => {
   const handleClickIdentified = () => {
     setStatusIdentified(!statusIdentified);
 
-    if (statusIdentified) {
+    if (!statusIdentified) {
       let newState = [...activeFilters, 'Identified'];
       setActiveFilters(newState);
     } else {
@@ -136,7 +136,7 @@ const LeftSideBar = () => {
   const handleClickRejected = () => {
     setStatusRejected(!statusRejected);
 
-    if (statusRejected) {
+    if (!statusRejected) {
       let newState = [...activeFilters, 'Rejected'];
       setActiveFilters(newState);
     } else {

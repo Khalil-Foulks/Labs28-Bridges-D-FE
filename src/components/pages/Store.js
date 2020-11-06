@@ -60,12 +60,12 @@ const Store = ({ children }) => {
   const [lat, setLat] = useState(initialLat);
 
   const [activeFilters, setActiveFilters] = useState(['Complete']);
-  const [statusComplete, setStatusComplete] = useState(false);
-  const [statusUnderConstruction, setStatusUnderConstruction] = useState(true);
-  const [statusConfirmed, setStatusConfirmed] = useState(true);
-  const [statusProspecting, setStatusProspecting] = useState(true);
-  const [statusIdentified, setStatusIdentified] = useState(true);
-  const [statusRejected, setStatusRejected] = useState(true);
+  const [statusComplete, setStatusComplete] = useState(true);
+  const [statusUnderConstruction, setStatusUnderConstruction] = useState(false);
+  const [statusConfirmed, setStatusConfirmed] = useState(false);
+  const [statusProspecting, setStatusProspecting] = useState(false);
+  const [statusIdentified, setStatusIdentified] = useState(false);
+  const [statusRejected, setStatusRejected] = useState(false);
 
   return (
     <ContextView.Provider value={[viewport, setViewport]}>
