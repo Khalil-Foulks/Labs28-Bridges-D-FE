@@ -121,24 +121,11 @@ const Map = () => {
     features: [],
   };
 
-  let items = [
-    // 'Complete',
-    // 'Under Construction',
-    // 'Confirmed',
-    // 'Prospecting',
-    // 'Identified',
-    // 'Rejected',
-  ];
-
   const newWord = word => {
-    // console.log(items.includes(word));
     if (activeFilters.includes(word) === true) {
       return word;
     }
   };
-
-  // console.log(newWord('Confirmed'));
-  // console.log(data[0])
 
   for (let i = 0; i < data.length; i++) {
     //if statement filters bridges based on status
@@ -173,17 +160,6 @@ const Map = () => {
       });
     }
   }
-
-  // // toggles a filter's status and adds or removes the filter from items array
-  // let handleClick = (statusFilter, setStatusFilter, filterName) => {
-  //   setStatusFilter(!statusFilter)
-
-  //   if (statusFilter) {
-  //     items.push(filterName)
-  //   } else {
-  //     items.filter(filterName)
-  //   }
-  // }
 
   // allows user to press "ESC" key to exit popup
   useEffect(() => {
