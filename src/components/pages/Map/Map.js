@@ -14,6 +14,9 @@ import { Drawer } from 'antd';
 import {
   Context,
   ContextStatus,
+  ContextRejectedFilter,
+  ContextCompleteFilter,
+  ContextActiveFilters,
   ContextStyle,
   ContextMargin,
   ContextSearchData,
@@ -75,6 +78,10 @@ const Map = () => {
   //margin state for moving the button that controls the sidebar
   const [collapseMargin, setCollapseMargin] = useContext(ContextMargin);
 
+  const [activeFilters, setActiveFilters] = useContext(ContextActiveFilters);
+  const [statusComplete, setStatusComplete] = useContext(ContextCompleteFilter);
+  const [statusRejected, setStatusRejected] = useContext(ContextRejectedFilter);
+
   //array that all the bridge data is pushed to before formatted to GeoJson
   const array = [];
 
@@ -115,28 +122,28 @@ const Map = () => {
   };
 
   let items = [
-    'Complete',
-    'Under Construction',
-    'Confirmed',
-    'Prospecting',
-    'Identified',
-    'Rejected',
+    // 'Complete',
+    // 'Under Construction',
+    // 'Confirmed',
+    // 'Prospecting',
+    // 'Identified',
+    // 'Rejected',
   ];
 
   const newWord = word => {
-    console.log(items.includes(word));
-    if (items.includes(word) === true) {
+    // console.log(items.includes(word));
+    if (activeFilters.includes(word) === true) {
       return word;
-    } else {
-      return null;
     }
   };
 
-  console.log(newWord('Confirmed'));
+  // console.log(newWord('Confirmed'));
+  // console.log(data[0])
 
   for (let i = 0; i < data.length; i++) {
     //if statement filters bridges based on status
     if (
+      // data[i].project_stage === 'Complete'
       data[i].project_stage === newWord('Complete') ||
       data[i].project_stage === newWord('Under Construction') ||
       data[i].project_stage === newWord('Confirmed') ||
@@ -166,6 +173,17 @@ const Map = () => {
       });
     }
   }
+
+  // // toggles a filter's status and adds or removes the filter from items array
+  // let handleClick = (statusFilter, setStatusFilter, filterName) => {
+  //   setStatusFilter(!statusFilter)
+
+  //   if (statusFilter) {
+  //     items.push(filterName)
+  //   } else {
+  //     items.filter(filterName)
+  //   }
+  // }
 
   // allows user to press "ESC" key to exit popup
   useEffect(() => {

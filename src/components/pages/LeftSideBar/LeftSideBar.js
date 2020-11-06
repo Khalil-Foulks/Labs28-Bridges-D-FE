@@ -1,7 +1,17 @@
 import React, { useContext, useState } from 'react';
 import { Drawer } from 'antd';
 import Search from '../Search/Search';
-import { ContextStatus, ContextMargin } from '../Store';
+import {
+  ContextStatus,
+  ContextMargin,
+  ContextActiveFilters,
+  ContextCompleteFilter,
+  ContextRejectedFilter,
+  ContextUnderConstructionFilter,
+  ContextConfirmedFilter,
+  ContextProspectingFilter,
+  ContextIdentifiedFilter,
+} from '../Store';
 import '../Map/map.css';
 import './LeftSideBar.css';
 
@@ -9,6 +19,22 @@ const LeftSideBar = () => {
   const [visible, setVisible] = useState(true);
 
   const [status, setStatus] = useContext(ContextStatus);
+
+  const [activeFilters, setActiveFilters] = useContext(ContextActiveFilters);
+  const [statusComplete, setStatusComplete] = useContext(ContextCompleteFilter);
+  const [statusRejected, setStatusRejected] = useContext(ContextRejectedFilter);
+  const [statusUnderConstruction, setStatusUnderConstruction] = useContext(
+    ContextUnderConstructionFilter
+  );
+  const [statusConfirmed, setStatusConfirmed] = useContext(
+    ContextConfirmedFilter
+  );
+  const [statusProspecting, setStatusProspecting] = useContext(
+    ContextProspectingFilter
+  );
+  const [statusIdentified, setStatusIdentified] = useContext(
+    ContextIdentifiedFilter
+  );
   const [collapseMargin, setCollapseMargin] = useContext(ContextMargin);
   const [buttonImage, setButtonImage] = useState('back.png');
 
@@ -26,6 +52,101 @@ const LeftSideBar = () => {
 
   const onClose = () => {
     setVisible(false);
+  };
+  const handleClickComplete = () => {
+    setStatusComplete(!statusComplete);
+
+    if (statusComplete) {
+      let newState = [...activeFilters, 'Complete'];
+      setActiveFilters(newState);
+    } else {
+      if (activeFilters.includes('Complete')) {
+        let newState = [...activeFilters].filter(
+          filterName => filterName !== 'Complete'
+        );
+        setActiveFilters(newState);
+      }
+    }
+  };
+
+  const handleClickUnderConstruction = () => {
+    setStatusUnderConstruction(!statusUnderConstruction);
+
+    if (statusUnderConstruction) {
+      let newState = [...activeFilters, 'Under Construction'];
+      setActiveFilters(newState);
+    } else {
+      if (activeFilters.includes('Under Construction')) {
+        let newState = [...activeFilters].filter(
+          filterName => filterName !== 'Under Construction'
+        );
+        setActiveFilters(newState);
+      }
+    }
+  };
+
+  const handleClickConfirmed = () => {
+    setStatusConfirmed(!statusConfirmed);
+
+    if (statusConfirmed) {
+      let newState = [...activeFilters, 'Confirmed'];
+      setActiveFilters(newState);
+    } else {
+      if (activeFilters.includes('Confirmed')) {
+        let newState = [...activeFilters].filter(
+          filterName => filterName !== 'Confirmed'
+        );
+        setActiveFilters(newState);
+      }
+    }
+  };
+
+  const handleClickProspecting = () => {
+    setStatusProspecting(!statusProspecting);
+
+    if (statusProspecting) {
+      let newState = [...activeFilters, 'Prospecting'];
+      setActiveFilters(newState);
+    } else {
+      if (activeFilters.includes('Prospecting')) {
+        let newState = [...activeFilters].filter(
+          filterName => filterName !== 'Prospecting'
+        );
+        setActiveFilters(newState);
+      }
+    }
+  };
+
+  const handleClickIdentified = () => {
+    setStatusIdentified(!statusIdentified);
+
+    if (statusIdentified) {
+      let newState = [...activeFilters, 'Identified'];
+      setActiveFilters(newState);
+    } else {
+      if (activeFilters.includes('Identified')) {
+        let newState = [...activeFilters].filter(
+          filterName => filterName !== 'Identified'
+        );
+        setActiveFilters(newState);
+      }
+    }
+  };
+
+  const handleClickRejected = () => {
+    setStatusRejected(!statusRejected);
+
+    if (statusRejected) {
+      let newState = [...activeFilters, 'Rejected'];
+      setActiveFilters(newState);
+    } else {
+      if (activeFilters.includes('Rejected')) {
+        let newState = [...activeFilters].filter(
+          filterName => filterName !== 'Rejected'
+        );
+        setActiveFilters(newState);
+      }
+    }
   };
 
   return (
@@ -67,7 +188,7 @@ const LeftSideBar = () => {
                 src="bridge-icon.png"
                 alt=""
                 onClick={() => {
-                  setStatus('Complete');
+                  handleClickComplete();
                 }}
               />
               Completed
@@ -77,7 +198,7 @@ const LeftSideBar = () => {
                 src="construction-icon.png"
                 alt=""
                 onClick={() => {
-                  setStatus('Under Construction');
+                  handleClickUnderConstruction();
                 }}
               />
               Building
@@ -87,7 +208,7 @@ const LeftSideBar = () => {
                 src="checked-icon.png"
                 alt=""
                 onClick={() => {
-                  setStatus('Confirmed');
+                  handleClickConfirmed();
                 }}
               />
               Confirmed
@@ -99,7 +220,7 @@ const LeftSideBar = () => {
                 src="binoculars-icon.png"
                 alt=""
                 onClick={() => {
-                  setStatus('Prospecting');
+                  handleClickProspecting();
                 }}
               />
               Prospecting
@@ -109,7 +230,7 @@ const LeftSideBar = () => {
                 src="detective-icon.png"
                 alt=""
                 onClick={() => {
-                  setStatus('Identified');
+                  handleClickIdentified();
                 }}
               />
               Identified
@@ -119,7 +240,7 @@ const LeftSideBar = () => {
                 src="rejected-icon.png"
                 alt=""
                 onClick={() => {
-                  setStatus('Rejected');
+                  handleClickRejected();
                 }}
               />
               Rejected
