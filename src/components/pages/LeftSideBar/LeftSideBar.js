@@ -53,100 +53,27 @@ const LeftSideBar = () => {
   const onClose = () => {
     setVisible(false);
   };
-  const handleClickComplete = () => {
-    setStatusComplete(!statusComplete);
 
-    if (!statusComplete) {
-      let newState = [...activeFilters, 'Complete'];
+  const addFilter = filter => {
+    let newState = [...activeFilters, filter];
+    setActiveFilters(newState);
+  };
+
+  const removeFilter = filter => {
+    if (activeFilters.includes(filter)) {
+      let newState = [...activeFilters].filter(
+        filterName => filterName !== filter
+      );
       setActiveFilters(newState);
-    } else {
-      if (activeFilters.includes('Complete')) {
-        let newState = [...activeFilters].filter(
-          filterName => filterName !== 'Complete'
-        );
-        setActiveFilters(newState);
-      }
     }
   };
 
-  const handleClickUnderConstruction = () => {
-    setStatusUnderConstruction(!statusUnderConstruction);
-
-    if (!statusUnderConstruction) {
-      let newState = [...activeFilters, 'Under Construction'];
-      setActiveFilters(newState);
-    } else {
-      if (activeFilters.includes('Under Construction')) {
-        let newState = [...activeFilters].filter(
-          filterName => filterName !== 'Under Construction'
-        );
-        setActiveFilters(newState);
-      }
+  const handleClick = (filterStatus, setFilterStatus, filter) => {
+    setFilterStatus(!filterStatus);
+    if (!filterStatus) {
+      addFilter(filter);
     }
-  };
-
-  const handleClickConfirmed = () => {
-    setStatusConfirmed(!statusConfirmed);
-
-    if (!statusConfirmed) {
-      let newState = [...activeFilters, 'Confirmed'];
-      setActiveFilters(newState);
-    } else {
-      if (activeFilters.includes('Confirmed')) {
-        let newState = [...activeFilters].filter(
-          filterName => filterName !== 'Confirmed'
-        );
-        setActiveFilters(newState);
-      }
-    }
-  };
-
-  const handleClickProspecting = () => {
-    setStatusProspecting(!statusProspecting);
-
-    if (!statusProspecting) {
-      let newState = [...activeFilters, 'Prospecting'];
-      setActiveFilters(newState);
-    } else {
-      if (activeFilters.includes('Prospecting')) {
-        let newState = [...activeFilters].filter(
-          filterName => filterName !== 'Prospecting'
-        );
-        setActiveFilters(newState);
-      }
-    }
-  };
-
-  const handleClickIdentified = () => {
-    setStatusIdentified(!statusIdentified);
-
-    if (!statusIdentified) {
-      let newState = [...activeFilters, 'Identified'];
-      setActiveFilters(newState);
-    } else {
-      if (activeFilters.includes('Identified')) {
-        let newState = [...activeFilters].filter(
-          filterName => filterName !== 'Identified'
-        );
-        setActiveFilters(newState);
-      }
-    }
-  };
-
-  const handleClickRejected = () => {
-    setStatusRejected(!statusRejected);
-
-    if (!statusRejected) {
-      let newState = [...activeFilters, 'Rejected'];
-      setActiveFilters(newState);
-    } else {
-      if (activeFilters.includes('Rejected')) {
-        let newState = [...activeFilters].filter(
-          filterName => filterName !== 'Rejected'
-        );
-        setActiveFilters(newState);
-      }
-    }
+    removeFilter(filter);
   };
 
   return (
@@ -188,7 +115,7 @@ const LeftSideBar = () => {
                 src="bridge-icon.png"
                 alt=""
                 onClick={() => {
-                  handleClickComplete();
+                  handleClick(statusComplete, setStatusComplete, 'Complete');
                 }}
               />
               Completed
@@ -198,7 +125,11 @@ const LeftSideBar = () => {
                 src="construction-icon.png"
                 alt=""
                 onClick={() => {
-                  handleClickUnderConstruction();
+                  handleClick(
+                    statusUnderConstruction,
+                    setStatusUnderConstruction,
+                    'Under Construction'
+                  );
                 }}
               />
               Building
@@ -208,7 +139,7 @@ const LeftSideBar = () => {
                 src="checked-icon.png"
                 alt=""
                 onClick={() => {
-                  handleClickConfirmed();
+                  handleClick(statusConfirmed, setStatusConfirmed, 'Confirmed');
                 }}
               />
               Confirmed
@@ -220,7 +151,11 @@ const LeftSideBar = () => {
                 src="binoculars-icon.png"
                 alt=""
                 onClick={() => {
-                  handleClickProspecting();
+                  handleClick(
+                    statusProspecting,
+                    setStatusProspecting,
+                    'Prospecting'
+                  );
                 }}
               />
               Prospecting
@@ -230,7 +165,11 @@ const LeftSideBar = () => {
                 src="detective-icon.png"
                 alt=""
                 onClick={() => {
-                  handleClickIdentified();
+                  handleClick(
+                    statusIdentified,
+                    setStatusIdentified,
+                    'Identified'
+                  );
                 }}
               />
               Identified
@@ -240,7 +179,7 @@ const LeftSideBar = () => {
                 src="rejected-icon.png"
                 alt=""
                 onClick={() => {
-                  handleClickRejected();
+                  handleClick(statusRejected, setStatusRejected, 'Rejected');
                 }}
               />
               Rejected
