@@ -203,7 +203,6 @@ const Map = () => {
     zoom: viewport.zoom,
     options: { radius: 75, maxZoom: 20 },
   });
-  // console.log(clusters)
 
   // allows user to press "ESC" key to exit popup
   useEffect(() => {
@@ -234,6 +233,7 @@ const Map = () => {
           cluster: isCluster,
           point_count: pointCount,
         } = cluster.properties;
+
         //there is a cluster to render
         if (isCluster) {
           return (
@@ -245,8 +245,8 @@ const Map = () => {
               <div
                 className="cluster-marker"
                 style={{
-                  width: `${10 + (pointCount / points.length) * 20}px`,
-                  height: `${10 + (pointCount / points.length) * 20}px`,
+                  width: `${10 + (pointCount / cluster.length) * 20}px`,
+                  height: `${10 + (pointCount / cluster.length) * 20}px`,
                 }}
                 onClick={() => {
                   const expansionZoom = Math.min(
@@ -271,7 +271,9 @@ const Map = () => {
             </Marker>
           );
         }
-        // console.log(cluster)
+        // console.log(points.length)
+        // console.log("pointCount", cluster.properties.point_count)
+
         //there is a single point to render
         return (
           <Marker
