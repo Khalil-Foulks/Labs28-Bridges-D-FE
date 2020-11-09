@@ -1,5 +1,10 @@
 import React, { useState, useContext } from 'react';
-import { ContextSearchData, ContextView, ContextStatus } from '../Store';
+import {
+  ContextSearchData,
+  ContextView,
+  ContextStatus,
+  ContextActiveFilters,
+} from '../Store';
 import * as d3 from 'd3';
 import { FlyToInterpolator } from 'react-map-gl';
 import './Search.css';
@@ -13,6 +18,7 @@ const Search = () => {
   const [status, setStatus] = useContext(ContextStatus);
   const [viewport, setViewport] = useContext(ContextView);
   const dataList = searchData;
+  const [activeFilters, setActiveFilters] = useContext(ContextActiveFilters);
 
   //List everything to exclude with filtering
   const exclude = ['id'];
@@ -59,6 +65,11 @@ const Search = () => {
     setLong(long);
   };
 
+  const addFilter = filter => {
+    let newState = [...activeFilters, filter];
+    setActiveFilters(newState);
+  };
+
   return (
     <div>
       {/* search bar */}
@@ -83,7 +94,7 @@ const Search = () => {
               onMouseEnter={() => setCoord(d.latitude, d.longitude)}
               onClick={() => {
                 FlyTo();
-                setStatus(d.project_stage);
+                addFilter(d.project_stage);
               }}
             >
               <b>Bridge Name: </b>

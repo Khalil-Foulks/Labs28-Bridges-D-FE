@@ -78,9 +78,8 @@ const Map = () => {
   //margin state for moving the button that controls the sidebar
   const [collapseMargin, setCollapseMargin] = useContext(ContextMargin);
 
+  //state of filter that are active
   const [activeFilters, setActiveFilters] = useContext(ContextActiveFilters);
-  const [statusComplete, setStatusComplete] = useContext(ContextCompleteFilter);
-  const [statusRejected, setStatusRejected] = useContext(ContextRejectedFilter);
 
   //array that all the bridge data is pushed to before formatted to GeoJson
   const array = [];
@@ -121,7 +120,8 @@ const Map = () => {
     features: [],
   };
 
-  const newWord = word => {
+  //checkes if input word is in activeFilters
+  const filterBy = word => {
     if (activeFilters.includes(word) === true) {
       return word;
     }
@@ -130,13 +130,12 @@ const Map = () => {
   for (let i = 0; i < data.length; i++) {
     //if statement filters bridges based on status
     if (
-      // data[i].project_stage === 'Complete'
-      data[i].project_stage === newWord('Complete') ||
-      data[i].project_stage === newWord('Under Construction') ||
-      data[i].project_stage === newWord('Confirmed') ||
-      data[i].project_stage === newWord('Prospecting') ||
-      data[i].project_stage === newWord('Identified') ||
-      data[i].project_stage === newWord('Rejected')
+      data[i].project_stage === filterBy('Complete') ||
+      data[i].project_stage === filterBy('Under Construction') ||
+      data[i].project_stage === filterBy('Confirmed') ||
+      data[i].project_stage === filterBy('Prospecting') ||
+      data[i].project_stage === filterBy('Identified') ||
+      data[i].project_stage === filterBy('Rejected')
     ) {
       bridge.features.push({
         type: 'Feature',
