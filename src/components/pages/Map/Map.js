@@ -6,6 +6,7 @@ import React, {
   useRef,
 } from 'react';
 import ReactMapGL, { Marker, NavigationControl } from 'react-map-gl';
+import useSupercluster from 'use-supercluster';
 import axios from 'axios';
 import './mapbox-gl.css';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -140,6 +141,39 @@ const Map = () => {
     }
   }
 
+  // add points
+  const points = data.map(point => ({
+    type: 'Feature',
+    properties: {
+      cluster: false,
+      bridgeId: point.id,
+      bridgeName: point.bridge_name,
+      project_stage: point.project_stage,
+    },
+    geometry: {
+      type: 'Point-B',
+      coordinates: [point.longitude, point.latitude],
+    },
+  }));
+
+  // add bounds
+  const bounds = mapRef.current
+    ? mapRef.current
+        .getMap()
+        .getBounds()
+        .toArray()
+        .flat()
+    : null;
+
+  //get clusters
+  const { clusters, supercluster } = useSupercluster({
+    points,
+    bounds,
+    zoom: viewport.zoom,
+    options: { radius: 75, maxZoom: 20 },
+  });
+
+  console.log(clusters);
   // allows user to press "ESC" key to exit popup
   useEffect(() => {
     const listener = e => {
@@ -163,37 +197,10 @@ const Map = () => {
       <div className="sidebar">
         <LeftSideBar />
       </div>
-      {/* Maps through all the data in bridges.json grabbing lat and lon to display markers */}
-      {bridge.features.map(bridge => (
-        <Marker
-          key={bridge.properties.id}
-          latitude={bridge.geometry.coordinates[0]}
-          longitude={bridge.geometry.coordinates[1]}
-        >
-          {/* image used to display point on map */}
-          <Tooltip
-            title={
-              <h2 style={{ color: 'white', margin: 'auto' }}>
-                {bridge.properties.bridge_name}
-              </h2>
-            }
-            arrow
-            placement="top"
-          >
-            <img
-              className="marker-btn"
-              src={`${bridge.properties.project_stage}.png`}
-              alt="bridge icon"
-              onClick={e => {
-                e.preventDefault();
-                setSelectedBridge(bridge);
-                setState({ bridge });
-                showDrawer();
-              }}
-            />
-          </Tooltip>
-        </Marker>
-      ))}
+      {bridge.features.map(bridge => {
+        if (bridge.project_stage === status) {
+        }
+      })}
 
       <div className="footerHolder">
         <Footer />
