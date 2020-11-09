@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import { Drawer } from 'antd';
 import Search from '../Search/Search';
 import {
-  ContextStatus,
   ContextMargin,
   ContextActiveFilters,
   ContextCompleteFilter,
@@ -17,8 +16,6 @@ import './LeftSideBar.css';
 
 const LeftSideBar = () => {
   const [visible, setVisible] = useState(true);
-
-  const [status, setStatus] = useContext(ContextStatus);
 
   const [activeFilters, setActiveFilters] = useContext(ContextActiveFilters);
   const [statusComplete, setStatusComplete] = useContext(ContextCompleteFilter);

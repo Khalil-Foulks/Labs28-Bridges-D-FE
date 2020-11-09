@@ -78,9 +78,8 @@ const Map = () => {
   //margin state for moving the button that controls the sidebar
   const [collapseMargin, setCollapseMargin] = useContext(ContextMargin);
 
+  //state of filter that are active
   const [activeFilters, setActiveFilters] = useContext(ContextActiveFilters);
-  const [statusComplete, setStatusComplete] = useContext(ContextCompleteFilter);
-  const [statusRejected, setStatusRejected] = useContext(ContextRejectedFilter);
 
   //array that all the bridge data is pushed to before formatted to GeoJson
   const array = [];
