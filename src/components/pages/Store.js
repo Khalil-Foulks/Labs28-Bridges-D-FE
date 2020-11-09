@@ -41,6 +41,14 @@ export const ContextLong = React.createContext();
 export const ContextLat = React.createContext();
 export const ContextView = React.createContext();
 
+export const ContextRejectedFilter = React.createContext();
+export const ContextCompleteFilter = React.createContext();
+export const ContextUnderConstructionFilter = React.createContext();
+export const ContextConfirmedFilter = React.createContext();
+export const ContextProspectingFilter = React.createContext();
+export const ContextIdentifiedFilter = React.createContext();
+export const ContextActiveFilters = React.createContext();
+
 const Store = ({ children }) => {
   const [viewport, setViewport] = useState(initialView);
   const [searchData, setSearchData] = useState([]);
@@ -51,6 +59,14 @@ const Store = ({ children }) => {
   const [long, setLong] = useState(initialLong);
   const [lat, setLat] = useState(initialLat);
 
+  const [activeFilters, setActiveFilters] = useState(['Complete']);
+  const [statusComplete, setStatusComplete] = useState(true);
+  const [statusUnderConstruction, setStatusUnderConstruction] = useState(false);
+  const [statusConfirmed, setStatusConfirmed] = useState(false);
+  const [statusProspecting, setStatusProspecting] = useState(false);
+  const [statusIdentified, setStatusIdentified] = useState(false);
+  const [statusRejected, setStatusRejected] = useState(false);
+
   return (
     <ContextView.Provider value={[viewport, setViewport]}>
       <ContextLong.Provider value={[long, setLong]}>
@@ -59,9 +75,40 @@ const Store = ({ children }) => {
             <ContextMargin.Provider value={[collapseMargin, setCollapseMargin]}>
               <ContextStyle.Provider value={[style, setStyle]}>
                 <ContextStatus.Provider value={[status, setStatus]}>
-                  <Context.Provider value={[state, setState]}>
-                    {children}
-                  </Context.Provider>
+                  <ContextRejectedFilter.Provider
+                    value={[statusRejected, setStatusRejected]}
+                  >
+                    <ContextCompleteFilter.Provider
+                      value={[statusComplete, setStatusComplete]}
+                    >
+                      <ContextUnderConstructionFilter.Provider
+                        value={[
+                          statusUnderConstruction,
+                          setStatusUnderConstruction,
+                        ]}
+                      >
+                        <ContextConfirmedFilter.Provider
+                          value={[statusConfirmed, setStatusConfirmed]}
+                        >
+                          <ContextProspectingFilter.Provider
+                            value={[statusProspecting, setStatusProspecting]}
+                          >
+                            <ContextIdentifiedFilter.Provider
+                              value={[statusIdentified, setStatusIdentified]}
+                            >
+                              <ContextActiveFilters.Provider
+                                value={[activeFilters, setActiveFilters]}
+                              >
+                                <Context.Provider value={[state, setState]}>
+                                  {children}
+                                </Context.Provider>
+                              </ContextActiveFilters.Provider>
+                            </ContextIdentifiedFilter.Provider>
+                          </ContextProspectingFilter.Provider>
+                        </ContextConfirmedFilter.Provider>
+                      </ContextUnderConstructionFilter.Provider>
+                    </ContextCompleteFilter.Provider>
+                  </ContextRejectedFilter.Provider>
                 </ContextStatus.Provider>
               </ContextStyle.Provider>
             </ContextMargin.Provider>

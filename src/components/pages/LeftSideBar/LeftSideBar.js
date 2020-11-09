@@ -1,14 +1,37 @@
 import React, { useContext, useState } from 'react';
 import { Drawer } from 'antd';
 import Search from '../Search/Search';
-import { ContextStatus, ContextMargin } from '../Store';
+import {
+  ContextMargin,
+  ContextActiveFilters,
+  ContextCompleteFilter,
+  ContextRejectedFilter,
+  ContextUnderConstructionFilter,
+  ContextConfirmedFilter,
+  ContextProspectingFilter,
+  ContextIdentifiedFilter,
+} from '../Store';
 import '../Map/map.css';
 import './LeftSideBar.css';
 
 const LeftSideBar = () => {
   const [visible, setVisible] = useState(true);
 
-  const [status, setStatus] = useContext(ContextStatus);
+  const [activeFilters, setActiveFilters] = useContext(ContextActiveFilters);
+  const [statusComplete, setStatusComplete] = useContext(ContextCompleteFilter);
+  const [statusRejected, setStatusRejected] = useContext(ContextRejectedFilter);
+  const [statusUnderConstruction, setStatusUnderConstruction] = useContext(
+    ContextUnderConstructionFilter
+  );
+  const [statusConfirmed, setStatusConfirmed] = useContext(
+    ContextConfirmedFilter
+  );
+  const [statusProspecting, setStatusProspecting] = useContext(
+    ContextProspectingFilter
+  );
+  const [statusIdentified, setStatusIdentified] = useContext(
+    ContextIdentifiedFilter
+  );
   const [collapseMargin, setCollapseMargin] = useContext(ContextMargin);
   const [buttonImage, setButtonImage] = useState('back.png');
 
@@ -26,6 +49,28 @@ const LeftSideBar = () => {
 
   const onClose = () => {
     setVisible(false);
+  };
+
+  const addFilter = filter => {
+    let newState = [...activeFilters, filter];
+    setActiveFilters(newState);
+  };
+
+  const removeFilter = filter => {
+    if (activeFilters.includes(filter)) {
+      let newState = [...activeFilters].filter(
+        filterName => filterName !== filter
+      );
+      setActiveFilters(newState);
+    }
+  };
+
+  const handleClick = (filterStatus, setFilterStatus, filter) => {
+    setFilterStatus(!filterStatus);
+    if (!filterStatus) {
+      addFilter(filter);
+    }
+    removeFilter(filter);
   };
 
   return (
@@ -67,7 +112,7 @@ const LeftSideBar = () => {
                 src="bridge-icon.png"
                 alt=""
                 onClick={() => {
-                  setStatus('Complete');
+                  handleClick(statusComplete, setStatusComplete, 'Complete');
                 }}
               />
               Completed
@@ -77,7 +122,11 @@ const LeftSideBar = () => {
                 src="construction-icon.png"
                 alt=""
                 onClick={() => {
-                  setStatus('Under Construction');
+                  handleClick(
+                    statusUnderConstruction,
+                    setStatusUnderConstruction,
+                    'Under Construction'
+                  );
                 }}
               />
               Building
@@ -87,7 +136,7 @@ const LeftSideBar = () => {
                 src="checked-icon.png"
                 alt=""
                 onClick={() => {
-                  setStatus('Confirmed');
+                  handleClick(statusConfirmed, setStatusConfirmed, 'Confirmed');
                 }}
               />
               Confirmed
@@ -99,7 +148,11 @@ const LeftSideBar = () => {
                 src="binoculars-icon.png"
                 alt=""
                 onClick={() => {
-                  setStatus('Prospecting');
+                  handleClick(
+                    statusProspecting,
+                    setStatusProspecting,
+                    'Prospecting'
+                  );
                 }}
               />
               Prospecting
@@ -109,7 +162,11 @@ const LeftSideBar = () => {
                 src="detective-icon.png"
                 alt=""
                 onClick={() => {
-                  setStatus('Identified');
+                  handleClick(
+                    statusIdentified,
+                    setStatusIdentified,
+                    'Identified'
+                  );
                 }}
               />
               Identified
@@ -119,7 +176,7 @@ const LeftSideBar = () => {
                 src="rejected-icon.png"
                 alt=""
                 onClick={() => {
-                  setStatus('Rejected');
+                  handleClick(statusRejected, setStatusRejected, 'Rejected');
                 }}
               />
               Rejected
