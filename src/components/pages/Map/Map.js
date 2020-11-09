@@ -160,22 +160,38 @@ const Map = () => {
       });
     }
   }
-
   // add points
-  const points = data.map(point => ({
+  const points = bridge.features.map(point => ({
     type: 'Feature',
     properties: {
       cluster: false,
-      bridgeId: point.id,
-      bridgeName: point.bridge_name,
-      project_stage: point.project_stage,
+      bridgeId: point.properties.id,
+      bridgeName: point.properties.bridge_name,
+      project_stage: point.properties.project_stage,
     },
     geometry: {
       type: 'Point-B',
-      coordinates: [point.longitude, point.latitude],
+      coordinates: [
+        point.geometry.coordinates[1],
+        point.geometry.coordinates[0],
+      ],
     },
   }));
-
+  // const  points = data.map(point => ({
+  //   type: 'Feature',
+  //   properties: {
+  //     cluster: false,
+  //     bridgeId: point.id,
+  //     bridgeName: point.bridge_name,
+  //     project_stage: point.project_stage,
+  //   },
+  //   geometry: {
+  //     type: 'Point-B',
+  //     coordinates: [point.longitude, point.latitude],
+  //   },
+  // }));
+  //   console.log("features", bridge.features)
+  console.log('points', points);
   // add bounds
   const bounds = mapRef.current
     ? mapRef.current
@@ -217,9 +233,62 @@ const Map = () => {
       <div className="sidebar">
         <LeftSideBar />
       </div>
-      {bridge.features.map(bridge => {
-        if (bridge.project_stage === status) {
+      {clusters.map(cluster => {
+        const [longitude, latitude] = cluster.geometry.coordinates;
+        const {
+          cluster: isCluster,
+          point_count: pointCount,
+        } = cluster.properties;
+        //there is a cluster to render
+        if (isCluster) {
+          return (
+            <Marker
+              key={`cluster-${cluster.id}`}
+              latitude={latitude}
+              longitude={longitude}
+            >
+              <div
+                className="cluster-marker"
+                style={{
+                  width: `${10 + (pointCount / points.length) * 20}px`,
+                  height: `${10 + (pointCount / points.length) * 20}px`,
+                }}
+              >
+                {pointCount}
+              </div>
+            </Marker>
+          );
         }
+        //there is a single point to render
+        return (
+          <Marker
+            key={`bridge-${cluster.properties.bridgeId}`}
+            latitude={latitude}
+            longitude={longitude}
+          >
+            <Tooltip
+              title={
+                <h2 style={{ color: 'white', margin: 'auto' }}>
+                  {cluster.properties.bridgeName}
+                </h2>
+              }
+              arrow
+              placement="top"
+            >
+              <img
+                className="marker-btn"
+                src={`${cluster.properties.project_stage}.png`}
+                alt="bridge icon"
+                onClick={e => {
+                  e.preventDefault();
+                  setSelectedBridge(bridge);
+                  setState({ bridge });
+                  showDrawer();
+                }}
+              />
+            </Tooltip>
+          </Marker>
+        );
       })}
 
       <div className="footerHolder">
