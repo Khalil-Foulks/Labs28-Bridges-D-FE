@@ -14,6 +14,9 @@ import { Drawer } from 'antd';
 import {
   Context,
   ContextStatus,
+  ContextRejectedFilter,
+  ContextCompleteFilter,
+  ContextActiveFilters,
   ContextStyle,
   ContextMargin,
   ContextSearchData,
@@ -75,6 +78,9 @@ const Map = () => {
   //margin state for moving the button that controls the sidebar
   const [collapseMargin, setCollapseMargin] = useContext(ContextMargin);
 
+  //state of filter that are active
+  const [activeFilters, setActiveFilters] = useContext(ContextActiveFilters);
+
   //array that all the bridge data is pushed to before formatted to GeoJson
   const array = [];
 
@@ -114,9 +120,23 @@ const Map = () => {
     features: [],
   };
 
+  //checkes if input word is in activeFilters
+  const filterBy = word => {
+    if (activeFilters.includes(word) === true) {
+      return word;
+    }
+  };
+
   for (let i = 0; i < data.length; i++) {
     //if statement filters bridges based on status
-    if (data[i].project_stage === status) {
+    if (
+      data[i].project_stage === filterBy('Complete') ||
+      data[i].project_stage === filterBy('Under Construction') ||
+      data[i].project_stage === filterBy('Confirmed') ||
+      data[i].project_stage === filterBy('Prospecting') ||
+      data[i].project_stage === filterBy('Identified') ||
+      data[i].project_stage === filterBy('Rejected')
+    ) {
       bridge.features.push({
         type: 'Feature',
         geometry: {
