@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 
 const initialState = {
-  bridge: {
+  cluster: {
+    type: 'Feature',
     geometry: { type: '', coordinates: Array(0) },
     properties: {
+      cluster: false,
       id: null,
       project_code: null,
       bridge_type: null,

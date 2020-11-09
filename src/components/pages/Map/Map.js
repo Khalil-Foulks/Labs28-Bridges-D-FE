@@ -169,9 +169,14 @@ const Map = () => {
     type: 'Feature',
     properties: {
       cluster: false,
-      bridgeId: point.properties.id,
-      bridgeName: point.properties.bridge_name,
+      id: point.properties.id,
+      project_code: point.properties.project_code,
+      bridge_type: point.properties.bridge_type,
       project_stage: point.properties.project_stage,
+      bridge_name: point.properties.bridge_name,
+      district_name: point.properties.district_name,
+      province_id: point.properties.province_id,
+      province_name: point.properties.province_name,
     },
     geometry: {
       type: 'Point-B',
@@ -198,6 +203,7 @@ const Map = () => {
     zoom: viewport.zoom,
     options: { radius: 75, maxZoom: 20 },
   });
+  // console.log(clusters)
 
   // allows user to press "ESC" key to exit popup
   useEffect(() => {
@@ -265,17 +271,18 @@ const Map = () => {
             </Marker>
           );
         }
+        // console.log(cluster)
         //there is a single point to render
         return (
           <Marker
-            key={`bridge-${cluster.properties.bridgeId}`}
+            key={`bridge-${cluster.properties.id}`}
             latitude={latitude}
             longitude={longitude}
           >
             <Tooltip
               title={
                 <h2 style={{ color: 'white', margin: 'auto' }}>
-                  {cluster.properties.bridgeName}
+                  {cluster.properties.bridge_name}
                 </h2>
               }
               arrow
@@ -288,7 +295,7 @@ const Map = () => {
                 onClick={e => {
                   e.preventDefault();
                   setSelectedBridge(bridge);
-                  setState({ bridge });
+                  setState({ cluster });
                   showDrawer();
                 }}
               />
@@ -339,14 +346,14 @@ const Map = () => {
         maskClosable={true}
         overflow={false}
       >
-        <h3>Bridge Name: {state.bridge.properties.bridge_name}</h3>
-        <h3>Province: {state.bridge.properties.province_name}</h3>
-        <h3>District: {state.bridge.properties.district_name}</h3>
-        <h3>Project Stage: {state.bridge.properties.project_stage}</h3>
-        <h3>Project Code: {state.bridge.properties.project_code}</h3>
-        <h3>Bridge Type: {state.bridge.properties.bridge_type}</h3>
+        <h3>Bridge Name: {state.cluster.properties.bridge_name}</h3>
+        <h3>Province: {state.cluster.properties.province_name}</h3>
+        <h3>District: {state.cluster.properties.district_name}</h3>
+        <h3>Project Stage: {state.cluster.properties.project_stage}</h3>
+        <h3>Project Code: {state.cluster.properties.project_code}</h3>
+        <h3>Bridge Type: {state.cluster.properties.bridge_type}</h3>
         <h3>
-          Individuals Served: {state.bridge.properties.individuals_served}
+          Individuals Served: {state.cluster.properties.individuals_served}
         </h3>
       </Drawer>
     </ReactMapGL>
