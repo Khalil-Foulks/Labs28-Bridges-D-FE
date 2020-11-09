@@ -5,7 +5,11 @@ import React, {
   useCallback,
   useRef,
 } from 'react';
-import ReactMapGL, { Marker, NavigationControl } from 'react-map-gl';
+import ReactMapGL, {
+  Marker,
+  NavigationControl,
+  FlyToInterpolator,
+} from 'react-map-gl';
 import useSupercluster from 'use-supercluster';
 import axios from 'axios';
 import './mapbox-gl.css';
@@ -177,21 +181,7 @@ const Map = () => {
       ],
     },
   }));
-  // const  points = data.map(point => ({
-  //   type: 'Feature',
-  //   properties: {
-  //     cluster: false,
-  //     bridgeId: point.id,
-  //     bridgeName: point.bridge_name,
-  //     project_stage: point.project_stage,
-  //   },
-  //   geometry: {
-  //     type: 'Point-B',
-  //     coordinates: [point.longitude, point.latitude],
-  //   },
-  // }));
-  //   console.log("features", bridge.features)
-  console.log('points', points);
+
   // add bounds
   const bounds = mapRef.current
     ? mapRef.current
@@ -209,7 +199,6 @@ const Map = () => {
     options: { radius: 75, maxZoom: 20 },
   });
 
-  console.log(clusters);
   // allows user to press "ESC" key to exit popup
   useEffect(() => {
     const listener = e => {
@@ -252,6 +241,23 @@ const Map = () => {
                 style={{
                   width: `${10 + (pointCount / points.length) * 20}px`,
                   height: `${10 + (pointCount / points.length) * 20}px`,
+                }}
+                onClick={() => {
+                  const expansionZoom = Math.min(
+                    supercluster.getClusterExpansionZoom(cluster.id),
+                    20
+                  );
+
+                  setViewport({
+                    ...viewport,
+                    latitude,
+                    longitude,
+                    zoom: expansionZoom,
+                    transitionInterpolator: new FlyToInterpolator({
+                      speed: 2,
+                    }),
+                    transitionDuration: 'auto',
+                  });
                 }}
               >
                 {pointCount}
