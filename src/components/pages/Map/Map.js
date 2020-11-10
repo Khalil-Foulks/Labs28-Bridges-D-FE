@@ -271,8 +271,6 @@ const Map = () => {
             </Marker>
           );
         }
-        // console.log(points.length)
-        // console.log("pointCount", cluster.properties.point_count)
 
         //there is a single point to render
         return (
