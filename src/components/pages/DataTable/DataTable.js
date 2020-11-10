@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useContext } from 'react';
 import PropTypes from 'prop-types';
+import * as d3 from 'd3';
+import { FlyToInterpolator } from 'react-map-gl';
 import {
   root,
   infoCard,
@@ -9,8 +11,13 @@ import {
   gold,
   container,
   table,
+  mapOpen,
+  mapClosed,
+  mapContainer,
 } from './dataStyles.js';
 import { columns } from './HeaderColumns';
+
+import { ContextView } from '../Store';
 
 import axios from 'axios';
 import {
@@ -31,6 +38,9 @@ import {
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import TablePage from '../../common/TablePage';
 import DetailsCard from './DetailsCard.js';
+import MiniMap from './MiniMap.js';
+import Graphs from './Graphs.js';
+import Graphs2 from './Graphs2.js';
 
 const descendingComparator = (a, b, orderBy) => {
   if (b[orderBy] < a[orderBy]) {
@@ -120,6 +130,9 @@ const useStyles = makeStyles({
   gold,
   container,
   table,
+  mapOpen,
+  mapClosed,
+  mapContainer,
 });
 
 export default function EnhancedTable() {
@@ -131,10 +144,13 @@ export default function EnhancedTable() {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [order, setOrder] = useState();
   const [orderBy, setOrderBy] = useState();
-  const [selected, setSelected] = React.useState([]);
-  const [dense, setDense] = React.useState(false);
+  const [selected, setSelected] = useState([]);
+  const [dense, setDense] = useState(false);
   const [currentData, setCurrentData] = useState([]);
   const [search, setSearch] = useState('');
+  const [viewport, setViewport] = useState([]);
+  const [long, setLong] = useState();
+  const [lat, setLat] = useState();
 
   const tableData = useMemo(() => {
     if (!search) return currentData;
@@ -202,8 +218,21 @@ export default function EnhancedTable() {
     setSelected([]);
   };
 
+  const FlyTo = () => {
+    const flyViewport = {
+      latitude: lat,
+      longitude: long,
+      zoom: 14,
+      transitionDuration: 5000,
+      transitionInterpolator: new FlyToInterpolator(),
+      transitionEasing: d3.easeCubic,
+    };
+    setViewport(flyViewport);
+  };
+
   const handleClick = (event, name) => {
     setSelected(name);
+    FlyTo();
     console.log('what is this', name);
   };
 
@@ -216,15 +245,42 @@ export default function EnhancedTable() {
     rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
   console.log(data);
 
+  const setCoord = (lat, long) => {
+    setLat(lat);
+    setLong(long);
+  };
+
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} sm={rowSize}>
+      <Grid container direction="row" item xs={6} sm={rowSize}>
         <DetailsCard record={selected === undefined ? '' : selected} />
+
+        {expanded === false ? (
+          <div className={classes.mapClosed}></div>
+        ) : (
+          <div className={classes.mapOpen}>
+            <MiniMap
+              map={viewport}
+              record={selected === undefined ? 3 : selected}
+            />
+            something
+          </div>
+        )}
+
         <ArrowForwardIcon onClick={handleExpandClick} />
       </Grid>
+
       <Grid item xs={12} sm={rowSize2}>
         <Card xs={12} sm={6} className={classes.chartCard}>
-          <dev>test</dev>
+          <Graphs />
+
+          {expanded === false ? (
+            <div className={classes.mapClosed}></div>
+          ) : (
+            <div className={classes.mapOpen}>
+              <Graphs2 />
+            </div>
+          )}
         </Card>
       </Grid>
 

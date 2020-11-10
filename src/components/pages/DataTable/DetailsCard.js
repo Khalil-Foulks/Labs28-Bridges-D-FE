@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import * as d3 from 'd3';
+import { FlyToInterpolator } from 'react-map-gl';
 import {
   Card,
   CardActionArea,

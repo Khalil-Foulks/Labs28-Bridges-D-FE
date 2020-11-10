@@ -10,7 +10,9 @@ export const infoCard = {
   backgroundColor: 'red',
 };
 export const chartCard = {
-  backgroundColor: 'blue',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-around',
 };
 export const tableCard = {
   minWidth: '100%',
@@ -23,4 +25,12 @@ export const gold = {
 };
 export const table = {
   minWidth: 750,
+};
+export const mapOpen = {};
+export const mapClosed = {
+  display: 'none',
+};
+
+export const mapContainer = {
+  maxHeight: 400,
 };
