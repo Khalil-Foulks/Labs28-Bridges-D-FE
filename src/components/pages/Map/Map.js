@@ -5,7 +5,12 @@ import React, {
   useCallback,
   useRef,
 } from 'react';
-import ReactMapGL, { Marker, NavigationControl } from 'react-map-gl';
+import ReactMapGL, {
+  Marker,
+  NavigationControl,
+  FlyToInterpolator,
+} from 'react-map-gl';
+import useSupercluster from 'use-supercluster';
 import axios from 'axios';
 import './mapbox-gl.css';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -159,6 +164,45 @@ const Map = () => {
       });
     }
   }
+  // add points
+  const points = bridge.features.map(point => ({
+    type: 'Feature',
+    properties: {
+      cluster: false,
+      id: point.properties.id,
+      project_code: point.properties.project_code,
+      bridge_type: point.properties.bridge_type,
+      project_stage: point.properties.project_stage,
+      bridge_name: point.properties.bridge_name,
+      district_name: point.properties.district_name,
+      province_id: point.properties.province_id,
+      province_name: point.properties.province_name,
+    },
+    geometry: {
+      type: 'Point-B',
+      coordinates: [
+        point.geometry.coordinates[1],
+        point.geometry.coordinates[0],
+      ],
+    },
+  }));
+
+  // add bounds
+  const bounds = mapRef.current
+    ? mapRef.current
+        .getMap()
+        .getBounds()
+        .toArray()
+        .flat()
+    : null;
+
+  //get clusters
+  const { clusters, supercluster } = useSupercluster({
+    points,
+    bounds,
+    zoom: viewport.zoom,
+    options: { radius: 75, maxZoom: 20 },
+  });
 
   // allows user to press "ESC" key to exit popup
   useEffect(() => {
@@ -183,37 +227,84 @@ const Map = () => {
       <div className="sidebar">
         <LeftSideBar />
       </div>
-      {/* Maps through all the data in bridges.json grabbing lat and lon to display markers */}
-      {bridge.features.map(bridge => (
-        <Marker
-          key={bridge.properties.id}
-          latitude={bridge.geometry.coordinates[0]}
-          longitude={bridge.geometry.coordinates[1]}
-        >
-          {/* image used to display point on map */}
-          <Tooltip
-            title={
-              <h2 style={{ color: 'white', margin: 'auto' }}>
-                {bridge.properties.bridge_name}
-              </h2>
-            }
-            arrow
-            placement="top"
+      {clusters.map(cluster => {
+        const [longitude, latitude] = cluster.geometry.coordinates;
+        const {
+          cluster: isCluster,
+          point_count: pointCount,
+        } = cluster.properties;
+
+        //there is a cluster to render
+        if (isCluster) {
+          return (
+            <Marker
+              key={`cluster-${cluster.id}`}
+              latitude={latitude}
+              longitude={longitude}
+            >
+              <div
+                className="cluster-marker"
+                style={{
+                  width: `${10 + (pointCount / cluster.length) * 20}px`,
+                  height: `${10 + (pointCount / cluster.length) * 20}px`,
+                }}
+                onClick={() => {
+                  const expansionZoom = Math.min(
+                    supercluster.getClusterExpansionZoom(cluster.id),
+                    20
+                  );
+
+                  setViewport({
+                    ...viewport,
+                    latitude,
+                    longitude,
+                    zoom: expansionZoom,
+                    transitionInterpolator: new FlyToInterpolator({
+                      speed: 2,
+                    }),
+                    transitionDuration: 'auto',
+                  });
+                }}
+              >
+                {pointCount}
+              </div>
+            </Marker>
+          );
+        }
+        // console.log(points.length)
+        // console.log("pointCount", cluster.properties.point_count)
+
+        //there is a single point to render
+        return (
+          <Marker
+            key={`bridge-${cluster.properties.id}`}
+            latitude={latitude}
+            longitude={longitude}
           >
-            <img
-              className="marker-btn"
-              src={`${bridge.properties.project_stage}.png`}
-              alt="bridge icon"
-              onClick={e => {
-                e.preventDefault();
-                setSelectedBridge(bridge);
-                setState({ bridge });
-                showDrawer();
-              }}
-            />
-          </Tooltip>
-        </Marker>
-      ))}
+            <Tooltip
+              title={
+                <h2 style={{ color: 'white', margin: 'auto' }}>
+                  {cluster.properties.bridge_name}
+                </h2>
+              }
+              arrow
+              placement="top"
+            >
+              <img
+                className="marker-btn"
+                src={`${cluster.properties.project_stage}.png`}
+                alt="bridge icon"
+                onClick={e => {
+                  e.preventDefault();
+                  setSelectedBridge(bridge);
+                  setState({ cluster });
+                  showDrawer();
+                }}
+              />
+            </Tooltip>
+          </Marker>
+        );
+      })}
 
       <div className="footerHolder">
         <Footer />
@@ -257,14 +348,14 @@ const Map = () => {
         maskClosable={true}
         overflow={false}
       >
-        <h3>Bridge Name: {state.bridge.properties.bridge_name}</h3>
-        <h3>Province: {state.bridge.properties.province_name}</h3>
-        <h3>District: {state.bridge.properties.district_name}</h3>
-        <h3>Project Stage: {state.bridge.properties.project_stage}</h3>
-        <h3>Project Code: {state.bridge.properties.project_code}</h3>
-        <h3>Bridge Type: {state.bridge.properties.bridge_type}</h3>
+        <h3>Bridge Name: {state.cluster.properties.bridge_name}</h3>
+        <h3>Province: {state.cluster.properties.province_name}</h3>
+        <h3>District: {state.cluster.properties.district_name}</h3>
+        <h3>Project Stage: {state.cluster.properties.project_stage}</h3>
+        <h3>Project Code: {state.cluster.properties.project_code}</h3>
+        <h3>Bridge Type: {state.cluster.properties.bridge_type}</h3>
         <h3>
-          Individuals Served: {state.bridge.properties.individuals_served}
+          Individuals Served: {state.cluster.properties.individuals_served}
         </h3>
       </Drawer>
     </ReactMapGL>
