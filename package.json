@@ -26,7 +26,6 @@
     "react-scripts": "^3.4.3",
     "recharts": "^1.8.5",
     "supercluster": "^7.1.0",
-    
     "use-supercluster": "^0.2.9"
   },
   "scripts": {
