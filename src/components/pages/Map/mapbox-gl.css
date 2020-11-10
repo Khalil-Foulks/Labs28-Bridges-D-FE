@@ -117,15 +117,7 @@
 }
 
 /* Icons */
-.cluster-marker {
-  color: #fff;
-  background: #1978c8;
-  border-radius: 50%;
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 .mapboxgl-ctrl-geocoder--icon {
   display: inline-block;
   vertical-align: middle;
