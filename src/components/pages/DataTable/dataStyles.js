@@ -1,7 +1,9 @@
 export const root = {
   display: 'flex',
   flexWrap: 'wrap',
-  backgroundColor: 'orange',
+};
+export const container = {
+  maxHeight: 400,
 };
 
 export const infoCard = {
@@ -18,4 +20,7 @@ export const green = {
 };
 export const gold = {
   backgroundColor: 'white',
+};
+export const table = {
+  minWidth: 750,
 };

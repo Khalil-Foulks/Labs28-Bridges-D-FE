@@ -5,11 +5,8 @@ import {
   TableRow,
   TableCell,
   makeStyles,
+  TablePagination,
 } from '@material-ui/core';
-
-import axios from 'axios';
-
-import { DataGrid } from '@material-ui/data-grid';
 
 const useStyles = makeStyles({
   table: {
@@ -29,14 +26,14 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TablePage(records, headCells) {
+export default function TablePage(data, columns) {
   const classes = useStyles();
 
-  const [detailsData, setDetailsData] = useState([]);
+  console.log('this', data.length);
 
   const pages = [5, 10, 25];
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(pages[pages]);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const TblContainer = props => (
     <Table className={classes.table}>
       {/* props.childern referers to all of the elements in the data table */}
@@ -47,16 +44,36 @@ export default function TablePage(records, headCells) {
     return (
       <TableHead>
         <TableRow>
-          {headCells.map(headCell => (
+          {columns.map(headCell => (
             <TableCell key={headCell.id}>{headCell.label}</TableCell>
           ))}
         </TableRow>
       </TableHead>
     );
   };
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+  const handleChangeRowsPerPage = event => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const TblPagination = () => (
+    <TablePagination
+      component="div"
+      page={page}
+      rowsPerPageOptions={[5, 10, 25]}
+      rowsPerPage={rowsPerPage}
+      count={data.length}
+      onChangePage={handleChangePage}
+      onChangeRowsPerPage={handleChangeRowsPerPage}
+    />
+  );
 
   return {
     TblContainer,
     TblHead,
+    TblPagination,
   };
 }
