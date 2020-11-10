@@ -1,8 +1,17 @@
+
 .marker-btn {
   width: 15px;
   height: 20px;
 }
-
+.cluster-marker {
+  color: #fff;
+  background: #1978c8;
+  border-radius: 50%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 /* .marker-btn:hover {
   width: 30px;
   height: 10px;
@@ -77,3 +86,4 @@ body {
 .infoDrawer h3 {
   color: #161345;
 }
+
