@@ -9,6 +9,8 @@ import ReactMapGL, {
   Marker,
   NavigationControl,
   FlyToInterpolator,
+  Layer,
+  Source,
 } from 'react-map-gl';
 import useSupercluster from 'use-supercluster';
 import axios from 'axios';
@@ -224,6 +226,11 @@ const Map = () => {
       //enable dragging
       onViewportChange={handleViewportChange}
     >
+      <Source
+        id="village-bounds"
+        type="vector"
+        url="mapbox://bridgestoprosperity.bmo6bmeu"
+      />
       <div className="sidebar">
         <LeftSideBar />
       </div>
