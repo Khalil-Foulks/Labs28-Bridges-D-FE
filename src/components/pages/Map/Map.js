@@ -94,7 +94,9 @@ const Map = () => {
   //hits endpoint and gets all bridges
   useEffect(() => {
     axios
-      .get('https://b2ptc.herokuapp.com/bridges')
+      .get(
+        'http://b2p2018-finalmerge1.eba-4apifgmz.us-east-1.elasticbeanstalk.com/all_data'
+      )
       .then(response => {
         response.data.map(element => {
           //pushes every element to array variable
@@ -148,20 +150,24 @@ const Map = () => {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [data[i].latitude, data[i].longitude],
+          coordinates: [
+            data[i].bridge_opportunity_gps_latitude,
+            data[i].bridge_opportunity_gps_longitude,
+          ],
         },
         properties: {
-          id: data[i].id,
-          project_code: data[i].project_code,
+          // id: data[i].id,
+          project_code: data[i].bridge_opportunity_project_code,
           bridge_name: data[i].bridge_name,
-          bridge_type: data[i].bridge_type,
-          district_id: data[i].district_id,
-          district_name: data[i].district_name,
-          province_id: data[i].province_id,
-          province_name: data[i].province_name,
-          project_stage: data[i].project_stage,
-          individuals_served: data[i].individuals_served,
-          bridge_image: data[i].bridge_image,
+          bridge_type: data[i].bridge_opportunity_bridge_type,
+          // district_id: data[i].district_id,
+          // district_name: data[i].district_name,
+          // province_id: data[i].province_id,
+          province_name: data[i].bridge_opportunity_level1_government,
+          project_stage: data[i].bridge_opportunity_stage,
+          individuals_served:
+            data[i].bridge_opportunity_individuals_directly_served,
+          // bridge_image: data[i].bridge_image,
         },
       });
     }
@@ -171,13 +177,13 @@ const Map = () => {
     type: 'Feature',
     properties: {
       cluster: false,
-      id: point.properties.id,
+      // id: point.properties.id,
       project_code: point.properties.project_code,
       bridge_type: point.properties.bridge_type,
       project_stage: point.properties.project_stage,
       bridge_name: point.properties.bridge_name,
-      district_name: point.properties.district_name,
-      province_id: point.properties.province_id,
+      // district_name: point.properties.district_name,
+      // province_id: point.properties.province_id,
       province_name: point.properties.province_name,
     },
     geometry: {
@@ -245,7 +251,7 @@ const Map = () => {
         if (isCluster) {
           return (
             <Marker
-              key={`cluster-${cluster.id}`}
+              key={`cluster-${cluster.project_code}`}
               latitude={latitude}
               longitude={longitude}
             >
@@ -355,7 +361,7 @@ const Map = () => {
       >
         <h3>Bridge Name: {state.cluster.properties.bridge_name}</h3>
         <h3>Province: {state.cluster.properties.province_name}</h3>
-        <h3>District: {state.cluster.properties.district_name}</h3>
+        {/* <h3>District: {state.cluster.properties.district_name}</h3> */}
         <h3>Project Stage: {state.cluster.properties.project_stage}</h3>
         <h3>Project Code: {state.cluster.properties.project_code}</h3>
         <h3>Bridge Type: {state.cluster.properties.bridge_type}</h3>
