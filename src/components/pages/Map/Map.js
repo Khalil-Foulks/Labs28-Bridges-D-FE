@@ -21,8 +21,6 @@ import { Drawer } from 'antd';
 import {
   Context,
   ContextStatus,
-  ContextRejectedFilter,
-  ContextCompleteFilter,
   ContextActiveFilters,
   ContextStyle,
   ContextMargin,
@@ -226,11 +224,28 @@ const Map = () => {
       //enable dragging
       onViewportChange={handleViewportChange}
     >
+      {/* Applies an additional layer to the 'source layer', which is attached to current 'map style'  */}
       <Source
-        id="village-bounds"
+        id="rwanda"
         type="vector"
         url="mapbox://bridgestoprosperity.bmo6bmeu"
       />
+      <Layer
+        id="rwanda_layer"
+        type="fill"
+        source="rwanda"
+        source-layer="Rwanda_Village_Boundaries-8eo00i"
+        paint={{
+          'fill-color': [
+            'rgb',
+            ['%', ['*', 100, ['to-number', ['get', 'Village_ID']]], 256],
+            ['%', ['*', 757, ['to-number', ['get', 'Village_ID']]], 256],
+            ['%', ['*', 911, ['to-number', ['get', 'Village_ID']]], 256],
+          ],
+          'fill-opacity': 0.07,
+        }}
+      />
+
       <div className="sidebar">
         <LeftSideBar />
       </div>
