@@ -139,12 +139,12 @@ const Map = () => {
   for (let i = 0; i < data.length; i++) {
     //if statement filters bridges based on status
     if (
-      data[i].project_stage === filterBy('Complete') ||
-      data[i].project_stage === filterBy('Under Construction') ||
-      data[i].project_stage === filterBy('Confirmed') ||
-      data[i].project_stage === filterBy('Prospecting') ||
-      data[i].project_stage === filterBy('Identified') ||
-      data[i].project_stage === filterBy('Rejected')
+      data[i].bridge_opportunity_stage === filterBy('Complete') ||
+      data[i].bridge_opportunity_stage === filterBy('Under Construction') ||
+      data[i].bridge_opportunity_stage === filterBy('Confirmed') ||
+      data[i].bridge_opportunity_stage === filterBy('Prospecting') ||
+      data[i].bridge_opportunity_stage === filterBy('Identified') ||
+      data[i].bridge_opportunity_stage === filterBy('Rejected')
     ) {
       bridge.features.push({
         type: 'Feature',
