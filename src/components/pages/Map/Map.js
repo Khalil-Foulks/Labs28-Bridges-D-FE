@@ -223,15 +223,18 @@ const Map = () => {
       mapStyle={style}
       //enable dragging
       onViewportChange={handleViewportChange}
+      interactiveLayerIds={['village_hover_layer']}
     >
-      {/* Applies an additional layer to the 'source layer', which is attached to current 'map style'  */}
+      {/* The Source tileset */}
       <Source
         id="rwanda"
         type="vector"
         url="mapbox://bridgestoprosperity.bmo6bmeu"
       />
+
+      {/* Applies a colored layer to tileset */}
       <Layer
-        id="rwanda_layer"
+        id="color_layer"
         type="fill"
         source="rwanda"
         source-layer="Rwanda_Village_Boundaries-8eo00i"
@@ -243,6 +246,34 @@ const Map = () => {
             ['%', ['*', 911, ['to-number', ['get', 'Village_ID']]], 256],
           ],
           'fill-opacity': 0.07,
+        }}
+      />
+
+      {/* Applies a border layer to tileset */}
+      <Layer
+        id="village_border_layer"
+        type="line"
+        source="rwanda"
+        source-layer="Rwanda_Village_Boundaries-8eo00i"
+        paint={{
+          'line-color': '#627BC1',
+          'line-width': 1,
+        }}
+      />
+
+      <Layer
+        id="village_border_layer2"
+        type="line"
+        source="rwanda"
+        source-layer="Rwanda_Village_Boundaries-8eo00i"
+        paint={{
+          'line-color': [
+            'rgb',
+            ['%', ['*', 100, ['to-number', ['get', 'Distr_ID']]], 256],
+            100,
+            ['%', ['*', 911, ['to-number', ['get', 'Distr_ID']]], 256],
+          ],
+          'line-width': 2,
         }}
       />
 
