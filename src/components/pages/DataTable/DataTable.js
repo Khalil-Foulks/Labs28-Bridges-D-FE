@@ -21,12 +21,11 @@ import {
   TableSortLabel,
   Drawer,
   Divider,
-  ListItem,
-  List,
   withStyles,
   Toolbar,
   AppBar,
   Paper,
+  TextField,
 } from '@material-ui/core';
 import MuiTableCell from '@material-ui/core/TableCell';
 import { ThemeProvider } from '@material-ui/core';
@@ -144,18 +143,38 @@ export default function EnhancedTable() {
 
     return currentData.filter(searchinfo => {
       return (
+        searchinfo.country.toLowerCase().includes(search.toLowerCase()) ||
+        searchinfo.name_of_nearest_city
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
+        searchinfo.bridge_opportunity_level1_government
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
+        searchinfo.bridge_opportunity_level2_government
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
         searchinfo.bridge_name.toLowerCase().includes(search.toLowerCase()) ||
-        searchinfo.bridge_type.toLowerCase().includes(search.toLowerCase()) ||
-        searchinfo.district_name.toLowerCase().includes(search.toLowerCase()) ||
-        searchinfo.project_stage.toLowerCase().includes(search.toLowerCase()) ||
-        searchinfo.province_name.toLowerCase().includes(search.toLowerCase()) ||
-        searchinfo.district_id.toString().includes(search) ||
-        searchinfo.individuals_served.toString().includes(search) ||
-        searchinfo.latitude.toString().includes(search) ||
+        searchinfo.bridge_opportunity_bridge_type
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
+        searchinfo.bridge_opportunity_project_code
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
+        searchinfo.primary_occupations
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
+        searchinfo.primary_crops_grown
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
+        searchinfo.bridge_opportunity_individuals_directly_served
+          .toString()
+          .includes(search) ||
+        searchinfo.bridge_opportunity_gps_latitude
+          .toString()
+          .includes(search) ||
         searchinfo.project_code.toString().includes(search) ||
         searchinfo.project_stage.toString().includes(search) ||
-        searchinfo.province_id.toString().includes(search) ||
-        searchinfo.longitude.toString().includes(search)
+        searchinfo.bridge_opportunity_gps_longitude.toString().includes(search)
       );
     });
   }, [currentData, search]);
@@ -163,12 +182,16 @@ export default function EnhancedTable() {
   // const[cardDetails, setCardDetails] = useContext(ContextDataDetails);
   //Axios call to get the Bridge Data
   useEffect(() => {
-    axios.get('https://b2ptc.herokuapp.com/bridges').then(res => {
-      setData(res.data);
-      setCurrentData(res.data);
-    });
+    axios
+      .get(
+        'http://b2p2018-finalmerge1.eba-4apifgmz.us-east-1.elasticbeanstalk.com/all_data'
+      )
+      .then(res => {
+        setData(res.data);
+        setCurrentData(res.data);
+      });
   }, []);
-  // console.log(currentData);
+  console.log(currentData);
 
   //Show new page When table is updated
   const handleChangePage = (event, newPage) => {
@@ -198,7 +221,7 @@ export default function EnhancedTable() {
   const drawerWidth = 240;
   const useStyles = makeStyles(theme => ({
     container: {
-      maxHeight: 3005,
+      maxHeight: 300,
       backgroundColor: '#372d4a',
       overflowY: 'auto',
       margin: 0,
@@ -220,6 +243,7 @@ export default function EnhancedTable() {
     table: {
       minWidth: 750,
       maxHeight: '400px',
+      backgroundColor: '#372d4a',
     },
     appBar: {
       width: `calc(100% - ${drawerWidth}px)`,
@@ -256,16 +280,21 @@ export default function EnhancedTable() {
     },
   }));
 
-  const Row = makeStyles({
+  const CssTextField = withStyles({
     root: {
-      // borderBottom: "none",
-      margin: '20%',
-      backgroundColor: 'orange',
+      '& label': {
+        color: '#39d1e6',
+      },
+
+      '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+          borderColor: '#39d1e6',
+        },
+      },
     },
-  });
+  })(TextField);
 
   const classes = useStyles();
-  const classes1 = Row();
 
   const FlyTo = () => {
     const flyViewport = {
@@ -286,12 +315,21 @@ export default function EnhancedTable() {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <div className="filter-search">
-            <input
+            <CssTextField
+              variant="outlined"
+              id="custom-css-outlined-input"
               type="text"
               name="Search Projects"
-              placeholder="search"
+              label="Search"
               value={search}
               onChange={e => setSearch(e.target.value)}
+              style={{
+                backgroundColor: '#372d4a',
+                color: '#39d1e6',
+                borderColor: 'white',
+                boxShadow: 'none',
+              }}
+              size="small"
             />
           </div>
         </Toolbar>
@@ -329,13 +367,20 @@ export default function EnhancedTable() {
             </Paper>
           </Grid>
 
-          <Paper elevation={7} style={{ maxHeight: '300px' }}>
+          <Paper
+            elevation={7}
+            style={{
+              maxHeight: '300px',
+              width: '100%',
+              backgroundColor: '#372d4a',
+            }}
+          >
             <TableContainer className={classes.container}>
               <Table
                 className={classes.table}
                 aria-labelledby="tableTitle"
                 size={dense ? 'small' : 'medium'}
-                aria-label="enhanced table"
+                aria-label="sticky table"
               >
                 <EnhancedTableHead
                   classes={classes}
@@ -355,7 +400,6 @@ export default function EnhancedTable() {
                       // console.log('can i see the index', index)
                       return (
                         <TableRow
-                          classes={{ root: classes1.root }}
                           hover
                           // className ={tableRow1 }
                           // index % 2 ? classes.tableRow0:classes.tableRow1
@@ -376,24 +420,25 @@ export default function EnhancedTable() {
                           key={row}
                           // selected={isItemSelected}
                         >
+                          <TableCell align="left">{row.country}</TableCell>
+                          <TableCell align="left">
+                            {row.name_of_nearest_city}
+                          </TableCell>
+                          <TableCell align="left">
+                            {row.bridge_opportunity_level1_government}
+                          </TableCell>
+                          <TableCell align="left">
+                            {row.bridge_opportunity_level2_government}
+                          </TableCell>
                           <TableCell align="left">{row.bridge_name}</TableCell>
-                          <TableCell align="left">{row.bridge_type}</TableCell>
-                          <TableCell align="left">{row.district_id}</TableCell>
                           <TableCell align="left">
-                            {row.district_name}
+                            {row.bridge_opportunity_bridge_type}
                           </TableCell>
                           <TableCell align="left">
-                            {row.individuals_served}
+                            {row.bridge_opportunity_stage}
                           </TableCell>
-                          <TableCell align="left">{row.latitude}</TableCell>
-                          <TableCell align="left">{row.longitude}</TableCell>
-                          <TableCell align="left">{row.project_code}</TableCell>
                           <TableCell align="left">
-                            {row.project_stage}
-                          </TableCell>
-                          <TableCell align="left">{row.province_id}</TableCell>
-                          <TableCell align="left">
-                            {row.province_name}
+                            {row.bridge_opportunity_project_code}
                           </TableCell>
                         </TableRow>
                       );

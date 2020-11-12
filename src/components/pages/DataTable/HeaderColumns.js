@@ -1,60 +1,43 @@
 export const columns = [
   {
+    id: 'country',
+    width: 200,
+    label: 'Country',
+  },
+  {
+    id: 'name_of_nearest_city',
+    width: 130,
+    label: 'Nearest City',
+  },
+  {
+    id: 'bridge_opportunity_level1_government',
+    width: 200,
+    label: 'Province Name',
+  },
+  {
+    id: 'bridge_opportunity_level2_government',
+    width: 130,
+    label: 'District Name',
+  },
+  {
     id: 'bridge_name',
     width: 130,
     label: 'Bridge Name',
   },
 
   {
-    id: 'bridge_type',
+    id: 'bridge_opportunity_bridge_type',
     width: 130,
     label: 'Bridge Type',
   },
   {
-    id: 'district_id',
-    width: 130,
-    label: 'District Id',
-  },
-  {
-    id: 'district_name',
-    width: 130,
-    label: 'District Name',
-  },
-
-  {
-    id: 'individuals_served',
-    width: 130,
-    label: 'Individuals Served',
-  },
-  {
-    id: 'latitude',
-    width: 130,
-    label: 'Latitude',
-  },
-
-  {
-    id: 'longitude',
-    width: 130,
-    label: 'Longitude',
-  },
-  {
-    id: 'project_code',
-    width: 130,
-    label: 'Project Code',
-  },
-  {
-    id: 'project_stage',
+    id: 'bridge_opportunity_stage',
     width: 130,
     label: 'Project Stage',
   },
   {
-    id: 'province_id',
+    id: 'bridge_opportunity_project_code',
     width: 130,
-    label: 'Province Id',
-  },
-  {
-    id: 'province_name',
-    width: 200,
-    label: 'Province Name',
+    label: 'Project Code',
   },
 ];
