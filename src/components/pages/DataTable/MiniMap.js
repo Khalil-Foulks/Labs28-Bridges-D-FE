@@ -15,8 +15,8 @@ const MiniMap = ({ record, map }) => {
   const [viewport, setViewport] = useState({
     width: 500,
     height: 200,
-    latitude: lat,
-    longitude: long,
+    latitude: -2.4334,
+    longitude: 28.96946,
     zoom: 10.2,
     pitch: 0,
     bearing: -22,

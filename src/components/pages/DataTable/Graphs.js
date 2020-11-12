@@ -49,10 +49,10 @@ const tragedy = [{ name: 'tragedy', injuries: 13, deaths: 2, amt: 2400 }];
 
 const Graphs = () => {
   return (
-    <div className="bar-container" style={{ width: '200px', margin: '0' }}>
+    <div className="bar-container" style={{ margin: '0', height: '100%' }}>
       <div>
-        <BarChart className="chart1" width={200} height={300} data={served}>
-          <CartesianGrid strokeDasharray="1 1" />
+        <BarChart className="chart1" width={100} height={175} data={served}>
+          <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
@@ -62,7 +62,7 @@ const Graphs = () => {
         </BarChart>
       </div>
       <div>
-        <BarChart width={200} height={300} data={tragedy}>
+        <BarChart width={100} height={175} data={tragedy}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />

@@ -28,6 +28,7 @@ import {
   ContextLong,
   ContextLat,
   ContextView,
+  ContextDataDetails,
 } from '../Store';
 import './map.css';
 import LeftSideBar from '../LeftSideBar/LeftSideBar';
@@ -51,6 +52,8 @@ const Map = () => {
   const onClose = () => {
     setVisible(false);
   };
+
+  const [cardDetails, setCardDetails] = useContext(ContextDataDetails);
 
   //state of longitude and latitude for fly to function
   const [long, setLong] = useContext(ContextLong);
@@ -215,148 +218,152 @@ const Map = () => {
   }, []);
 
   return (
-    <ReactMapGL
-      ref={mapRef}
-      {...viewport}
-      mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-      //Style of the map. Initial state set in Context store
-      mapStyle={style}
-      //enable dragging
-      onViewportChange={handleViewportChange}
-    >
-      <div className="sidebar">
-        <LeftSideBar />
-      </div>
-      {clusters.map(cluster => {
-        const [longitude, latitude] = cluster.geometry.coordinates;
-        const {
-          cluster: isCluster,
-          point_count: pointCount,
-        } = cluster.properties;
+    <div className="mapbody" style={{ overflow: 'hidden' }}>
+      <ReactMapGL
+        ref={mapRef}
+        {...viewport}
+        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+        //Style of the map. Initial state set in Context store
+        mapStyle={style}
+        //enable dragging
+        onViewportChange={handleViewportChange}
+      >
+        <div className="sidebar">
+          <LeftSideBar />
+        </div>
+        {clusters.map(cluster => {
+          const [longitude, latitude] = cluster.geometry.coordinates;
+          const {
+            cluster: isCluster,
+            point_count: pointCount,
+          } = cluster.properties;
 
-        //there is a cluster to render
-        if (isCluster) {
+          //there is a cluster to render
+          if (isCluster) {
+            return (
+              <Marker
+                key={`cluster-${cluster.id}`}
+                latitude={latitude}
+                longitude={longitude}
+              >
+                <div
+                  className="cluster-marker"
+                  style={{
+                    //
+                    width: '100%',
+                    height: `${10 + (pointCount / cluster.length) * 20}px`,
+                    overflow: 'hidden',
+                  }}
+                  onClick={() => {
+                    const expansionZoom = Math.min(
+                      supercluster.getClusterExpansionZoom(cluster.id),
+                      20
+                    );
+
+                    setViewport({
+                      ...viewport,
+                      latitude,
+                      longitude,
+                      zoom: expansionZoom,
+                      transitionInterpolator: new FlyToInterpolator({
+                        speed: 2,
+                      }),
+                      transitionDuration: 'auto',
+                    });
+                  }}
+                >
+                  {pointCount}
+                </div>
+              </Marker>
+            );
+          }
+
+          //there is a single point to render
           return (
             <Marker
-              key={`cluster-${cluster.id}`}
+              key={`bridge-${cluster.properties.id}`}
               latitude={latitude}
               longitude={longitude}
             >
-              <div
-                className="cluster-marker"
-                style={{
-                  width: `${10 + (pointCount / cluster.length) * 20}px`,
-                  height: `${10 + (pointCount / cluster.length) * 20}px`,
-                }}
-                onClick={() => {
-                  const expansionZoom = Math.min(
-                    supercluster.getClusterExpansionZoom(cluster.id),
-                    20
-                  );
-
-                  setViewport({
-                    ...viewport,
-                    latitude,
-                    longitude,
-                    zoom: expansionZoom,
-                    transitionInterpolator: new FlyToInterpolator({
-                      speed: 2,
-                    }),
-                    transitionDuration: 'auto',
-                  });
-                }}
+              <Tooltip
+                title={
+                  <h2 style={{ color: 'white', margin: 'auto' }}>
+                    {cluster.properties.bridge_name}
+                  </h2>
+                }
+                arrow
+                placement="top"
               >
-                {pointCount}
-              </div>
+                <img
+                  className="marker-btn"
+                  src={`${cluster.properties.project_stage}.png`}
+                  alt="bridge icon"
+                  onClick={e => {
+                    e.preventDefault();
+                    setSelectedBridge(bridge);
+                    setState({ cluster });
+                    showDrawer();
+                  }}
+                />
+              </Tooltip>
             </Marker>
           );
-        }
+        })}
 
-        //there is a single point to render
-        return (
-          <Marker
-            key={`bridge-${cluster.properties.id}`}
-            latitude={latitude}
-            longitude={longitude}
-          >
-            <Tooltip
-              title={
-                <h2 style={{ color: 'white', margin: 'auto' }}>
-                  {cluster.properties.bridge_name}
-                </h2>
-              }
-              arrow
-              placement="top"
-            >
-              <img
-                className="marker-btn"
-                src={`${cluster.properties.project_stage}.png`}
-                alt="bridge icon"
-                onClick={e => {
-                  e.preventDefault();
-                  setSelectedBridge(bridge);
-                  setState({ cluster });
-                  showDrawer();
-                }}
-              />
-            </Tooltip>
-          </Marker>
-        );
-      })}
+        <div className="footerHolder">
+          <Footer />
+        </div>
+        {/* controls for zooming in and out*/}
+        <div className="zoom-controls">
+          <NavigationControl
+            showZoom={true}
+            showCompass={true}
+            showFullscreen={true}
+          />
+        </div>
+        {/* Toggle view to satellite and regular view */}
+        <div
+          className="mini-view"
+          onClick={() => {
+            setToggle(!toggle);
+            mapStyle();
+          }}
+        >
+          {toggle ? (
+            <div className="sat-button">
+              <img className="satellite" src="./mapButton.png" />
+            </div>
+          ) : (
+            <div className="nav-button">
+              <img className="satellite" src="./satelliteButton.png" />
+            </div>
+          )}
+        </div>
 
-      <div className="footerHolder">
-        <Footer />
-      </div>
-      {/* controls for zooming in and out*/}
-      <div className="zoom-controls">
-        <NavigationControl
-          showZoom={true}
-          showCompass={true}
-          showFullscreen={true}
-        />
-      </div>
-      {/* Toggle view to satellite and regular view */}
-      <div
-        className="mini-view"
-        onClick={() => {
-          setToggle(!toggle);
-          mapStyle();
-        }}
-      >
-        {toggle ? (
-          <div className="sat-button">
-            <img className="satellite" src="./mapButton.png" />
-          </div>
-        ) : (
-          <div className="nav-button">
-            <img className="satellite" src="./satelliteButton.png" />
-          </div>
-        )}
-      </div>
-
-      <Drawer
-        className="infoDrawer"
-        title={<h2>Bridge Info</h2>}
-        drawerStyle={{ backgroundColor: 'white' }}
-        placement="right"
-        closable={true}
-        onClose={onClose}
-        visible={visible}
-        mask={false}
-        maskClosable={true}
-        overflow={false}
-      >
-        <h3>Bridge Name: {state.cluster.properties.bridge_name}</h3>
-        <h3>Province: {state.cluster.properties.province_name}</h3>
-        <h3>District: {state.cluster.properties.district_name}</h3>
-        <h3>Project Stage: {state.cluster.properties.project_stage}</h3>
-        <h3>Project Code: {state.cluster.properties.project_code}</h3>
-        <h3>Bridge Type: {state.cluster.properties.bridge_type}</h3>
-        <h3>
-          Individuals Served: {state.cluster.properties.individuals_served}
-        </h3>
-      </Drawer>
-    </ReactMapGL>
+        <Drawer
+          className="infoDrawer"
+          title={<h2>Bridge Info</h2>}
+          drawerStyle={{ backgroundColor: 'white' }}
+          placement="right"
+          closable={true}
+          onClose={onClose}
+          visible={visible}
+          mask={false}
+          maskClosable={true}
+          overflow={false}
+        >
+          <h3>Bridge Name: {state.cluster.properties.bridge_name}</h3>
+          <h3>Province: {state.cluster.properties.province_name}</h3>
+          <h3>District: {state.cluster.properties.district_name}</h3>
+          <h3>Project Stage: {state.cluster.properties.project_stage}</h3>
+          <h3>Project Code: {state.cluster.properties.project_code}</h3>
+          <h3>Bridge Type: {state.cluster.properties.bridge_type}</h3>
+          <h3>
+            Individuals Served: {state.cluster.properties.individuals_served}
+          </h3>
+        </Drawer>
+      </ReactMapGL>
+    </div>
   );
 };
 

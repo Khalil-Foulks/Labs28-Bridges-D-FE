@@ -1,4 +1,5 @@
 import React from 'react';
+
 import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
@@ -44,11 +45,13 @@ function App() {
   return (
     <Security {...config} onAuthRequired={authHandler}>
       <Switch>
-        <Route path="/main" component={Main} />
-        <Route path="/data" component={DataTable} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/implicit/callback" component={LoginCallback} />
-        {/* any of the routes you need secured should be registered as SecureRoutes */}
+        <div style={{ height: '100vh' }}>
+          <Route path="/main" component={Main} />
+          <Route path="/data" component={DataTable} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/implicit/callback" component={LoginCallback} />
+          {/* any of the routes you need secured should be registered as SecureRoutes */}
+        </div>
         <SecureRoute
           path="/"
           exact

@@ -2,38 +2,35 @@ import React, { useState, useEffect, useMemo, useContext } from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 import { FlyToInterpolator } from 'react-map-gl';
-import {
-  root,
-  infoCard,
-  chartCard,
-  tableCard,
-  green,
-  gold,
-  container,
-  table,
-  mapOpen,
-  mapClosed,
-  mapContainer,
-} from './dataStyles.js';
+
 import { columns } from './HeaderColumns';
+import './datatable.css';
 
 import { ContextView } from '../Store';
 
 import axios from 'axios';
 import {
   makeStyles,
-  Card,
   Grid,
-  CardMedia,
   TableBody,
   TableRow,
-  TableCell,
   TablePagination,
   TableHead,
   Table,
   TableContainer,
   TableSortLabel,
+  Drawer,
+  Divider,
+  ListItem,
+  List,
+  withStyles,
+  Toolbar,
+  AppBar,
+  Paper,
 } from '@material-ui/core';
+import MuiTableCell from '@material-ui/core/TableCell';
+import { ThemeProvider } from '@material-ui/core';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import TablePage from '../../common/TablePage';
@@ -41,6 +38,17 @@ import DetailsCard from './DetailsCard.js';
 import MiniMap from './MiniMap.js';
 import Graphs from './Graphs.js';
 import Graphs2 from './Graphs2.js';
+import BodyTable from './BodyTable.js';
+import Graphs3 from './Graphs3';
+
+const TableCell = withStyles({
+  root: {
+    borderColor: '#372d4a',
+
+    borderBottomWidth: '10px',
+    color: 'white',
+  },
+})(MuiTableCell);
 
 const descendingComparator = (a, b, orderBy) => {
   if (b[orderBy] < a[orderBy]) {
@@ -68,6 +76,9 @@ const stableSort = (array, comparator) => {
   return stabilizedThis.map(el => el[0]);
 };
 
+// This is the compnent for the Table Header
+// it takes in the columns component for the Table
+//Column names and functions for sort
 const EnhancedTableHead = props => {
   const {
     classes,
@@ -111,30 +122,6 @@ const EnhancedTableHead = props => {
   );
 };
 
-EnhancedTableHead.propTypes = {
-  classes: PropTypes.object.isRequired,
-  numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
-
-const useStyles = makeStyles({
-  root,
-  infoCard,
-  chartCard,
-  tableCard,
-  green,
-  gold,
-  container,
-  table,
-  mapOpen,
-  mapClosed,
-  mapContainer,
-});
-
 export default function EnhancedTable() {
   const [data, setData] = useState([]);
   const [expanded, setExpanded] = useState(false);
@@ -173,50 +160,112 @@ export default function EnhancedTable() {
     });
   }, [currentData, search]);
 
-  // function to expand Record Data
-  const handleExpandClick = () => {
-    setExpanded(!expanded ? true : false);
-    setRowSize(expanded === true ? 7 : 12);
-    setRowSize2(expanded === true ? 5 : 12);
-  };
-  const handleSortRequest = cellId => {
-    const isAsc = orderBy === cellId && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(cellId);
-  };
-
-  //hits endpoint and gets all bridges
+  // const[cardDetails, setCardDetails] = useContext(ContextDataDetails);
+  //Axios call to get the Bridge Data
   useEffect(() => {
     axios.get('https://b2ptc.herokuapp.com/bridges').then(res => {
       setData(res.data);
       setCurrentData(res.data);
     });
   }, []);
+  // console.log(currentData);
 
-  const classes = useStyles();
-
+  //Show new page When table is updated
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+  // Handles how many rows will be on the table
   const handleChangeRowsPerPage = event => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
+  // Contols the table sorting
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
 
-  const handleSelectAllClick = event => {
-    if (event.target.checked) {
-      const newSelecteds = data.map(n => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
+  /// OnClick function that updates detais card
+  const handleClick = (event, name) => {
+    setSelected(name);
+    // FlyTo();
+    // console.log('what is this', name);
+    // console.log( 'what new inf1o', cardDetails)
   };
+
+  const drawerWidth = 240;
+  const useStyles = makeStyles(theme => ({
+    container: {
+      maxHeight: 3005,
+      backgroundColor: '#372d4a',
+      overflowY: 'auto',
+      margin: 0,
+      padding: 0,
+      listStyle: 'none',
+      height: '100%',
+      '&::-webkit-scrollbar': {
+        width: '0.4em',
+      },
+      '&::-webkit-scrollbar-track': {
+        boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+        webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+      },
+      '&::-webkit-scrollbar-thumb': {
+        backgroundColor: 'rgba(0,0,0,.1)',
+        outline: '10px solid slategrey',
+      },
+    },
+    table: {
+      minWidth: 750,
+      maxHeight: '400px',
+    },
+    appBar: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginRight: drawerWidth,
+      backgroundColor: '#372d4a',
+      color: ' black',
+    },
+    drawer: {
+      width: drawerWidth,
+      flexShrink: 0,
+      background:
+        'linear-gradient(93deg, rgba(41,66,122,1) 0%, rgba(91,69,133,1) 81%)',
+    },
+    drawerPaper: {
+      width: drawerWidth,
+      background:
+        'linear-gradient(93deg, rgba(41,66,122,1) 0%, rgba(91,69,133,1) 81%)',
+    },
+    // necessary for content to be below app bar
+    toolbar: theme.mixins.toolbar,
+    content: {
+      flexGrow: 1,
+      backgroundColor: theme.palette.background.default,
+      padding: theme.spacing(3),
+    },
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: 'center',
+      background:
+        'linear-gradient(93deg, rgba(41,66,122,1) 0%, rgba(91,69,133,1) 81%)',
+      color: 'white',
+      maxHeight: '200px',
+      borderRadius: '20px',
+    },
+  }));
+
+  const Row = makeStyles({
+    root: {
+      // borderBottom: "none",
+      margin: '20%',
+      backgroundColor: 'orange',
+    },
+  });
+
+  const classes = useStyles();
+  const classes1 = Row();
 
   const FlyTo = () => {
     const flyViewport = {
@@ -230,136 +279,155 @@ export default function EnhancedTable() {
     setViewport(flyViewport);
   };
 
-  const handleClick = (event, name) => {
-    setSelected(name);
-    FlyTo();
-    console.log('what is this', name);
-  };
-
-  const handleChangeDense = event => {
-    setDense(event.target.checked);
-  };
-
-  // const isSelected = (name) => selected.indexOf(name) !== -1;
-  const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-  console.log(data);
-
-  const setCoord = (lat, long) => {
-    setLat(lat);
-    setLong(long);
-  };
-
   return (
-    <Grid container spacing={2}>
-      <Grid container direction="row" item xs={6} sm={rowSize}>
-        <DetailsCard record={selected === undefined ? '' : selected} />
-
-        {expanded === false ? (
-          <div className={classes.mapClosed}></div>
-        ) : (
-          <div className={classes.mapOpen}>
-            <MiniMap
-              map={viewport}
-              record={selected === undefined ? 3 : selected}
+    <div
+      style={{ marginRight: '5%', backgroundColor: '#372d4a', height: '100vh' }}
+    >
+      <AppBar position="fixed" className={classes.appBar}>
+        <Toolbar>
+          <div className="filter-search">
+            <input
+              type="text"
+              name="Search Projects"
+              placeholder="search"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
             />
-            something
           </div>
-        )}
-
-        <ArrowForwardIcon onClick={handleExpandClick} />
-      </Grid>
-
-      <Grid item xs={12} sm={rowSize2}>
-        <Card xs={12} sm={6} className={classes.chartCard}>
-          <Graphs />
-
-          {expanded === false ? (
-            <div className={classes.mapClosed}></div>
-          ) : (
-            <div className={classes.mapOpen}>
+        </Toolbar>
+      </AppBar>
+      <main
+        style={{ backgroundColor: '#372d4a', maxWidth: '87%' }}
+        className={classes.content}
+      >
+        <div className={classes.toolbar} />
+        <Grid container spacing={3}>
+          <Grid item direction="row" item xs={4} style={{ width: '80%' }}>
+            <Paper className={classes.paper} elevation={7}>
               <Graphs2 />
-            </div>
-          )}
-        </Card>
-      </Grid>
+            </Paper>
+          </Grid>
 
-      <Card className={classes.root}>
-        <div className="filter-search">
-          <input
-            type="text"
-            name="Search Projects"
-            placeholder="search"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-          />
-        </div>
-        <TableContainer className={classes.container}>
-          <Table
-            className={classes.table}
-            aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
-            aria-label="enhanced table"
-          >
-            <EnhancedTableHead
-              classes={classes}
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={tableData.length}
+          <Grid item xs={4}>
+            <Paper className={classes.paper} elevation={7}>
+              <Graphs />
+            </Paper>
+          </Grid>
+          <Grid item xs={4}>
+            <Paper className={classes.paper} elevation={7}>
+              <Graphs />
+            </Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper className={classes.paper} elevation={7}>
+              <DetailsCard record={selected} />
+            </Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper className={classes.paper} elevation={7}>
+              <Graphs3 />
+            </Paper>
+          </Grid>
+
+          <Paper elevation={7} style={{ maxHeight: '300px' }}>
+            <TableContainer className={classes.container}>
+              <Table
+                className={classes.table}
+                aria-labelledby="tableTitle"
+                size={dense ? 'small' : 'medium'}
+                aria-label="enhanced table"
+              >
+                <EnhancedTableHead
+                  classes={classes}
+                  numSelected={selected.length}
+                  order={order}
+                  orderBy={orderBy}
+                  style={{ color: 'white' }}
+                  onRequestSort={handleRequestSort}
+                  rowCount={tableData.length}
+                />
+
+                <TableBody>
+                  {stableSort(tableData, getComparator(order, orderBy))
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row, index) => {
+                      // const isItemSelected = isSelected(row);
+                      // console.log('can i see the index', index)
+                      return (
+                        <TableRow
+                          classes={{ root: classes1.root }}
+                          hover
+                          // className ={tableRow1 }
+                          // index % 2 ? classes.tableRow0:classes.tableRow1
+
+                          onClick={event => handleClick(event, row)}
+                          // aria-checked={isItemSelected}
+                          style={
+                            index % 2
+                              ? {
+                                  background:
+                                    'linear-gradient(93deg, rgba(41,66,122,1) 0%, rgba(91,69,133,1) 81%)',
+                                }
+                              : {
+                                  background:
+                                    'linear-gradient(93deg, rgba(41,66,122,1) 0%, rgba(91,69,133,1) 81%)',
+                                }
+                          }
+                          key={row}
+                          // selected={isItemSelected}
+                        >
+                          <TableCell align="left">{row.bridge_name}</TableCell>
+                          <TableCell align="left">{row.bridge_type}</TableCell>
+                          <TableCell align="left">{row.district_id}</TableCell>
+                          <TableCell align="left">
+                            {row.district_name}
+                          </TableCell>
+                          <TableCell align="left">
+                            {row.individuals_served}
+                          </TableCell>
+                          <TableCell align="left">{row.latitude}</TableCell>
+                          <TableCell align="left">{row.longitude}</TableCell>
+                          <TableCell align="left">{row.project_code}</TableCell>
+                          <TableCell align="left">
+                            {row.project_stage}
+                          </TableCell>
+                          <TableCell align="left">{row.province_id}</TableCell>
+                          <TableCell align="left">
+                            {row.province_name}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[10, 25, 100]}
+              component="div"
+              count={tableData.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
+              style={{ backgroundColor: '#372d4a', color: 'white' }}
             />
+          </Paper>
+        </Grid>
+      </main>
 
-            <TableBody>
-              {stableSort(tableData, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  // const isItemSelected = isSelected(row);
+      <Drawer
+        className={classes.drawer}
+        variant="permanent"
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+        anchor="right"
+      >
+        <div className={classes.toolbar} />
 
-                  return (
-                    <TableRow
-                      hover
-                      onClick={event => handleClick(event, row)}
-                      // aria-checked={isItemSelected}
-
-                      key={row}
-                      // selected={isItemSelected}
-                    >
-                      <TableCell align="left">{row.bridge_name}</TableCell>
-                      <TableCell align="left">{row.bridge_type}</TableCell>
-                      <TableCell align="left">{row.district_id}</TableCell>
-                      <TableCell align="left">{row.district_name}</TableCell>
-                      <TableCell align="left">
-                        {row.individuals_served}
-                      </TableCell>
-                      <TableCell align="left">{row.latitude}</TableCell>
-                      <TableCell align="left">{row.longitude}</TableCell>
-                      <TableCell align="left">{row.project_code}</TableCell>
-                      <TableCell align="left">{row.project_stage}</TableCell>
-                      <TableCell align="left">{row.province_id}</TableCell>
-                      <TableCell align="left">{row.province_name}</TableCell>
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
-          component="div"
-          count={tableData.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
-      </Card>
-    </Grid>
+        <Divider />
+        <MiniMap record={selected} />
+      </Drawer>
+    </div>
   );
 }
