@@ -6,12 +6,12 @@ const initialState = {
     geometry: { type: '', coordinates: Array(0) },
     properties: {
       cluster: false,
-      id: null,
+      // id: null,
       project_code: null,
       bridge_type: null,
       project_stage: null,
       bridge_name: '',
-      district_name: '',
+      // district_name: '',
     },
   },
 };
