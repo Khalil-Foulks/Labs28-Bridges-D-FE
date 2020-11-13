@@ -33,7 +33,6 @@ const MiniMap = ({ record, map }) => {
     padding: '10px',
   };
 
-  console.log('lt', record);
   const mapRef = useRef();
 
   // const _onViewportChange = viewport =>
