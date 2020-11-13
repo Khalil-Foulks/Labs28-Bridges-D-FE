@@ -251,7 +251,7 @@ const Map = () => {
         if (isCluster) {
           return (
             <Marker
-              key={`cluster-${cluster.project_code}`}
+              key={`cluster-${cluster.id}`}
               latitude={latitude}
               longitude={longitude}
             >
@@ -288,7 +288,7 @@ const Map = () => {
         //there is a single point to render
         return (
           <Marker
-            key={`bridge-${cluster.properties.id}`}
+            key={`bridge-${cluster.properties.project_code}`}
             latitude={latitude}
             longitude={longitude}
           >
