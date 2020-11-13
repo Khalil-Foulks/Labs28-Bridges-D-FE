@@ -214,6 +214,16 @@ const Map = () => {
     window.addEventListener('keydown', listener);
   }, []);
 
+  function handleHover(e) {
+    console.log('MOUSE OVER', e);
+    // console.log(e.features);
+    if (e.features && e.features.length > 0) {
+      e.features[0].state['hover'] = true;
+    }
+  }
+
+  let hoveredStateId = null;
+
   return (
     <ReactMapGL
       ref={mapRef}
@@ -223,7 +233,8 @@ const Map = () => {
       mapStyle={style}
       //enable dragging
       onViewportChange={handleViewportChange}
-      interactiveLayerIds={['village_hover_layer']}
+      onHover={handleHover}
+      interactiveLayerIds={['color_layer']}
     >
       {/* The Source tileset */}
       <Source
@@ -233,7 +244,7 @@ const Map = () => {
       />
 
       {/* Applies a colored layer to tileset */}
-      <Layer
+      {/* <Layer
         id="color_layer"
         type="fill"
         source="rwanda"
@@ -247,6 +258,22 @@ const Map = () => {
           ],
           'fill-opacity': 0.07,
         }}
+      /> */}
+
+      <Layer
+        id="color_layer"
+        type="fill"
+        source="rwanda"
+        source-layer="Rwanda_Village_Boundaries-8eo00i"
+        paint={{
+          'fill-color': 'rgb(217,169,210)',
+          'fill-opacity': [
+            'case',
+            ['boolean', ['feature-state', 'hover'], false],
+            1,
+            0.2,
+          ],
+        }}
       />
 
       {/* Applies a border layer to tileset */}
@@ -258,22 +285,6 @@ const Map = () => {
         paint={{
           'line-color': '#627BC1',
           'line-width': 1,
-        }}
-      />
-
-      <Layer
-        id="village_border_layer2"
-        type="line"
-        source="rwanda"
-        source-layer="Rwanda_Village_Boundaries-8eo00i"
-        paint={{
-          'line-color': [
-            'rgb',
-            ['%', ['*', 100, ['to-number', ['get', 'Distr_ID']]], 256],
-            100,
-            ['%', ['*', 911, ['to-number', ['get', 'Distr_ID']]], 256],
-          ],
-          'line-width': 2,
         }}
       />
 
