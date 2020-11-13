@@ -40,7 +40,6 @@ const Search = () => {
   };
 
   const dataList = newData();
-  console.log('the', dataList);
 
   //List everything to exclude with filtering
   const exclude = ['id'];
@@ -113,10 +112,15 @@ const Search = () => {
               className="bridgeCard"
               key={i}
               // style={{ margin: 0 }}
-              onMouseEnter={() => setCoord(d.latitude, d.longitude)}
+              onMouseEnter={() =>
+                setCoord(
+                  d.bridge_opportunity_gps_latitude,
+                  d.bridge_opportunity_gps_longitude
+                )
+              }
               onClick={() => {
                 FlyTo();
-                addFilter(d.project_stage);
+                addFilter(d.bridge_opportunity_stage);
               }}
             >
               <b>Bridge Name: </b>

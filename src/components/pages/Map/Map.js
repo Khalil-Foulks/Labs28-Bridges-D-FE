@@ -254,31 +254,35 @@ const Map = () => {
         if (isCluster) {
           return (
             <Marker
-              key={`bridge-${cluster.properties.id}`}
+              key={`cluster-${cluster.id}`}
               latitude={latitude}
               longitude={longitude}
             >
-              <Tooltip
-                title={
-                  <h2 style={{ color: 'white', margin: 'auto' }}>
-                    {cluster.properties.bridge_name}
-                  </h2>
-                }
-                arrow
-                placement="top"
+              <div
+                className="cluster-marker"
+                style={{
+                  width: `${10 + (pointCount / cluster.length) * 20}px`,
+                  height: `${10 + (pointCount / cluster.length) * 20}px`,
+                }}
+                onClick={() => {
+                  const expansionZoom = Math.min(
+                    supercluster.getClusterExpansionZoom(cluster.id),
+                    20
+                  );
+                  setViewport({
+                    ...viewport,
+                    latitude,
+                    longitude,
+                    zoom: expansionZoom,
+                    transitionInterpolator: new FlyToInterpolator({
+                      speed: 2,
+                    }),
+                    transitionDuration: 'auto',
+                  });
+                }}
               >
-                <img
-                  className="marker-btn"
-                  src={`${cluster.properties.project_stage}.png`}
-                  alt="bridge icon"
-                  onClick={e => {
-                    e.preventDefault();
-                    setSelectedBridge(bridge);
-                    setState({ cluster });
-                    showDrawer();
-                  }}
-                />
-              </Tooltip>
+                {pointCount}
+              </div>
             </Marker>
           );
         }
