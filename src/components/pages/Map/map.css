@@ -41,11 +41,19 @@
   display: flex;
 
 }
+#root{
+  height: 100vh;
+}
 
 body {
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  overflow: scroll;
+  background-color: #372d4a
+}
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
 }
 
 .mini-view {

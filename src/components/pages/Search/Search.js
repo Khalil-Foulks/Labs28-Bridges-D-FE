@@ -17,8 +17,30 @@ const Search = () => {
   const [lat, setLat] = useState();
   const [status, setStatus] = useContext(ContextStatus);
   const [viewport, setViewport] = useContext(ContextView);
-  const dataList = searchData;
   const [activeFilters, setActiveFilters] = useContext(ContextActiveFilters);
+
+  const newData = data => {
+    const newCurrentData = searchData.map(obj =>
+      Object.keys(obj)
+        .filter(x => obj[x] !== null)
+        .reduce((o, e) => {
+          o[e] = obj[e];
+          return o;
+        }, {})
+    );
+    const noUnderfined = newCurrentData.map(obj =>
+      Object.keys(obj)
+        .filter(x => obj[x] !== undefined)
+        .reduce((o, e) => {
+          o[e] = obj[e];
+          return o;
+        }, {})
+    );
+    return noUnderfined;
+  };
+
+  const dataList = newData();
+  console.log('the', dataList);
 
   //List everything to exclude with filtering
   const exclude = ['id'];
@@ -101,10 +123,10 @@ const Search = () => {
               {d.bridge_name}
               <br />
               <b>Project Code: </b>
-              {d.project_code}
+              {d.bridge_opportunity_project_code}
               <br />
               <b>Poject Stage: </b>
-              {d.project_stage}
+              {d.bridge_opportunity_stage}
               <br />
             </div>
           );

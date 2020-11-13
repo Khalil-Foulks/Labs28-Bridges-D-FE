@@ -2,38 +2,36 @@ import React, { useState, useEffect, useMemo, useContext } from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 import { FlyToInterpolator } from 'react-map-gl';
-import {
-  root,
-  infoCard,
-  chartCard,
-  tableCard,
-  green,
-  gold,
-  container,
-  table,
-  mapOpen,
-  mapClosed,
-  mapContainer,
-} from './dataStyles.js';
+
 import { columns } from './HeaderColumns';
+import './datatable.css';
 
 import { ContextView } from '../Store';
 
 import axios from 'axios';
 import {
   makeStyles,
-  Card,
   Grid,
-  CardMedia,
   TableBody,
   TableRow,
-  TableCell,
   TablePagination,
   TableHead,
   Table,
   TableContainer,
   TableSortLabel,
+  Drawer,
+  Divider,
+  withStyles,
+  Toolbar,
+  AppBar,
+  Paper,
+  TextField,
+  List,
+  ListItem,
 } from '@material-ui/core';
+import MuiTableCell from '@material-ui/core/TableCell';
+import { ThemeProvider } from '@material-ui/core';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import TablePage from '../../common/TablePage';
@@ -41,6 +39,18 @@ import DetailsCard from './DetailsCard.js';
 import MiniMap from './MiniMap.js';
 import Graphs from './Graphs.js';
 import Graphs2 from './Graphs2.js';
+import BodyTable from './BodyTable.js';
+import Graphs3 from './Graphs3';
+import Graphs4 from './Graphs4';
+
+const TableCell = withStyles({
+  root: {
+    borderColor: '#372d4a',
+
+    borderBottomWidth: '10px',
+    color: 'white',
+  },
+})(MuiTableCell);
 
 const descendingComparator = (a, b, orderBy) => {
   if (b[orderBy] < a[orderBy]) {
@@ -68,6 +78,9 @@ const stableSort = (array, comparator) => {
   return stabilizedThis.map(el => el[0]);
 };
 
+// This is the compnent for the Table Header
+// it takes in the columns component for the Table
+//Column names and functions for sort
 const EnhancedTableHead = props => {
   const {
     classes,
@@ -111,30 +124,6 @@ const EnhancedTableHead = props => {
   );
 };
 
-EnhancedTableHead.propTypes = {
-  classes: PropTypes.object.isRequired,
-  numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
-
-const useStyles = makeStyles({
-  root,
-  infoCard,
-  chartCard,
-  tableCard,
-  green,
-  gold,
-  container,
-  table,
-  mapOpen,
-  mapClosed,
-  mapContainer,
-});
-
 export default function EnhancedTable() {
   const [data, setData] = useState([]);
   const [expanded, setExpanded] = useState(false);
@@ -152,76 +141,171 @@ export default function EnhancedTable() {
   const [long, setLong] = useState();
   const [lat, setLat] = useState();
 
+  console.log(data);
+
   const tableData = useMemo(() => {
     if (!search) return currentData;
 
     return currentData.filter(searchinfo => {
       return (
-        searchinfo.bridge_name.toLowerCase().includes(search.toLowerCase()) ||
-        searchinfo.bridge_type.toLowerCase().includes(search.toLowerCase()) ||
-        searchinfo.district_name.toLowerCase().includes(search.toLowerCase()) ||
-        searchinfo.project_stage.toLowerCase().includes(search.toLowerCase()) ||
-        searchinfo.province_name.toLowerCase().includes(search.toLowerCase()) ||
-        searchinfo.district_id.toString().includes(search) ||
-        searchinfo.individuals_served.toString().includes(search) ||
-        searchinfo.latitude.toString().includes(search) ||
-        searchinfo.project_code.toString().includes(search) ||
-        searchinfo.project_stage.toString().includes(search) ||
-        searchinfo.province_id.toString().includes(search) ||
-        searchinfo.longitude.toString().includes(search)
+        searchinfo.country.toLowerCase().includes(search.toLowerCase()) ||
+        searchinfo.bridge_opportunity_level1_government
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
+        searchinfo.bridge_opportunity_level2_government
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
+        searchinfo.bridge_opportunity_stage
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
+        searchinfo.bridge_name.toLowerCase().includes(search.toLowerCase())
       );
     });
   }, [currentData, search]);
 
-  // function to expand Record Data
-  const handleExpandClick = () => {
-    setExpanded(!expanded ? true : false);
-    setRowSize(expanded === true ? 7 : 12);
-    setRowSize2(expanded === true ? 5 : 12);
-  };
-  const handleSortRequest = cellId => {
-    const isAsc = orderBy === cellId && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(cellId);
-  };
-
-  //hits endpoint and gets all bridges
+  // const[cardDetails, setCardDetails] = useContext(ContextDataDetails);
+  //Axios call to get the Bridge Data
   useEffect(() => {
-    axios.get('https://b2ptc.herokuapp.com/bridges').then(res => {
-      setData(res.data);
-      setCurrentData(res.data);
-    });
+    axios
+      .get(
+        'http://b2p2018-finalmerge1.eba-4apifgmz.us-east-1.elasticbeanstalk.com/all_data'
+      )
+      .then(res => {
+        setData(res.data);
+        setCurrentData(res.data);
+      });
   }, []);
 
-  const classes = useStyles();
+  const newData = data => {
+    const newCurrentData = data.map(obj =>
+      Object.keys(obj)
+        .filter(x => obj[x] !== null)
+        .reduce((o, e) => {
+          o[e] = obj[e];
+          return o;
+        }, {})
+    );
+    const noUnderfined = newCurrentData.map(obj =>
+      Object.keys(obj)
+        .filter(x => obj[x] !== undefined)
+        .reduce((o, e) => {
+          o[e] = obj[e];
+          return o;
+        }, {})
+    );
+    return noUnderfined;
+  };
 
+  //Show new page When table is updated
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+  // Handles how many rows will be on the table
   const handleChangeRowsPerPage = event => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
+  // Contols the table sorting
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
 
-  const handleSelectAllClick = event => {
-    if (event.target.checked) {
-      const newSelecteds = data.map(n => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
+  /// OnClick function that updates detais card
+  const handleClick = (event, name) => {
+    setSelected(name);
+    setLat(name.bridge_opportunity_gps_latitude);
+    setLong(name.bridge_opportunity_gps_longitude);
+    FlyTo(lat, long);
+    console.log('what is this', name.bridge_opportunity_gps_latitude);
+    // console.log( 'what new inf1o', cardDetails)
   };
 
-  const FlyTo = () => {
+  const drawerWidth = 240;
+  const useStyles = makeStyles(theme => ({
+    container: {
+      maxHeight: 300,
+      backgroundColor: '#372d4a',
+      overflowY: 'auto',
+      margin: 0,
+      padding: 0,
+      listStyle: 'none',
+      height: '100%',
+      '&::-webkit-scrollbar': {
+        width: '0.4em',
+      },
+      '&::-webkit-scrollbar-track': {
+        boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+        webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+      },
+      '&::-webkit-scrollbar-thumb': {
+        backgroundColor: 'rgba(0,0,0,.1)',
+        outline: '10px solid slategrey',
+      },
+    },
+    table: {
+      minWidth: 750,
+      maxHeight: '400px',
+      backgroundColor: '#372d4a',
+    },
+    appBar: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginRight: drawerWidth,
+      backgroundColor: '#372d4a',
+      color: ' black',
+    },
+    drawer: {
+      width: drawerWidth,
+      flexShrink: 0,
+      background:
+        'linear-gradient(93deg, rgba(41,66,122,1) 0%, rgba(91,69,133,1) 81%)',
+    },
+    drawerPaper: {
+      width: drawerWidth,
+      background:
+        'linear-gradient(93deg, rgba(41,66,122,1) 0%, rgba(91,69,133,1) 81%)',
+    },
+    // necessary for content to be below app bar
+    toolbar: theme.mixins.toolbar,
+    content: {
+      flexGrow: 1,
+      backgroundColor: theme.palette.background.default,
+      padding: theme.spacing(3),
+    },
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: 'center',
+      background:
+        'linear-gradient(93deg, rgba(41,66,122,1) 0%, rgba(91,69,133,1) 81%)',
+      color: 'white',
+      maxHeight: '200px',
+      borderRadius: '20px',
+    },
+  }));
+
+  const CssTextField = withStyles({
+    root: {
+      '& label': {
+        color: '#39d1e6',
+      },
+
+      '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+          borderColor: '#39d1e6',
+        },
+      },
+    },
+  })(TextField);
+
+  const classes = useStyles();
+
+  const FlyTo = (x, y) => {
+    console.log('what is x', x);
     const flyViewport = {
-      latitude: lat,
-      longitude: long,
+      latitude: x,
+      longitude: y,
       zoom: 14,
       transitionDuration: 5000,
       transitionInterpolator: new FlyToInterpolator(),
@@ -230,136 +314,238 @@ export default function EnhancedTable() {
     setViewport(flyViewport);
   };
 
-  const handleClick = (event, name) => {
-    setSelected(name);
-    FlyTo();
-    console.log('what is this', name);
-  };
-
-  const handleChangeDense = event => {
-    setDense(event.target.checked);
-  };
-
-  // const isSelected = (name) => selected.indexOf(name) !== -1;
-  const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-  console.log(data);
-
-  const setCoord = (lat, long) => {
-    setLat(lat);
-    setLong(long);
-  };
-
+  console.log('selected info', selected.river_crossing_deaths_in_last_3_years);
   return (
-    <Grid container spacing={2}>
-      <Grid container direction="row" item xs={6} sm={rowSize}>
-        <DetailsCard record={selected === undefined ? '' : selected} />
-
-        {expanded === false ? (
-          <div className={classes.mapClosed}></div>
-        ) : (
-          <div className={classes.mapOpen}>
-            <MiniMap
-              map={viewport}
-              record={selected === undefined ? 3 : selected}
+    <div
+      style={{ marginRight: '5%', backgroundColor: '#372d4a', height: '100vh' }}
+    >
+      <AppBar position="fixed" className={classes.appBar}>
+        <Toolbar
+          style={{
+            displey: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <h1 style={{ color: '#39d1e6', fontWeight: '600' }}>Dashboard</h1>
+          <div className="filter-search">
+            <CssTextField
+              variant="outlined"
+              id="custom-css-outlined-input"
+              type="text"
+              name="Search Projects"
+              label="Search"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              style={{
+                backgroundColor: '#372d4a',
+                color: '#39d1e6',
+                borderColor: 'white',
+                boxShadow: 'none',
+              }}
+              size="small"
             />
-            something
           </div>
-        )}
+        </Toolbar>
+      </AppBar>
+      <main
+        style={{ backgroundColor: '#372d4a', maxWidth: '87%' }}
+        className={classes.content}
+      >
+        <div className={classes.toolbar} />
+        <Grid container spacing={3}>
+          <Grid item direction="row" item xs={4} style={{ width: '80%' }}>
+            <Paper className={classes.paper} elevation={7}>
+              <Graphs record={selected} />
+            </Paper>
+          </Grid>
 
-        <ArrowForwardIcon onClick={handleExpandClick} />
-      </Grid>
+          <Grid item xs={4}>
+            <Paper className={classes.paper} elevation={7}>
+              <Graphs />
+            </Paper>
+          </Grid>
+          <Grid item xs={4}>
+            <Paper className={classes.paper} elevation={7}>
+              <Graphs />
+            </Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper
+              // className={classes.paper}
+              style={{
+                height: '100%',
+                background:
+                  'linear-gradient(93deg, rgba(41,66,122,1) 0%, rgba(91,69,133,1) 81%)',
+              }}
+              elevation={7}
+            >
+              <Graphs4 record={selected} />
+            </Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper className={classes.paper} elevation={7}>
+              <Graphs3 />
+            </Paper>
+          </Grid>
 
-      <Grid item xs={12} sm={rowSize2}>
-        <Card xs={12} sm={6} className={classes.chartCard}>
-          <Graphs />
-
-          {expanded === false ? (
-            <div className={classes.mapClosed}></div>
-          ) : (
-            <div className={classes.mapOpen}>
-              <Graphs2 />
-            </div>
-          )}
-        </Card>
-      </Grid>
-
-      <Card className={classes.root}>
-        <div className="filter-search">
-          <input
-            type="text"
-            name="Search Projects"
-            placeholder="search"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-          />
-        </div>
-        <TableContainer className={classes.container}>
-          <Table
-            className={classes.table}
-            aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
-            aria-label="enhanced table"
+          <Paper
+            elevation={7}
+            style={{
+              maxHeight: '300px',
+              width: '100%',
+              backgroundColor: '#372d4a',
+            }}
           >
-            <EnhancedTableHead
-              classes={classes}
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={tableData.length}
+            <TableContainer className={classes.container}>
+              <Table
+                className={classes.table}
+                aria-labelledby="tableTitle"
+                size={dense ? 'small' : 'medium'}
+                aria-label="sticky table"
+              >
+                <EnhancedTableHead
+                  classes={classes}
+                  numSelected={selected.length}
+                  order={order}
+                  orderBy={orderBy}
+                  style={{ color: 'white' }}
+                  onRequestSort={handleRequestSort}
+                  rowCount={tableData.length}
+                />
+
+                <TableBody>
+                  {stableSort(tableData, getComparator(order, orderBy))
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row, index) => {
+                      // const isItemSelected = isSelected(row);
+                      // console.log('can i see the index', index)
+                      return (
+                        <TableRow
+                          hover
+                          // className ={tableRow1 }
+                          // index % 2 ? classes.tableRow0:classes.tableRow1
+
+                          onClick={event => handleClick(event, row)}
+                          // aria-checked={isItemSelected}
+                          style={
+                            index % 2
+                              ? {
+                                  background:
+                                    'linear-gradient(93deg, rgba(41,66,122,1) 0%, rgba(91,69,133,1) 81%)',
+                                }
+                              : {
+                                  background:
+                                    'linear-gradient(93deg, rgba(41,66,122,1) 0%, rgba(91,69,133,1) 81%)',
+                                }
+                          }
+                          key={row}
+                          // selected={isItemSelected}
+                        >
+                          <TableCell align="left">{row.country}</TableCell>
+                          <TableCell align="left">
+                            {row.name_of_nearest_city}
+                          </TableCell>
+                          <TableCell align="left">
+                            {row.bridge_opportunity_level1_government}
+                          </TableCell>
+                          <TableCell align="left">
+                            {row.bridge_opportunity_level2_government}
+                          </TableCell>
+                          <TableCell align="left">{row.bridge_name}</TableCell>
+                          <TableCell align="left">
+                            {row.bridge_opportunity_bridge_type}
+                          </TableCell>
+                          <TableCell align="left">
+                            {row.bridge_opportunity_stage}
+                          </TableCell>
+                          <TableCell align="left">
+                            {row.bridge_opportunity_project_code}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              elevation={7}
+              rowsPerPageOptions={[10, 25, 100]}
+              component="div"
+              count={tableData.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
+              style={{
+                backgroundColor: '#372d4a',
+                color: 'white',
+                boxShadow: '10px 10px 33px 1px rgba(0,0,0,0.75',
+                // borderStyle:'solid',
+                //  borderColor:'black',
+                //  bordrerWidth:'thin',
+                maxHeight: '50px',
+              }}
             />
+          </Paper>
+        </Grid>
+      </main>
 
-            <TableBody>
-              {stableSort(tableData, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  // const isItemSelected = isSelected(row);
+      <Drawer
+        className={classes.drawer}
+        variant="permanent"
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+        anchor="right"
+      >
+        <div className={classes.toolbar} />
 
-                  return (
-                    <TableRow
-                      hover
-                      onClick={event => handleClick(event, row)}
-                      // aria-checked={isItemSelected}
+        <Divider />
 
-                      key={row}
-                      // selected={isItemSelected}
-                    >
-                      <TableCell align="left">{row.bridge_name}</TableCell>
-                      <TableCell align="left">{row.bridge_type}</TableCell>
-                      <TableCell align="left">{row.district_id}</TableCell>
-                      <TableCell align="left">{row.district_name}</TableCell>
-                      <TableCell align="left">
-                        {row.individuals_served}
-                      </TableCell>
-                      <TableCell align="left">{row.latitude}</TableCell>
-                      <TableCell align="left">{row.longitude}</TableCell>
-                      <TableCell align="left">{row.project_code}</TableCell>
-                      <TableCell align="left">{row.project_stage}</TableCell>
-                      <TableCell align="left">{row.province_id}</TableCell>
-                      <TableCell align="left">{row.province_name}</TableCell>
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
-          component="div"
-          count={tableData.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
-      </Card>
-    </Grid>
+        <List style={{ color: 'white' }}>
+          <ListItem>Bridge Name: {selected.bridge_name}</ListItem>
+          <Divider />
+          <ListItem>Entry By: {selected.form_created_by}</ListItem>
+          <Divider />
+          <ListItem>Date: {selected.form_form_name}</ListItem>
+          <Divider />
+          <ListItem>
+            Flagged for rejection: {selected.flag_for_rejection}
+          </ListItem>
+          <Divider />
+          <ListItem>
+            Opportuniry Stage: {selected.bridge_opportunity_stage}
+          </ListItem>
+          <Divider />
+          <ListItem>Accessibility: {selected.four_wd_accessibility}</ListItem>
+          <Divider />
+          <ListItem>
+            All weather crossing : {selected.nearest_all_weather_crossing_point}
+          </ListItem>
+          <Divider />
+          <ListItem>
+            Social Information: {selected.notes_on_social_information}
+          </ListItem>
+          <Divider />
+        </List>
+        <Divider />
+        <MiniMap record={viewport} />
+        <Divider />
+        <List style={{ color: 'white' }}>
+          <Divider />
+          <ListItem>Bridge Name: {selected.primary_crops_grown}</ListItem>
+          <Divider />
+          <ListItem>Entry By: {selected.primary_occupations}</ListItem>
+          <Divider />
+          <ListItem>Date: {selected.incident_descriptions}</ListItem>
+          <Divider />
+          <ListItem>
+            Flagged for rejection: {selected.market_access_blocked_by_river}
+          </ListItem>
+        </List>
+      </Drawer>
+    </div>
   );
 }

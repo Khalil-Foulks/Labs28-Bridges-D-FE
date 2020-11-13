@@ -30,6 +30,7 @@ import {
   ContextLong,
   ContextLat,
   ContextView,
+  ContextDataDetails,
 } from '../Store';
 import './map.css';
 import LeftSideBar from '../LeftSideBar/LeftSideBar';
@@ -53,6 +54,8 @@ const Map = () => {
   const onClose = () => {
     setVisible(false);
   };
+
+  const [cardDetails, setCardDetails] = useContext(ContextDataDetails);
 
   //state of longitude and latitude for fly to function
   const [long, setLong] = useContext(ContextLong);
@@ -251,36 +254,31 @@ const Map = () => {
         if (isCluster) {
           return (
             <Marker
-              key={`cluster-${cluster.id}`}
+              key={`bridge-${cluster.properties.id}`}
               latitude={latitude}
               longitude={longitude}
             >
-              <div
-                className="cluster-marker"
-                style={{
-                  width: `${10 + (pointCount / cluster.length) * 20}px`,
-                  height: `${10 + (pointCount / cluster.length) * 20}px`,
-                }}
-                onClick={() => {
-                  const expansionZoom = Math.min(
-                    supercluster.getClusterExpansionZoom(cluster.id),
-                    20
-                  );
-
-                  setViewport({
-                    ...viewport,
-                    latitude,
-                    longitude,
-                    zoom: expansionZoom,
-                    transitionInterpolator: new FlyToInterpolator({
-                      speed: 2,
-                    }),
-                    transitionDuration: 'auto',
-                  });
-                }}
+              <Tooltip
+                title={
+                  <h2 style={{ color: 'white', margin: 'auto' }}>
+                    {cluster.properties.bridge_name}
+                  </h2>
+                }
+                arrow
+                placement="top"
               >
-                {pointCount}
-              </div>
+                <img
+                  className="marker-btn"
+                  src={`${cluster.properties.project_stage}.png`}
+                  alt="bridge icon"
+                  onClick={e => {
+                    e.preventDefault();
+                    setSelectedBridge(bridge);
+                    setState({ cluster });
+                    showDrawer();
+                  }}
+                />
+              </Tooltip>
             </Marker>
           );
         }

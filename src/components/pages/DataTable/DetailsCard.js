@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { ContextDataDetails } from '../Store';
 import * as d3 from 'd3';
 import { FlyToInterpolator } from 'react-map-gl';
 import {
@@ -23,40 +24,21 @@ const useStyles = makeStyles({
   },
   paper: {
     textAlign: 'center',
-    color: 'black',
   },
 });
+console.log('what', ContextDataDetails);
 
 const DetailsCard = ({ record }) => {
-  // const [info,setInfo] = useState([record])
+  const [cardDetails, setCardDetails] = useContext(ContextDataDetails);
+
   const classes = useStyles();
-  console.log('new record', record);
+
+  setCardDetails(cardDetails);
+
   return (
-    <div style={{ color: 'black' }}>
+    <div style={{ color: 'white', marginTop: '4%' }}>
       <Grid container spacing={3}>
-        <Grid item xs={6} sm={3}>
-          <div>
-            {record.bridge_image !== 'Waiting on Data' ? (
-              <div className="bridge-image">
-                <CardMedia
-                  style={{ width: '200px' }}
-                  alt="bridge_image"
-                  src={`${record.bridge_image}`}
-                />
-              </div>
-            ) : (
-              <div className="bridge-image">
-                <img
-                  style={{ width: '200px' }}
-                  alt="bridge_image_needed"
-                  src="https://midlandbrewing.com/wp-content/uploads/2018/04/Photo-Coming-Soon.png"
-                />
-              </div>
-            )}
-          </div>
-          <CardMedia />
-        </Grid>
-        <Grid item xs={6} sm={3}>
+        <Grid style={{ color: 'white' }} item xs={6} sm={3}>
           <div className={classes.div}>Bridge name: {record.bridge_name}</div>
           <div className={classes.div}>Bridge Type: {record.bridge_type}</div>
           <div className={classes.div}>
