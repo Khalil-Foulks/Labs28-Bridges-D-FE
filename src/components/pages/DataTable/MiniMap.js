@@ -7,20 +7,25 @@ import '../Map/mapbox-gl.css';
 // import './miniMap.css';
 
 const MiniMap = ({ record, map }) => {
-  const [lat, setLat] = useState(record.latitude);
-  const [long, setLong] = useState(record.longitude);
+  const [lat, setLat] = useState();
+  const [long, setLong] = useState();
 
-  console.log('africa', map);
+  // const [viewport, setViewport] = useState({
 
-  const [viewport, setViewport] = useState({
-    width: 500,
-    height: 200,
-    latitude: -2.4334,
-    longitude: 28.96946,
-    zoom: 10.2,
-    pitch: 0,
-    bearing: -22,
-  });
+  //   width: 500,
+  //   height: 200,
+  //   latitude: record.latitude,
+  //   // longitude: lg,
+  //   zoom: 10.2,
+  //   pitch: 0,
+  //   bearing: -22,
+  //   car: record.cell_service_quality
+  // });
+
+  const setCoord = (lat, long) => {
+    setLat(lat);
+    setLong(long);
+  };
 
   const geolocateStyle = {
     float: 'left',
@@ -28,17 +33,29 @@ const MiniMap = ({ record, map }) => {
     padding: '10px',
   };
 
+  console.log('lt', record);
   const mapRef = useRef();
 
-  const _onViewportChange = viewport =>
-    setViewport({ ...viewport, transitionDuration: 1000 });
+  // const _onViewportChange = viewport =>
+  //   setViewport({ ...viewport, transitionDuration: 1000 });
+  const _onViewportChange = () => ({
+    width: 500,
+    height: 200,
+    latitude: record.latitude,
+    longitude: record.longitude,
+    zoom: 10.2,
+    pitch: 0,
+    bearing: -22,
+    car: record.cell_service_quality,
+  });
+
   return (
     <div>
       <MapGL
         ref={mapRef}
-        {...viewport}
+        {..._onViewportChange()}
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-        mapStyle="mapbox://styles/bridgestoprosperity/ckh3x490s06uf1atng20ald51"
+        mapStyle="mapbox://styles/mapbox/navigation-preview-night-v4"
         onViewportChange={_onViewportChange}
       >
         <GeolocateControl

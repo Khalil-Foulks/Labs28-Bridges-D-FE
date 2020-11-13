@@ -26,6 +26,8 @@ import {
   AppBar,
   Paper,
   TextField,
+  List,
+  ListItem,
 } from '@material-ui/core';
 import MuiTableCell from '@material-ui/core/TableCell';
 import { ThemeProvider } from '@material-ui/core';
@@ -39,6 +41,7 @@ import Graphs from './Graphs.js';
 import Graphs2 from './Graphs2.js';
 import BodyTable from './BodyTable.js';
 import Graphs3 from './Graphs3';
+import Graphs4 from './Graphs4';
 
 const TableCell = withStyles({
   root: {
@@ -138,43 +141,24 @@ export default function EnhancedTable() {
   const [long, setLong] = useState();
   const [lat, setLat] = useState();
 
+  console.log(data);
+
   const tableData = useMemo(() => {
     if (!search) return currentData;
 
     return currentData.filter(searchinfo => {
       return (
         searchinfo.country.toLowerCase().includes(search.toLowerCase()) ||
-        searchinfo.name_of_nearest_city
-          .toLowerCase()
-          .includes(search.toLowerCase()) ||
         searchinfo.bridge_opportunity_level1_government
           .toLowerCase()
           .includes(search.toLowerCase()) ||
         searchinfo.bridge_opportunity_level2_government
           .toLowerCase()
           .includes(search.toLowerCase()) ||
-        searchinfo.bridge_name.toLowerCase().includes(search.toLowerCase()) ||
-        searchinfo.bridge_opportunity_bridge_type
+        searchinfo.bridge_opportunity_stage
           .toLowerCase()
           .includes(search.toLowerCase()) ||
-        searchinfo.bridge_opportunity_project_code
-          .toLowerCase()
-          .includes(search.toLowerCase()) ||
-        searchinfo.primary_occupations
-          .toLowerCase()
-          .includes(search.toLowerCase()) ||
-        searchinfo.primary_crops_grown
-          .toLowerCase()
-          .includes(search.toLowerCase()) ||
-        searchinfo.bridge_opportunity_individuals_directly_served
-          .toString()
-          .includes(search) ||
-        searchinfo.bridge_opportunity_gps_latitude
-          .toString()
-          .includes(search) ||
-        searchinfo.project_code.toString().includes(search) ||
-        searchinfo.project_stage.toString().includes(search) ||
-        searchinfo.bridge_opportunity_gps_longitude.toString().includes(search)
+        searchinfo.bridge_name.toLowerCase().includes(search.toLowerCase())
       );
     });
   }, [currentData, search]);
@@ -191,7 +175,26 @@ export default function EnhancedTable() {
         setCurrentData(res.data);
       });
   }, []);
-  console.log(currentData);
+
+  const newData = data => {
+    const newCurrentData = data.map(obj =>
+      Object.keys(obj)
+        .filter(x => obj[x] !== null)
+        .reduce((o, e) => {
+          o[e] = obj[e];
+          return o;
+        }, {})
+    );
+    const noUnderfined = newCurrentData.map(obj =>
+      Object.keys(obj)
+        .filter(x => obj[x] !== undefined)
+        .reduce((o, e) => {
+          o[e] = obj[e];
+          return o;
+        }, {})
+    );
+    return noUnderfined;
+  };
 
   //Show new page When table is updated
   const handleChangePage = (event, newPage) => {
@@ -213,8 +216,10 @@ export default function EnhancedTable() {
   /// OnClick function that updates detais card
   const handleClick = (event, name) => {
     setSelected(name);
-    // FlyTo();
-    // console.log('what is this', name);
+    setLat(name.bridge_opportunity_gps_latitude);
+    setLong(name.bridge_opportunity_gps_longitude);
+    FlyTo(lat, long);
+    console.log('what is this', name.bridge_opportunity_gps_latitude);
     // console.log( 'what new inf1o', cardDetails)
   };
 
@@ -296,10 +301,11 @@ export default function EnhancedTable() {
 
   const classes = useStyles();
 
-  const FlyTo = () => {
+  const FlyTo = (x, y) => {
+    console.log('what is x', x);
     const flyViewport = {
-      latitude: lat,
-      longitude: long,
+      latitude: x,
+      longitude: y,
       zoom: 14,
       transitionDuration: 5000,
       transitionInterpolator: new FlyToInterpolator(),
@@ -308,12 +314,21 @@ export default function EnhancedTable() {
     setViewport(flyViewport);
   };
 
+  console.log('selected info', selected.river_crossing_deaths_in_last_3_years);
   return (
     <div
       style={{ marginRight: '5%', backgroundColor: '#372d4a', height: '100vh' }}
     >
       <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
+        <Toolbar
+          style={{
+            displey: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <h1 style={{ color: '#39d1e6', fontWeight: '600' }}>Dashboard</h1>
           <div className="filter-search">
             <CssTextField
               variant="outlined"
@@ -342,7 +357,7 @@ export default function EnhancedTable() {
         <Grid container spacing={3}>
           <Grid item direction="row" item xs={4} style={{ width: '80%' }}>
             <Paper className={classes.paper} elevation={7}>
-              <Graphs2 />
+              <Graphs record={selected} />
             </Paper>
           </Grid>
 
@@ -357,8 +372,16 @@ export default function EnhancedTable() {
             </Paper>
           </Grid>
           <Grid item xs={6}>
-            <Paper className={classes.paper} elevation={7}>
-              <DetailsCard record={selected} />
+            <Paper
+              // className={classes.paper}
+              style={{
+                height: '100%',
+                background:
+                  'linear-gradient(93deg, rgba(41,66,122,1) 0%, rgba(91,69,133,1) 81%)',
+              }}
+              elevation={7}
+            >
+              <Graphs4 record={selected} />
             </Paper>
           </Grid>
           <Grid item xs={6}>
@@ -447,6 +470,7 @@ export default function EnhancedTable() {
               </Table>
             </TableContainer>
             <TablePagination
+              elevation={7}
               rowsPerPageOptions={[10, 25, 100]}
               component="div"
               count={tableData.length}
@@ -454,7 +478,15 @@ export default function EnhancedTable() {
               page={page}
               onChangePage={handleChangePage}
               onChangeRowsPerPage={handleChangeRowsPerPage}
-              style={{ backgroundColor: '#372d4a', color: 'white' }}
+              style={{
+                backgroundColor: '#372d4a',
+                color: 'white',
+                boxShadow: '10px 10px 33px 1px rgba(0,0,0,0.75',
+                // borderStyle:'solid',
+                //  borderColor:'black',
+                //  bordrerWidth:'thin',
+                maxHeight: '50px',
+              }}
             />
           </Paper>
         </Grid>
@@ -471,7 +503,48 @@ export default function EnhancedTable() {
         <div className={classes.toolbar} />
 
         <Divider />
-        <MiniMap record={selected} />
+
+        <List style={{ color: 'white' }}>
+          <ListItem>Bridge Name: {selected.bridge_name}</ListItem>
+          <Divider />
+          <ListItem>Entry By: {selected.form_created_by}</ListItem>
+          <Divider />
+          <ListItem>Date: {selected.form_form_name}</ListItem>
+          <Divider />
+          <ListItem>
+            Flagged for rejection: {selected.flag_for_rejection}
+          </ListItem>
+          <Divider />
+          <ListItem>
+            Opportuniry Stage: {selected.bridge_opportunity_stage}
+          </ListItem>
+          <Divider />
+          <ListItem>Accessibility: {selected.four_wd_accessibility}</ListItem>
+          <Divider />
+          <ListItem>
+            All weather crossing : {selected.nearest_all_weather_crossing_point}
+          </ListItem>
+          <Divider />
+          <ListItem>
+            Social Information: {selected.notes_on_social_information}
+          </ListItem>
+          <Divider />
+        </List>
+        <Divider />
+        <MiniMap record={viewport} />
+        <Divider />
+        <List style={{ color: 'white' }}>
+          <Divider />
+          <ListItem>Bridge Name: {selected.primary_crops_grown}</ListItem>
+          <Divider />
+          <ListItem>Entry By: {selected.primary_occupations}</ListItem>
+          <Divider />
+          <ListItem>Date: {selected.incident_descriptions}</ListItem>
+          <Divider />
+          <ListItem>
+            Flagged for rejection: {selected.market_access_blocked_by_river}
+          </ListItem>
+        </List>
       </Drawer>
     </div>
   );
