@@ -357,7 +357,10 @@ export default function EnhancedTable() {
         <Grid container spacing={3}>
           <Grid item direction="row" item xs={4} style={{ width: '80%' }}>
             <Paper className={classes.paper} elevation={7}>
-              <Graphs record={selected} />
+              <Graphs
+                record={selected.river_crossing_deaths_in_last_3_years}
+                record2={selected.river_crossing_injuries_in_last_3_years}
+              />
             </Paper>
           </Grid>
 
