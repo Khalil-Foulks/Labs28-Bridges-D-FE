@@ -1,16 +1,8 @@
-import React, { PureComponent } from 'react';
-import { PieChart, Pie, Legend, Tooltip } from 'recharts';
+import React, { PureComponent, useEffect, useState } from 'react';
+
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
-
-const data01 = [
-  { name: 'Completed', value: 400 },
-  { name: 'Rejected', value: 300 },
-  { name: 'building', value: 300 },
-  { name: 'confirmed', value: 200 },
-  { name: 'rejected', value: 278 },
-  { name: 'identified', value: 189 },
-];
+import axios from 'axios';
 
 const BorderLinearProgress = withStyles(theme => ({
   root: {
@@ -37,28 +29,35 @@ const useStyles = makeStyles({
   },
 });
 
-const Graphs3 = () => {
+const Graphs3 = ({ record }) => {
+  const newData = data => {
+    const newCurrentData = data.map(obj =>
+      Object.keys(obj)
+        .filter(x => obj[x] !== null)
+        .reduce((o, e) => {
+          o[e] = obj[e];
+          return o;
+        }, {})
+    );
+    const noUnderfined = newCurrentData.map(obj =>
+      Object.keys(obj)
+        .filter(x => obj[x] !== undefined)
+        .reduce((o, e) => {
+          o[e] = obj[e];
+          return o;
+        }, {})
+    );
+
+    return noUnderfined;
+  };
+
+  console.log('g5', record);
+
   const classes = useStyles();
   return (
     <div>
-      {/* <div>
-        <PieChart width={400} height={300} >
-          <div>Bridge Status</div>
-          <Pie
-            isAnimationActive={false}
-            data={data01}
-            cx={150}
-            cy={80}
-            outerRadius={50}
-            fill="#8884d8"
-            label
-          />
-
-          <Tooltip />
-        </PieChart>
-      </div> */}
       <div className={classes.root}>
-        <BorderLinearProgress variant="determinate" value={70} />
+        <BorderLinearProgress variant="determinate" value={record} />
         <div>Bridge Span</div>
       </div>
     </div>

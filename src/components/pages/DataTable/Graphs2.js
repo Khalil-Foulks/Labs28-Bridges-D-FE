@@ -1,7 +1,8 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, useEffect, useState } from 'react';
 import { PieChart, Pie, Legend, Tooltip } from 'recharts';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import axios from 'axios';
 
 const data01 = [
   { name: 'Completed', value: 400 },
@@ -35,6 +36,30 @@ const useStyles = makeStyles({
 });
 
 const Graphs2 = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(
+        'http://b2p2018-finalmerge1.eba-4apifgmz.us-east-1.elasticbeanstalk.com/all_data'
+      )
+      .then(res => {
+        setData(res.data);
+      });
+  }, []);
+
+  let count = data => {
+    // const theLength = data.filter(item=> item === 'Complete')
+    let hold = [];
+    const newCount = data.map(obj =>
+      Object.values(obj).map((x, index) => x === 'Complete')
+    );
+
+    return newCount;
+  };
+  // console.log('the count', count(data))
+
+  //   console.log('thedata', data)
   const classes = useStyles();
   return (
     <div>

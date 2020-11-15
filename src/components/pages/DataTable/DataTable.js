@@ -42,6 +42,7 @@ import Graphs2 from './Graphs2.js';
 import BodyTable from './BodyTable.js';
 import Graphs3 from './Graphs3';
 import Graphs4 from './Graphs4';
+import Graph5 from './Graph5';
 
 const TableCell = withStyles({
   root: {
@@ -366,19 +367,19 @@ export default function EnhancedTable() {
 
           <Grid item xs={4}>
             <Paper className={classes.paper} elevation={7}>
-              <Graphs />
+              <Graphs2 />
             </Paper>
           </Grid>
           <Grid item xs={4}>
             <Paper className={classes.paper} elevation={7}>
-              <Graphs />
+              <Graph5 record={selected.primary_crops_grown} />
             </Paper>
           </Grid>
           <Grid item xs={6}>
             <Paper
               // className={classes.paper}
               style={{
-                height: '100%',
+                maxHeight: '200px',
                 background:
                   'linear-gradient(93deg, rgba(41,66,122,1) 0%, rgba(91,69,133,1) 81%)',
               }}
@@ -388,8 +389,14 @@ export default function EnhancedTable() {
             </Paper>
           </Grid>
           <Grid item xs={6}>
-            <Paper className={classes.paper} elevation={7}>
-              <Graphs3 />
+            <Paper
+              className={classes.paper}
+              style={{
+                height: '100%',
+              }}
+              elevation={7}
+            >
+              <Graphs3 record={selected.bridge_opportunity_span_m} />
             </Paper>
           </Grid>
 
