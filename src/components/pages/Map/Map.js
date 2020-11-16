@@ -213,16 +213,23 @@ const Map = () => {
     };
     window.addEventListener('keydown', listener);
   }, []);
+  let hoveredStateId = null;
 
   function handleHover(e) {
     console.log('MOUSE OVER', e);
     // console.log(e.features);
+    // if (e.features && e.features.length > 0) {
+    //   e.features[0].state['hover'] = true;
+    // }
     if (e.features && e.features.length > 0) {
+      if (hoveredStateId) {
+        e.features[0].state['hover'] = false;
+      }
+      hoveredStateId = e.features[0].id;
       e.features[0].state['hover'] = true;
+      console.log(hoveredStateId);
     }
   }
-
-  let hoveredStateId = null;
 
   return (
     <ReactMapGL
@@ -266,7 +273,7 @@ const Map = () => {
         source="rwanda"
         source-layer="Rwanda_Village_Boundaries-8eo00i"
         paint={{
-          'fill-color': 'rgb(217,169,210)',
+          'fill-color': '#627BC1',
           'fill-opacity': [
             'case',
             ['boolean', ['feature-state', 'hover'], false],
