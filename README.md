@@ -5,21 +5,8 @@
 ### https://youtu.be/yhBqqsxCLm4 --- Demo for Labs27 Team
 
 
-## Contributors
-
-
-
-|                                                      [Vrndavana Hines (WEB)](https://github.com/Vrndavana)                                                       |                                                       [Jason Hemann (WEB)](https://github.com/JasonRHemann)                                                        |                                                      [Matthew Kearney (WEB)](https://github.com/matthew-kearney)                                                       |                                                       [David Ortega (WEB)](https://github.com/adortega5185)                                                        |                                                      [Ous Bayaa أوس بياعه (WEB)](https://github.com/ousbayaa)                                                       |
-| :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://ca.slack-edge.com/ESZCHB482-W0123RRNMK9-6d226361ac51-512" width = "200" />](https://github.com/Vrndavana) | [<img src="https://ca.slack-edge.com/ESZCHB482-W0123RRBPAT-8dee2a8687ff-512" width = "200" />](https://github.com/JasonRHemann) | [<img src="https://avatars1.githubusercontent.com/u/60892407?s=400&u=5e96888c83f4660d3c8a01333ea4bea51f5cc648&v=4" width = "200" />](https://github.com/matthew-kearney) | [<img src="https://ca.slack-edge.com/ESZCHB482-W012QNX80JG-cf6f496913b1-512" width = "200" />](https://github.com/adortega5185) | [<img src="https://ca.slack-edge.com/ESZCHB482-W012H6SD745-f826199ac274-512" width = "200" />](https://github.com/ousbayaa) |
-|                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/ShotaKiko)                                |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/JasonRHemann)                             |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Jtmbern)                           |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/adxpillar)                           |                           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/ousbayaa)                            |
-|                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |
-
-|                                                      [Shota Kikozashvili (TPL)](https://github.com/ShotaKiko)                                                       |                                                       [Trent Bernhisel (DS)](https://github.com/tmbern)                                                        |                                                      [Adewale Adeagbo (DS)](https://github.com/adxpillar)                                                     |
-| :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://avatars1.githubusercontent.com/u/45377559?s=400&u=a6b6690c055a0615b3ca7fb5f9781e9beafadfce&v=4" width = "200" />](https://github.com/ShotaKiko) | [<img src="https://ca.slack-edge.com/ESZCHB482-W0138D9AF9N-6e8cd5a45f02-512" width = "200" />](https://github.com/tmbern) | [<img src="https://ca.slack-edge.com/ESZCHB482-W012H6SQN9K-ba93800c21c8-512" width = "200" />](https://github.com/adxpillar) |
-|                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/ShotaKiko)                                |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/tmbern)                             |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/adxpillar)                           |                            |
-|                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |
+# Contributors
+- [Project Contributors](Contributors.md)
 
 <br>
 <br>
@@ -34,58 +21,70 @@
 
 🚫 more info on using badges [here](https://github.com/badges/shields)
 
-## Project Overview
+# Project Overview
 
- Trello Board - https://trello.com/b/xnDcYuZ4/labs25bridgesshota
+ #### Bridges to Prosperity is a nonprofit that helps build footbridges in east African communities. They have collected a lot of data about various villages and we need to match it to government data. Afterwards, we will create predictions and visualizations as to where are the best places for footbridges.
+
+##  Key Features
+
+- Visualize Bridge Data on a Map
+- Ability to filter through different bridge completion stages
+- Ability to see multiple bridge completion stages at once
+- Use of map clustering, enhances map performance by an icon with the amount of bridges in an area.
+     as you zoom in the bridge point appears.
+- Dashboard containing graphs, charts, and tables to visualize bridge data
+
+Trello Board - https://trello.com/b/Tz8190EG/labs-28-bridges-to-prosperity-d
 
  Product Canvas - https://whimsical.com/LJC7f3n28cAwvU2uSrKYri
 
- UX Design files - Files provided by stakeholder 
-    Brand Guide and Assets 
-         https://bridges.app.box.com/s/d9xafgdnzukar2f5frdn4stciud35e1y
-    B2P Site Assessment Data 
-         https://bridges.app.box.com/s/vbgy6a9h0ohunzcuqgfg2mq8r0btvln5
-    Rwanda Administrative Levels and Codes 
-         https://bridges.app.box.com/s/21mix7vjnoi0v7q099fbr9ojl1gyy29j
+ ## UX Design files - Files provided by stakeholder
+ 
+ ####   Brand Guide and Assets 
+- https://bridges.app.box.com/s/d9xafgdnzukar2f5frdn4stciud35e1y
+#### B2P Site Assessment Data
+   
+- https://bridges.app.box.com/s/vbgy6a9h0ohunzcuqgfg2mq8r0btvln5
+#### Rwanda Administrative Levels and Codes
+- https://bridges.app.box.com/s/21mix7vjnoi0v7q099fbr9ojl1gyy29j
 
-
-
-#### Bridges to Prosperity is a nonprofit that helps build footbridges in east african communities. They have collected a lot of data about various villages and we need to match it to government data. Afterwards, we will create predictions and visualizations as to where are the best places for footbridges.
-
-### 4️⃣ Key Features
-
-- feature one
-- feature two
-- feature three
-- feature four
-- feature five
-
-## 1️⃣ Tech Stack
+## Tech Stack
 
 ### Front end built using:
+- [React](https://reactjs.org/)
+- [react-map-gl](https://visgl.github.io/react-map-gl/)
+- [Ant Design](https://ant.design/)
+- [Context API](https://reactjs.org/docs/context.html)
+- [Material-UI](https://material-ui.com/)
+- [Axios](https://www.npmjs.com/package/axios)
+- [Okta](https://www.okta.com/)
+- [Recharts](https://recharts.org/en-US/)
+- [Supercluster](https://github.com/mapbox/supercluster)
+- [useSupercluster](https://www.npmjs.com/package/use-supercluster)
+- [framer motion](https://www.framer.com/motion/)
 
-#### _Front end framework goes here_
+#### _Front end frameworks_
 
-🚫 Why did you choose this framework?
+- React
 
-- point one
-- point two
-- point three
-- point four
+#### Why did you choose this framework?
 
-🚫List the rest of the front end features and libraries in the same format as the framework above.
+- React allows for reusable components allowing for **DRY** code and everyone on the team already had experience with React.
 
-#### Front end deployed to `🚫insert service here`
+#### Front end deployment: [Here](https://main.d2gmbwiyrajcos.amplifyapp.com/)
 
-#### [Back end](🚫link to back end repo here) built using:
+#### Back end repo: [Here](https://github.com/Lambda-School-Labs/Labs28-Bridges-D-BE)
 
-#### 🚫 back end framework goes here
+#### Back end frameworks
 
-- point one
-- point two
-- point three
+- Node.js
+- Express
+- PostgreSQL
+- Docker
 
-🚫 List the rest of the back end end features and libraries in the same format as the framework above
+#### Back end libraries
+- express-ui
+- swagger-jsdoc
 
 # APIs
 
