@@ -1,6 +1,5 @@
 #  Bridges to Prosperity
 
-##### https://main.d2gmbwiyrajcos.amplifyapp.com/ --- Deployed Site
 ### https://youtu.be/fYHp5s21uws --- Stakeholder Demo at end of Labs25
 ### https://youtu.be/yhBqqsxCLm4 --- Demo for Labs27 Team
 
@@ -10,16 +9,6 @@
 
 <br>
 <br>
-
-🚫 4️⃣ Optional examples of using images with links for your tech stack, make sure to change these to fit your project
-
-![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
-![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)
-![Typescript](https://img.shields.io/npm/types/typescript.svg?style=flat)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b5c4db1c-b10d-42c3-b157-3746edd9e81d/deploy-status)](netlify link goes in these parenthesis)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-
-🚫 more info on using badges [here](https://github.com/badges/shields)
 
 # Project Overview
 
@@ -48,32 +37,43 @@ Trello Board - https://trello.com/b/Tz8190EG/labs-28-bridges-to-prosperity-d
 #### Rwanda Administrative Levels and Codes
 - https://bridges.app.box.com/s/21mix7vjnoi0v7q099fbr9ojl1gyy29j
 
-## 1️⃣ Tech Stack
+## Tech Stack
 
 ### Front end built using:
+- [React](https://reactjs.org/)
+- [react-map-gl](https://visgl.github.io/react-map-gl/)
+- [Ant Design](https://ant.design/)
+- [Context API](https://reactjs.org/docs/context.html)
+- [Material-UI](https://material-ui.com/)
+- [Axios](https://www.npmjs.com/package/axios)
+- [Okta](https://www.okta.com/)
+- [Recharts](https://recharts.org/en-US/)
+- [Supercluster](https://github.com/mapbox/supercluster)
+- [useSupercluster](https://www.npmjs.com/package/use-supercluster)
+- [framer motion](https://www.framer.com/motion/)
 
-#### _Front end framework goes here_
+#### _Front end frameworks_
 
-🚫 Why did you choose this framework?
+- React
 
-- point one
-- point two
-- point three
-- point four
+#### Why did you choose this framework?
 
-🚫List the rest of the front end features and libraries in the same format as the framework above.
+- React allows for reusable components allowing for **DRY** code and everyone on the team already had experience with React.
 
-#### Front end deployed to `🚫insert service here`
+#### Front end deployment: [Here](https://d.bridgestoprosperity.dev/main)
 
-#### [Back end](🚫link to back end repo here) built using:
+#### Back end repo: [Here](https://github.com/Lambda-School-Labs/Labs28-Bridges-D-BE)
 
-#### 🚫 back end framework goes here
+#### Back end frameworks
 
-- point one
-- point two
-- point three
+- Node.js
+- Express
+- PostgreSQL
+- Docker
 
-🚫 List the rest of the back end end features and libraries in the same format as the framework above
+#### Back end libraries
+- express-ui
+- swagger-jsdoc
 
 # APIs
 
@@ -162,3 +162,12 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 ## Documentation
 
 See [Backend Documentation](🚫*link to your backend readme here*) for details on the backend of our project.
+
+<!---
+🚫 4️⃣ Optional examples of using images with links for your tech stack, make sure to change these to fit your project
+![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
+![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)
+![Typescript](https://img.shields.io/npm/types/typescript.svg?style=flat)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+just 🚫 more info on using badges [here](https://github.com/badges/shields)
+--->
