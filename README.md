@@ -97,7 +97,7 @@ This API supplies the map with all of its data points. The deployment is documen
 
 In order for the app to function correctly, the user must set up their own environment variables. There should be a .env file containing the following:
 
-🚫These are the fields you will need to set up your project, replace them with the specifics for your app
+* These are the fields you will need to set up your project, replace them with the specifics for your app
 
     
     *  REACT_APP_CLIENT_ID=example - obtain from TPL
