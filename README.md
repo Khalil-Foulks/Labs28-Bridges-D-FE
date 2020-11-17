@@ -109,22 +109,20 @@ When you do it your way you can go anywhere you choose. Let your heart take you 
 
 Volunteering your time; it pays you and your whole community fantastic dividends. Maybe there's a happy little waterfall happening over here. You can spend all day playing with mountains. We don't have to be committed. We are just playing here. You have freedom here. The only guide is your heart. It's cold, but it's beautiful.
 
-# 3️⃣ Environment Variables
+# Environment Variables
 
 In order for the app to function correctly, the user must set up their own environment variables. There should be a .env file containing the following:
 
-🚫These are just examples, replace them with the specifics for your app
+🚫These are the fields you will need to set up your project, replace them with the specifics for your app
 
-    *  REACT_APP_apiKey - this is your Google API key, which can be generated in the Google Cloud Console
-    *  REACT_APP_authDomain - when you set up your Firebase project, this information will be in the dashboard
-    *  REACT_APP_databaseURL - in the Firebase dashboard
-    *  REACT_APP_projectID - in the Firebase dashboard
-    *  REACT_APP_storageBucket - in the Firebase dashboard
-    *  REACT_APP_messagingSenderId - in the Firebase dashboard
-    *  REACT_APP_stripe_API - this is your public Stripe API key, generated in the Stripe dashboard
-    *  REACT_APP_backendURL - optional for your local development server
-    *  REACT_APP_clientid - this is the Stripe_connect clientID, generated in Stripe_connect settings
-    *  REACT_APP_stripe_plan - this is the ID for a second Stripe subscription plan, generated under Stripe products
+    
+    *  REACT_APP_CLIENT_ID=example - obtain from TPL
+    *  REACT_APP_OKTA_ISSUER_URI="https://example-882474.okta.com" - obtain from TPL
+    *  REACT_APP_API_URI=http://localhost:8005 - obtain from TPL
+    *  REACT_APP_MAPBOX_TOKEN=example - obtain from TPL 
+
+
+  
 
 # 5️⃣ Content Licenses
 
