@@ -17,8 +17,29 @@ const Search = () => {
   const [lat, setLat] = useState();
   const [status, setStatus] = useContext(ContextStatus);
   const [viewport, setViewport] = useContext(ContextView);
-  const dataList = searchData;
   const [activeFilters, setActiveFilters] = useContext(ContextActiveFilters);
+
+  const newData = data => {
+    const newCurrentData = searchData.map(obj =>
+      Object.keys(obj)
+        .filter(x => obj[x] !== null)
+        .reduce((o, e) => {
+          o[e] = obj[e];
+          return o;
+        }, {})
+    );
+    const noUnderfined = newCurrentData.map(obj =>
+      Object.keys(obj)
+        .filter(x => obj[x] !== undefined)
+        .reduce((o, e) => {
+          o[e] = obj[e];
+          return o;
+        }, {})
+    );
+    return noUnderfined;
+  };
+
+  const dataList = newData();
 
   //List everything to exclude with filtering
   const exclude = ['id'];
@@ -91,20 +112,25 @@ const Search = () => {
               className="bridgeCard"
               key={i}
               // style={{ margin: 0 }}
-              onMouseEnter={() => setCoord(d.latitude, d.longitude)}
+              onMouseEnter={() =>
+                setCoord(
+                  d.bridge_opportunity_gps_latitude,
+                  d.bridge_opportunity_gps_longitude
+                )
+              }
               onClick={() => {
                 FlyTo();
-                addFilter(d.project_stage);
+                addFilter(d.bridge_opportunity_stage);
               }}
             >
               <b>Bridge Name: </b>
               {d.bridge_name}
               <br />
               <b>Project Code: </b>
-              {d.project_code}
+              {d.bridge_opportunity_project_code}
               <br />
               <b>Poject Stage: </b>
-              {d.project_stage}
+              {d.bridge_opportunity_stage}
               <br />
             </div>
           );

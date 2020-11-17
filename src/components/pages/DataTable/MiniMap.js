@@ -40,29 +40,58 @@ const MiniMap = ({ record, map }) => {
   const _onViewportChange = () => ({
     width: 500,
     height: 200,
-    latitude: record.latitude,
-    longitude: record.longitude,
+    latitude:
+      record.bridge_opportunity_gps_latitude === undefined
+        ? -2.513333
+        : record.bridge_opportunity_gps_latitude,
+    longitude:
+      record.bridge_opportunity_gps_longitude === undefined
+        ? 29.612778
+        : record.bridge_opportunity_gps_longitude,
     zoom: 10.2,
     pitch: 0,
     bearing: -22,
     car: record.cell_service_quality,
   });
 
+  console.log('mm', record.bridge_opportunity_gps_latitude);
+
   return (
     <div>
-      <MapGL
+      <ReactMapGL
         ref={mapRef}
         {..._onViewportChange()}
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-        mapStyle="mapbox://styles/mapbox/navigation-preview-night-v4"
+        mapStyle="mapbox://styles/bridgestoprosperity/ckf5rf05204ln19o7o0sdv860"
         onViewportChange={_onViewportChange}
       >
+        <Marker
+          key={0}
+          latitude={
+            record.bridge_opportunity_gps_latitude === undefined
+              ? 0
+              : record.bridge_opportunity_gps_latitude
+          }
+          longitude={
+            record.bridge_opportunity_gps_longitude === undefined
+              ? 0
+              : record.bridge_opportunity_gps_longitude
+          }
+        >
+          <img
+            sytle={{
+              width: '15px',
+              height: '20px',
+            }}
+            alt="bridge icon"
+          />
+        </Marker>
         <GeolocateControl
           style={geolocateStyle}
           positionOptions={{ enableHighAccuracy: true }}
           trackUserLocation={true}
         />
-      </MapGL>
+      </ReactMapGL>
     </div>
   );
 };

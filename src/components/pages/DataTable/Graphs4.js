@@ -51,10 +51,11 @@ const Graphs4 = ({ record }) => {
 
   return (
     <div>
+      <h3 style={{ color: 'white', fontWeight: 600 }}>Cell Quality</h3>
       <RadarChart
         style={{ margin: '0px' }}
         cx={200}
-        cy={120}
+        cy={100}
         outerRadius={80}
         width={300}
         height={200}
@@ -67,7 +68,7 @@ const Graphs4 = ({ record }) => {
           name="Mike"
           dataKey="A"
           stroke="#8884d8"
-          fill="#8884d8"
+          fill="#39d1e6"
           fillOpacity={0.6}
         />
       </RadarChart>

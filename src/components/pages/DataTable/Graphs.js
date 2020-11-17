@@ -30,16 +30,19 @@ const Graphs = ({ record, record2 }) => {
   ];
 
   return (
-    <div className="bar-container" style={{ margin: '0', height: '100%' }}>
+    <div
+      className="bar-container"
+      style={{ margin: '0', height: '100%', color: 'white' }}
+    >
       <div>
-        <BarChart width={100} height={175} data={data}>
+        <BarChart width={150} height={175} data={data}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis style={{ color: 'white' }} dataKey="name" />
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="Deaths" stackId="a" fill="#8884d8" />
-          <Bar dataKey="Injuries" stackId="a" fill="#82ca9d" />
+          <Bar dataKey="Deaths" stackId="a" fill="red" />
+          <Bar dataKey="Injuries" stackId="a" fill="#39d1e6" />
         </BarChart>
       </div>
     </div>

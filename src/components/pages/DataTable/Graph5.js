@@ -20,7 +20,6 @@ const Graph5 = ({ record }) => {
       return data;
     }
   };
-  console.log('farm1', record);
 
   const farm =
     newData(record) === undefined ? 1 : newData(record).split(' ').length;
@@ -42,7 +41,7 @@ const Graph5 = ({ record }) => {
         <Tooltip />
         <Legend />
 
-        <Bar dataKey="crops" fill="#82ca9d" />
+        <Bar dataKey="crops" fill="#39d1e6" />
       </BarChart>
     </div>
   );

@@ -64,15 +64,15 @@ const Graphs2 = () => {
   return (
     <div>
       <div>
+        <div>Bridge Status</div>
         <PieChart width={400} height={300}>
-          <div>Bridge Status</div>
           <Pie
             isAnimationActive={false}
             data={data01}
             cx={150}
-            cy={80}
+            cy={70}
             outerRadius={50}
-            fill="#8884d8"
+            fill="#39d1e6"
             label
           />
 

@@ -18,7 +18,7 @@ const BorderLinearProgress = withStyles(theme => ({
   },
   bar: {
     borderRadius: 5,
-    backgroundColor: '#1a90ff',
+    backgroundColor: '#39d1e6',
   },
 }))(LinearProgress);
 
@@ -50,8 +50,6 @@ const Graphs3 = ({ record }) => {
 
     return noUnderfined;
   };
-
-  console.log('g5', record);
 
   const classes = useStyles();
   return (
