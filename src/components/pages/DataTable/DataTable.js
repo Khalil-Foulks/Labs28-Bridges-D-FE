@@ -4,6 +4,8 @@ import * as d3 from 'd3';
 import { FlyToInterpolator } from 'react-map-gl';
 import { motion } from 'framer-motion';
 
+import { BrowserRouter as Router, Link } from 'react-router-dom';
+
 import { columns } from './HeaderColumns';
 import './datatable.css';
 
@@ -342,6 +344,9 @@ export default function EnhancedTable() {
             alignItems: 'center',
           }}
         >
+          <Link to="/main">
+            <h1 style={{ color: '#39d1e6', fontWeight: '600' }}>Home</h1>
+          </Link>
           <h1 style={{ color: '#39d1e6', fontWeight: '600' }}>Dashboard</h1>
           <div className="filter-search">
             <form className={classes.textBlock} noValidate>
