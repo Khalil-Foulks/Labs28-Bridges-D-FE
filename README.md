@@ -24,7 +24,6 @@
      as you zoom in the bridge point appears.
 - Dashboard containing graphs, charts, and tables to visualize bridge data
 
-<<<<<<< HEAD
 =======
  #### Bridges to Prosperity is a nonprofit that helps build footbridges in east african communities. They have collected a lot of data about various villages and we need to match it to government data. Afterwards, we will create predictions and visualizations as to where are the best places for footbridges.
 
@@ -37,12 +36,10 @@
      as you zoom in the bridge point appears.
 - Dashboard containting graphs, charts, and tables to visualize bridge data
 
->>>>>>> 8a90c49abe61ca82ca2d88803d2bfb6ebe23665b
 Trello Board - https://trello.com/b/Tz8190EG/labs-28-bridges-to-prosperity-d
 
  Product Canvas - https://whimsical.com/LJC7f3n28cAwvU2uSrKYri
 
-<<<<<<< HEAD
  ## UX Design files - Files provided by stakeholder
  
  ####   Brand Guide and Assets 
