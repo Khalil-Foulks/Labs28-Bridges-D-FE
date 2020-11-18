@@ -50,7 +50,6 @@ Trello Board - https://trello.com/b/Tz8190EG/labs-28-bridges-to-prosperity-d
 - https://bridges.app.box.com/s/21mix7vjnoi0v7q099fbr9ojl1gyy29j
 
 ## Tech Stack
-=======
  UX Design files - Files provided by stakeholder 
     Brand Guide and Assets 
          https://bridges.app.box.com/s/d9xafgdnzukar2f5frdn4stciud35e1y
@@ -60,7 +59,6 @@ Trello Board - https://trello.com/b/Tz8190EG/labs-28-bridges-to-prosperity-d
          https://bridges.app.box.com/s/21mix7vjnoi0v7q099fbr9ojl1gyy29j
 
 ## 1️⃣ Tech Stack
->>>>>>> 8a90c49abe61ca82ca2d88803d2bfb6ebe23665b
 
 ### Front end built using:
 - [React](https://reactjs.org/)
