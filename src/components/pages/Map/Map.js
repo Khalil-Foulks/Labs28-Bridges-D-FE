@@ -9,6 +9,8 @@ import ReactMapGL, {
   Marker,
   NavigationControl,
   FlyToInterpolator,
+  Layer,
+  Source,
 } from 'react-map-gl';
 import useSupercluster from 'use-supercluster';
 import axios from 'axios';
@@ -28,6 +30,7 @@ import {
   ContextLong,
   ContextLat,
   ContextView,
+  ContextDataDetails,
 } from '../Store';
 import './map.css';
 import LeftSideBar from '../LeftSideBar/LeftSideBar';
@@ -51,6 +54,8 @@ const Map = () => {
   const onClose = () => {
     setVisible(false);
   };
+
+  const [cardDetails, setCardDetails] = useContext(ContextDataDetails);
 
   //state of longitude and latitude for fly to function
   const [long, setLong] = useContext(ContextLong);
@@ -92,7 +97,9 @@ const Map = () => {
   //hits endpoint and gets all bridges
   useEffect(() => {
     axios
-      .get('https://b2ptc.herokuapp.com/bridges')
+      .get(
+        'http://b2p2018-finalmerge1.eba-4apifgmz.us-east-1.elasticbeanstalk.com/all_data'
+      )
       .then(response => {
         response.data.map(element => {
           //pushes every element to array variable
@@ -135,31 +142,35 @@ const Map = () => {
   for (let i = 0; i < data.length; i++) {
     //if statement filters bridges based on status
     if (
-      data[i].project_stage === filterBy('Complete') ||
-      data[i].project_stage === filterBy('Under Construction') ||
-      data[i].project_stage === filterBy('Confirmed') ||
-      data[i].project_stage === filterBy('Prospecting') ||
-      data[i].project_stage === filterBy('Identified') ||
-      data[i].project_stage === filterBy('Rejected')
+      data[i].bridge_opportunity_stage === filterBy('Complete') ||
+      data[i].bridge_opportunity_stage === filterBy('Under Construction') ||
+      data[i].bridge_opportunity_stage === filterBy('Confirmed') ||
+      data[i].bridge_opportunity_stage === filterBy('Prospecting') ||
+      data[i].bridge_opportunity_stage === filterBy('Identified') ||
+      data[i].bridge_opportunity_stage === filterBy('Rejected')
     ) {
       bridge.features.push({
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [data[i].latitude, data[i].longitude],
+          coordinates: [
+            data[i].bridge_opportunity_gps_latitude,
+            data[i].bridge_opportunity_gps_longitude,
+          ],
         },
         properties: {
-          id: data[i].id,
-          project_code: data[i].project_code,
+          // id: data[i].id,
+          project_code: data[i].bridge_opportunity_project_code,
           bridge_name: data[i].bridge_name,
-          bridge_type: data[i].bridge_type,
-          district_id: data[i].district_id,
-          district_name: data[i].district_name,
-          province_id: data[i].province_id,
-          province_name: data[i].province_name,
-          project_stage: data[i].project_stage,
-          individuals_served: data[i].individuals_served,
-          bridge_image: data[i].bridge_image,
+          bridge_type: data[i].bridge_opportunity_bridge_type,
+          // district_id: data[i].district_id,
+          district_name: data[i].bridge_opportunity_level2_government,
+          // province_id: data[i].province_id,
+          province_name: data[i].bridge_opportunity_level1_government,
+          project_stage: data[i].bridge_opportunity_stage,
+          individuals_served:
+            data[i].bridge_opportunity_individuals_directly_served,
+          // bridge_image: data[i].bridge_image,
         },
       });
     }
@@ -169,13 +180,13 @@ const Map = () => {
     type: 'Feature',
     properties: {
       cluster: false,
-      id: point.properties.id,
+      // id: point.properties.id,
       project_code: point.properties.project_code,
       bridge_type: point.properties.bridge_type,
       project_stage: point.properties.project_stage,
       bridge_name: point.properties.bridge_name,
       district_name: point.properties.district_name,
-      province_id: point.properties.province_id,
+      // province_id: point.properties.province_id,
       province_name: point.properties.province_name,
     },
     geometry: {
@@ -224,6 +235,11 @@ const Map = () => {
       //enable dragging
       onViewportChange={handleViewportChange}
     >
+      <Source
+        id="village-bounds"
+        type="vector"
+        url="mapbox://bridgestoprosperity.bmo6bmeu"
+      />
       <div className="sidebar">
         <LeftSideBar />
       </div>
@@ -253,7 +269,6 @@ const Map = () => {
                     supercluster.getClusterExpansionZoom(cluster.id),
                     20
                   );
-
                   setViewport({
                     ...viewport,
                     latitude,
@@ -275,7 +290,7 @@ const Map = () => {
         //there is a single point to render
         return (
           <Marker
-            key={`bridge-${cluster.properties.id}`}
+            key={`bridge-${cluster.properties.project_code}`}
             latitude={latitude}
             longitude={longitude}
           >
@@ -348,7 +363,7 @@ const Map = () => {
       >
         <h3>Bridge Name: {state.cluster.properties.bridge_name}</h3>
         <h3>Province: {state.cluster.properties.province_name}</h3>
-        <h3>District: {state.cluster.properties.district_name}</h3>
+        {/* <h3>District: {state.cluster.properties.district_name}</h3> */}
         <h3>Project Stage: {state.cluster.properties.project_stage}</h3>
         <h3>Project Code: {state.cluster.properties.project_code}</h3>
         <h3>Bridge Type: {state.cluster.properties.bridge_type}</h3>

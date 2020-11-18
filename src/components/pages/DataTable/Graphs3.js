@@ -14,7 +14,10 @@ const data01 = [
 
 const BorderLinearProgress = withStyles(theme => ({
   root: {
-    height: 10,
+    marginTop: '10%',
+    paddingBottom: '18%',
+    marginLeft: '50%',
+    height: 20,
     borderRadius: 5,
   },
   colorPrimary: {
@@ -34,12 +37,12 @@ const useStyles = makeStyles({
   },
 });
 
-const Graphs2 = () => {
+const Graphs3 = () => {
   const classes = useStyles();
   return (
     <div>
-      <div>
-        <PieChart width={400} height={300}>
+      {/* <div>
+        <PieChart width={400} height={300} >
           <div>Bridge Status</div>
           <Pie
             isAnimationActive={false}
@@ -53,13 +56,13 @@ const Graphs2 = () => {
 
           <Tooltip />
         </PieChart>
-      </div>
-      {/* <div className={classes.root}>
+      </div> */}
+      <div className={classes.root}>
         <BorderLinearProgress variant="determinate" value={70} />
         <div>Bridge Span</div>
-      </div> */}
+      </div>
     </div>
   );
 };
 
-export default Graphs2;
+export default Graphs3;

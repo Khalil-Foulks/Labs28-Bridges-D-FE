@@ -6,12 +6,12 @@ const initialState = {
     geometry: { type: '', coordinates: Array(0) },
     properties: {
       cluster: false,
-      id: null,
+      // id: null,
       project_code: null,
       bridge_type: null,
       project_stage: null,
       bridge_name: '',
-      district_name: '',
+      // district_name: '',
     },
   },
 };
@@ -50,6 +50,7 @@ export const ContextConfirmedFilter = React.createContext();
 export const ContextProspectingFilter = React.createContext();
 export const ContextIdentifiedFilter = React.createContext();
 export const ContextActiveFilters = React.createContext();
+export const ContextDataDetails = React.createContext([[], () => {}]);
 
 const Store = ({ children }) => {
   const [viewport, setViewport] = useState(initialView);
@@ -68,6 +69,7 @@ const Store = ({ children }) => {
   const [statusProspecting, setStatusProspecting] = useState(false);
   const [statusIdentified, setStatusIdentified] = useState(false);
   const [statusRejected, setStatusRejected] = useState(false);
+  const [cardDetails, setCardDetails] = useState([]);
 
   return (
     <ContextView.Provider value={[viewport, setViewport]}>
@@ -101,9 +103,13 @@ const Store = ({ children }) => {
                               <ContextActiveFilters.Provider
                                 value={[activeFilters, setActiveFilters]}
                               >
-                                <Context.Provider value={[state, setState]}>
-                                  {children}
-                                </Context.Provider>
+                                <ContextDataDetails.Provider
+                                  value={[cardDetails, setCardDetails]}
+                                >
+                                  <Context.Provider value={[state, setState]}>
+                                    {children}
+                                  </Context.Provider>
+                                </ContextDataDetails.Provider>
                               </ContextActiveFilters.Provider>
                             </ContextIdentifiedFilter.Provider>
                           </ContextProspectingFilter.Provider>
