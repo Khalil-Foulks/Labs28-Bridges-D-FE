@@ -48,7 +48,7 @@
 body {
   margin: 0;
   padding: 0;
-  overflow: scroll;
+  overflow: hidden;
   background-color: #372d4a
 }
 ::-webkit-scrollbar {
