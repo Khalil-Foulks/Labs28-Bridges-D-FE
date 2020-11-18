@@ -96,15 +96,15 @@ const MiniMap = ({ record, map, data }) => {
         onViewportChange={_onViewportChange}
       >
         <Marker
-          key={0}
+          key={record.bridge_opportunity_project_code}
           latitude={
             record.bridge_opportunity_gps_latitude === undefined
-              ? 0
+              ? 2.513333
               : record.bridge_opportunity_gps_latitude
           }
           longitude={
             record.bridge_opportunity_gps_longitude === undefined
-              ? 0
+              ? 29.612778
               : record.bridge_opportunity_gps_longitude
           }
         >

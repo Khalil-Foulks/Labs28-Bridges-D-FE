@@ -29,7 +29,10 @@ import {
   TextField,
   List,
   ListItem,
+  Input,
+  InputAdornment,
 } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
 import MuiTableCell from '@material-ui/core/TableCell';
 import { ThemeProvider } from '@material-ui/core';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -40,7 +43,7 @@ import DetailsCard from './DetailsCard.js';
 import MiniMap from './MiniMap.js';
 import Graphs from './Graphs.js';
 import Graphs2 from './Graphs2.js';
-import BodyTable from './BodyTable.js';
+
 import Graphs3 from './Graphs3';
 import Graphs4 from './Graphs4';
 import Graph5 from './Graph5';
@@ -178,26 +181,6 @@ export default function EnhancedTable() {
       });
   }, []);
 
-  const newData = data => {
-    const newCurrentData = data.map(obj =>
-      Object.keys(obj)
-        .filter(x => obj[x] !== null)
-        .reduce((o, e) => {
-          o[e] = obj[e];
-          return o;
-        }, {})
-    );
-    const noUnderfined = newCurrentData.map(obj =>
-      Object.keys(obj)
-        .filter(x => obj[x] !== undefined)
-        .reduce((o, e) => {
-          o[e] = obj[e];
-          return o;
-        }, {})
-    );
-    return noUnderfined;
-  };
-
   //Show new page When table is updated
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -303,17 +286,28 @@ export default function EnhancedTable() {
       maxHeight: '200px',
       borderRadius: '20px',
     },
+    textBlock: {
+      backgroundColor: '#39d1e6',
+    },
   }));
 
   const CssTextField = withStyles({
     root: {
-      '& label': {
-        color: '#39d1e6',
+      '& label.Mui-focused': {
+        color: 'green',
       },
-
+      '& .MuiInput-underline:after': {
+        borderBottomColor: 'green',
+      },
       '& .MuiOutlinedInput-root': {
         '& fieldset': {
-          borderColor: '#39d1e6',
+          borderColor: 'red',
+        },
+        '&:hover fieldset': {
+          borderColor: 'yellow',
+        },
+        '&.Mui-focused fieldset': {
+          borderColor: 'green',
         },
       },
     },
@@ -350,22 +344,25 @@ export default function EnhancedTable() {
         >
           <h1 style={{ color: '#39d1e6', fontWeight: '600' }}>Dashboard</h1>
           <div className="filter-search">
-            <CssTextField
-              variant="outlined"
-              id="custom-css-outlined-input"
-              type="text"
-              name="Search Projects"
-              label="Search"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              style={{
-                backgroundColor: '#372d4a',
-                color: '#39d1e6',
-                borderColor: 'white',
-                boxShadow: 'none',
-              }}
-              size="small"
-            />
+            <form className={classes.textBlock} noValidate>
+              <TextField
+                className={classes.textBlock}
+                color="primary"
+                variant="filled"
+                id="outlined-basic"
+                label="Search"
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                size="small"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </form>
           </div>
         </Toolbar>
       </AppBar>

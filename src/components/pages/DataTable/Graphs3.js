@@ -1,8 +1,7 @@
-import React, { PureComponent, useEffect, useState } from 'react';
+import React from 'react';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import axios from 'axios';
 
 const BorderLinearProgress = withStyles(theme => ({
   root: {
@@ -14,7 +13,7 @@ const BorderLinearProgress = withStyles(theme => ({
   },
   colorPrimary: {
     backgroundColor:
-      theme.palette.grey[theme.palette.type === 'light' ? 200 : 700],
+      theme.palette.grey[theme.palette.type === 'light' ? 200 : 800],
   },
   bar: {
     borderRadius: 5,
@@ -30,6 +29,7 @@ const useStyles = makeStyles({
 });
 
 const Graphs3 = ({ record }) => {
+  console.log('bridg', record);
   const newData = data => {
     const newCurrentData = data.map(obj =>
       Object.keys(obj)
@@ -56,7 +56,7 @@ const Graphs3 = ({ record }) => {
     <div>
       <div className={classes.root}>
         <BorderLinearProgress variant="determinate" value={record} />
-        <div>Bridge Span</div>
+        <div>Bridge Span {record}km</div>
       </div>
     </div>
   );

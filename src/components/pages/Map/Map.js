@@ -68,9 +68,6 @@ const Map = () => {
   const [collapseMargin, setCollapseMargin] = useContext(ContextMargin);
   //state of filter that are active
   const [activeFilters, setActiveFilters] = useContext(ContextActiveFilters);
-  const [hover, setHover] = useState(false);
-  const [source, setSource] = useState('rwanda');
-  const [hid, setHid] = useState(null);
   //array that all the bridge data is pushed to before formatted to GeoJson
   const array = [];
   //hits endpoint and gets all bridges
@@ -173,17 +170,6 @@ const Map = () => {
         .toArray()
         .flat()
     : null;
-
-  const paint2 = {
-    'fill-color': 'green',
-    'fill-opacity': [
-      'case',
-      ['boolean', ['feature-state', 'hover'], false],
-      2,
-      0.2,
-    ],
-  };
-
   //get clusters
   const { clusters, supercluster } = useSupercluster({
     points,
@@ -201,36 +187,26 @@ const Map = () => {
     window.addEventListener('keydown', listener);
   }, []);
   function handleHover(e) {
-    setHover(true);
-
     console.log('MOUSE OVER', e);
-    console.log(e.features);
-    console.log('new', hoveredStateId);
+    // console.log(e.features);
     // if (e.features && e.features.length > 0) {
     //   e.features[0].state['hover'] = true;
     // }
     if (e.features && e.features.length > 0) {
       if (hoveredStateId) {
+        e.features[0].source = 'rwanda';
+        e.features[0].id = hoveredStateId;
         e.features[0].state['hover'] = false;
-        e.features[0].source = source;
-
-        //   e.feature[0].state['source'] = 'rwanda';
-        // e.feature[0].state[hoveredStateId] = hoveredStateId;
       }
-      setSource({ source: 'rwanda', id: 2951 });
       hoveredStateId = e.features[0].id;
-      setHid(hoveredStateId);
+      e.features[0].source = 'rwanda';
+      e.features[0].id = hoveredStateId;
       e.features[0].state['hover'] = true;
-      e.features[0].source = source;
-      // e.features[0].state.layer['paint']= paint2;
-      console.log('new', hid);
       console.log(hoveredStateId);
     }
   }
-
   let hoveredStateId = null;
-  console.log(hoveredStateId);
-  //there is a single point to render
+
   return (
     <ReactMapGL
       ref={mapRef}
@@ -251,48 +227,34 @@ const Map = () => {
       />
       {/* Applies a colored layer to tileset */}
       {/* <Layer
-                id="color_layer"
-                type="fill"
-                source="rwanda"
-                source-layer="Rwanda_Village_Boundaries-8eo00i"
-                paint={{
-                  'fill-color': [
-                    'rgb',
-                    ['%', ['*', 100, ['to-number', ['get', 'Village_ID']]], 256],
-                    ['%', ['*', 757, ['to-number', ['get', 'Village_ID']]], 256],
-                    ['%', ['*', 911, ['to-number', ['get', 'Village_ID']]], 256],
-                  ],
-                  'fill-opacity': 0.07,
-                }}
-              /> */}
+        id="color_layer"
+        type="fill"
+        source="rwanda"
+        source-layer="Rwanda_Village_Boundaries-8eo00i"
+        paint={{
+          'fill-color': [
+            'rgb',
+            ['%', ['*', 100, ['to-number', ['get', 'Village_ID']]], 256],
+            ['%', ['*', 757, ['to-number', ['get', 'Village_ID']]], 256],
+            ['%', ['*', 911, ['to-number', ['get', 'Village_ID']]], 256],
+          ],
+          'fill-opacity': 0.07,
+        }}
+      /> */}
       <Layer
         id="color_layer"
         type="fill"
         source="rwanda"
         source-layer="Rwanda_Village_Boundaries-8eo00i"
-        paint={
-          hover === false
-            ? {
-                'fill-color': 'blue',
-                'fill-opacity': [
-                  'case',
-                  [source, hover],
-                  // ['boolean', ['feature-state', 'hover'], false],
-                  1,
-                  0.2,
-                ],
-              }
-            : {
-                'fill-color': 'green',
-                'fill-opacity': [
-                  'case',
-                  // [source,hover],
-                  ['boolean', ['feature-state', 'hover'], false],
-                  8,
-                  0.6,
-                ],
-              }
-        }
+        paint={{
+          'fill-color': '#627BC1',
+          'fill-opacity': [
+            'case',
+            ['boolean', ['feature-state', 'hover'], false],
+            1,
+            0.2,
+          ],
+        }}
       />
       {/* Applies a border layer to tileset */}
       <Layer
@@ -302,7 +264,7 @@ const Map = () => {
         source-layer="Rwanda_Village_Boundaries-8eo00i"
         paint={{
           'line-color': '#627BC1',
-          'line-width': 5,
+          'line-width': 1,
         }}
       />
       <div className="sidebar">
