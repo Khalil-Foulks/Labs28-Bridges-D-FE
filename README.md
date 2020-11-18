@@ -36,7 +36,18 @@
 
 ## Project Overview
 
- Trello Board - https://trello.com/b/xnDcYuZ4/labs25bridgesshota
+ #### Bridges to Prosperity is a nonprofit that helps build footbridges in east african communities. They have collected a lot of data about various villages and we need to match it to government data. Afterwards, we will create predictions and visualizations as to where are the best places for footbridges.
+
+### 4️⃣ Key Features
+
+- Visulize Bridge Data on a Map
+- Ability to filter through different bridge completion stages
+- Ability to see multiple bridge completion stages at once
+- Use of map clustering, enhances map peformance by an icon with the amount of bridges in an area.
+     as you zoom in the bridge point appears.
+- Dashboard containting graphs, charts, and tables to visualize bridge data
+
+Trello Board - https://trello.com/b/Tz8190EG/labs-28-bridges-to-prosperity-d
 
  Product Canvas - https://whimsical.com/LJC7f3n28cAwvU2uSrKYri
 
@@ -47,18 +58,6 @@
          https://bridges.app.box.com/s/vbgy6a9h0ohunzcuqgfg2mq8r0btvln5
     Rwanda Administrative Levels and Codes 
          https://bridges.app.box.com/s/21mix7vjnoi0v7q099fbr9ojl1gyy29j
-
-
-
-#### Bridges to Prosperity is a nonprofit that helps build footbridges in east african communities. They have collected a lot of data about various villages and we need to match it to government data. Afterwards, we will create predictions and visualizations as to where are the best places for footbridges.
-
-### 4️⃣ Key Features
-
-- feature one
-- feature two
-- feature three
-- feature four
-- feature five
 
 ## 1️⃣ Tech Stack
 
