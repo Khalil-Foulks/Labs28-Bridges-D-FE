@@ -1,26 +1,45 @@
 import React, { useState, useCallback, useRef } from 'react';
 import MapGL, { GeolocateControl } from 'react-map-gl';
-import ReactMapGL, { Marker, NavigationControl } from 'react-map-gl';
+import ReactMapGL, { Marker, NavigationControl, StaticMap } from 'react-map-gl';
+import DeckGL from '@deck.gl/react';
+import { HeatmapLayer } from '@deck.gl/aggregation-layers';
 import axios from 'axios';
 import '../Map/mapbox-gl.css';
+import bridge from './bridge-icon.png';
 
 // import './miniMap.css';
 
-const MiniMap = ({ record, map }) => {
+const dataArray = [];
+const MiniMap = ({ record, map, data }) => {
+  const [heat, setHeat] = useState({
+    COORDINATES: [
+      record.bridge_opportunity_gps_latitude,
+      record.bridge_opportunity_gps_longitude,
+    ],
+    WEIGHT: 10,
+  });
   const [lat, setLat] = useState();
   const [long, setLong] = useState();
 
-  // const [viewport, setViewport] = useState({
+  const [viewport, setViewport] = useState({
+    latitude:
+      record.bridge_opportunity_gps_latitude === undefined
+        ? -2.513333
+        : record.bridge_opportunity_gps_latitude,
+    longitude:
+      record.bridge_opportunity_gps_longitude === undefined
+        ? 29.612778
+        : record.bridge_opportunity_gps_longitude,
+    zoom: 10.2,
+    pitch: 0,
+    bearing: -22,
+    car: record.cell_service_quality,
+  });
 
-  //   width: 500,
-  //   height: 200,
-  //   latitude: record.latitude,
-  //   // longitude: lg,
-  //   zoom: 10.2,
-  //   pitch: 0,
-  //   bearing: -22,
-  //   car: record.cell_service_quality
-  // });
+  const mapStyle =
+    'mapbox://styles/bridgestoprosperity/ckf5rf05204ln19o7o0sdv860';
+
+  console.log('this1', dataArray);
 
   const setCoord = (lat, long) => {
     setLat(lat);
@@ -29,7 +48,7 @@ const MiniMap = ({ record, map }) => {
 
   const geolocateStyle = {
     float: 'left',
-    margin: '50px',
+    margin: '20px',
     padding: '10px',
   };
 
@@ -54,15 +73,26 @@ const MiniMap = ({ record, map }) => {
     car: record.cell_service_quality,
   });
 
-  console.log('mm', record.bridge_opportunity_gps_latitude);
+  const layer = [
+    new HeatmapLayer({
+      heat,
+      id: 'heatmp-layer',
+      pickable: false,
+      getPosition: d => d.COORDINATES,
+      getWeight: d => d.WEIGHT,
+    }),
+  ];
+
+  console.log('mm', dataArray);
 
   return (
     <div>
-      <ReactMapGL
+      <StaticMap
         ref={mapRef}
         {..._onViewportChange()}
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-        mapStyle="mapbox://styles/bridgestoprosperity/ckf5rf05204ln19o7o0sdv860"
+        mapStyle={mapStyle}
+        controller={true}
         onViewportChange={_onViewportChange}
       >
         <Marker
@@ -79,6 +109,7 @@ const MiniMap = ({ record, map }) => {
           }
         >
           <img
+            src={bridge}
             sytle={{
               width: '15px',
               height: '20px',
@@ -91,7 +122,7 @@ const MiniMap = ({ record, map }) => {
           positionOptions={{ enableHighAccuracy: true }}
           trackUserLocation={true}
         />
-      </ReactMapGL>
+      </StaticMap>
     </div>
   );
 };

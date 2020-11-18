@@ -5,6 +5,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
     "@craco/craco": "^5.6.4",
+    "@deck.gl/aggregation-layers": "^8.3.8",
     "@material-ui/core": "^4.11.0",
     "@material-ui/data-grid": "^4.0.0-alpha.8",
     "@material-ui/icons": "^4.9.1",
@@ -14,6 +15,7 @@
     "axios": "^0.19.2",
     "craco-less": "^1.17.0",
     "d3-ease": "^2.0.0",
+    "deck.gl": "^8.3.8",
     "framer-motion": "^2.9.4",
     "mapbox-gl": "^1.12.0",
     "plotly.js": "^1.54.6",
