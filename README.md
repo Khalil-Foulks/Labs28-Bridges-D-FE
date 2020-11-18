@@ -24,7 +24,6 @@
      as you zoom in the bridge point appears.
 - Dashboard containing graphs, charts, and tables to visualize bridge data
 
-=======
  #### Bridges to Prosperity is a nonprofit that helps build footbridges in east african communities. They have collected a lot of data about various villages and we need to match it to government data. Afterwards, we will create predictions and visualizations as to where are the best places for footbridges.
 
 ### 4️⃣ Key Features
