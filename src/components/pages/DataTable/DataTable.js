@@ -2,6 +2,9 @@ import React, { useState, useEffect, useMemo, useContext } from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 import { FlyToInterpolator } from 'react-map-gl';
+import { motion } from 'framer-motion';
+
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 import { columns } from './HeaderColumns';
 import './datatable.css';
@@ -28,7 +31,10 @@ import {
   TextField,
   List,
   ListItem,
+  Input,
+  InputAdornment,
 } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
 import MuiTableCell from '@material-ui/core/TableCell';
 import { ThemeProvider } from '@material-ui/core';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -39,9 +45,10 @@ import DetailsCard from './DetailsCard.js';
 import MiniMap from './MiniMap.js';
 import Graphs from './Graphs.js';
 import Graphs2 from './Graphs2.js';
-import BodyTable from './BodyTable.js';
+
 import Graphs3 from './Graphs3';
 import Graphs4 from './Graphs4';
+import Graph5 from './Graph5';
 
 const TableCell = withStyles({
   root: {
@@ -176,26 +183,6 @@ export default function EnhancedTable() {
       });
   }, []);
 
-  const newData = data => {
-    const newCurrentData = data.map(obj =>
-      Object.keys(obj)
-        .filter(x => obj[x] !== null)
-        .reduce((o, e) => {
-          o[e] = obj[e];
-          return o;
-        }, {})
-    );
-    const noUnderfined = newCurrentData.map(obj =>
-      Object.keys(obj)
-        .filter(x => obj[x] !== undefined)
-        .reduce((o, e) => {
-          o[e] = obj[e];
-          return o;
-        }, {})
-    );
-    return noUnderfined;
-  };
-
   //Show new page When table is updated
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -283,17 +270,46 @@ export default function EnhancedTable() {
       maxHeight: '200px',
       borderRadius: '20px',
     },
+    graph4: {
+      paddingBottom: '5%',
+      paddingLeft: '8%',
+      textAlign: 'center',
+      background:
+        'linear-gradient(93deg, rgba(41,66,122,1) 0%, rgba(91,69,133,1) 81%)',
+      color: 'white',
+      maxHeight: '200px',
+      borderRadius: '20px',
+    },
+    graph3: {
+      textAlign: 'center',
+      background:
+        'linear-gradient(93deg, rgba(41,66,122,1) 0%, rgba(91,69,133,1) 81%)',
+      color: 'white',
+      maxHeight: '200px',
+      borderRadius: '20px',
+    },
+    textBlock: {
+      backgroundColor: '#39d1e6',
+    },
   }));
 
   const CssTextField = withStyles({
     root: {
-      '& label': {
-        color: '#39d1e6',
+      '& label.Mui-focused': {
+        color: 'green',
       },
-
+      '& .MuiInput-underline:after': {
+        borderBottomColor: 'green',
+      },
       '& .MuiOutlinedInput-root': {
         '& fieldset': {
-          borderColor: '#39d1e6',
+          borderColor: 'red',
+        },
+        '&:hover fieldset': {
+          borderColor: 'yellow',
+        },
+        '&.Mui-focused fieldset': {
+          borderColor: 'green',
         },
       },
     },
@@ -328,24 +344,30 @@ export default function EnhancedTable() {
             alignItems: 'center',
           }}
         >
+          <Link to="/main">
+            <h1 style={{ color: '#39d1e6', fontWeight: '600' }}>Home</h1>
+          </Link>
           <h1 style={{ color: '#39d1e6', fontWeight: '600' }}>Dashboard</h1>
           <div className="filter-search">
-            <CssTextField
-              variant="outlined"
-              id="custom-css-outlined-input"
-              type="text"
-              name="Search Projects"
-              label="Search"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              style={{
-                backgroundColor: '#372d4a',
-                color: '#39d1e6',
-                borderColor: 'white',
-                boxShadow: 'none',
-              }}
-              size="small"
-            />
+            <form className={classes.textBlock} noValidate>
+              <TextField
+                className={classes.textBlock}
+                color="primary"
+                variant="filled"
+                id="outlined-basic"
+                label="Search"
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                size="small"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </form>
           </div>
         </Toolbar>
       </AppBar>
@@ -356,41 +378,101 @@ export default function EnhancedTable() {
         <div className={classes.toolbar} />
         <Grid container spacing={3}>
           <Grid item direction="row" item xs={4} style={{ width: '80%' }}>
-            <Paper className={classes.paper} elevation={7}>
-              <Graphs
-                record={selected.river_crossing_deaths_in_last_3_years}
-                record2={selected.river_crossing_injuries_in_last_3_years}
-              />
-            </Paper>
+            <motion.div
+              whileHover={{
+                scale: 1.1,
+
+                borderRadius: '25px',
+                border: '2px solid #39d1e6',
+              }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <Paper className={classes.paper} elevation={7}>
+                <Graphs
+                  record={selected.river_crossing_deaths_in_last_3_years}
+                  record2={selected.river_crossing_injuries_in_last_3_years}
+                />
+              </Paper>
+            </motion.div>
           </Grid>
 
           <Grid item xs={4}>
-            <Paper className={classes.paper} elevation={7}>
-              <Graphs />
-            </Paper>
+            <motion.div
+              whileHover={{
+                scale: 1.1,
+
+                borderRadius: '25px',
+                border: '2px solid #39d1e6',
+              }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <Paper className={classes.paper} elevation={7}>
+                <Graphs2 />
+              </Paper>
+            </motion.div>
           </Grid>
           <Grid item xs={4}>
-            <Paper className={classes.paper} elevation={7}>
-              <Graphs />
-            </Paper>
-          </Grid>
-          <Grid item xs={6}>
-            <Paper
-              // className={classes.paper}
-              style={{
-                height: '100%',
-                background:
-                  'linear-gradient(93deg, rgba(41,66,122,1) 0%, rgba(91,69,133,1) 81%)',
+            <motion.div
+              whileHover={{
+                scale: 1.1,
+
+                borderRadius: '25px',
+                border: '2px solid #39d1e6',
               }}
-              elevation={7}
+              whileTap={{ scale: 0.9 }}
             >
-              <Graphs4 record={selected} />
-            </Paper>
+              <Paper className={classes.paper} elevation={7}>
+                <Graph5 record={selected.primary_crops_grown} />
+              </Paper>
+            </motion.div>
           </Grid>
           <Grid item xs={6}>
-            <Paper className={classes.paper} elevation={7}>
-              <Graphs3 />
-            </Paper>
+            <motion.div
+              whileHover={{
+                scale: 1.1,
+
+                borderRadius: '25px',
+                border: '2px solid #39d1e6',
+              }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <Paper
+                className={classes.graph4}
+                // style={{
+                //   maxHeight: '200px',
+                //   background:
+                //     'linear-gradient(93deg, rgba(41,66,122,1) 0%, rgba(91,69,133,1) 81%)',
+                //     paddingBottom:'5%',
+                //     paddingLeft:'8%',
+                // }}
+                elevation={7}
+              >
+                <Graphs4 record={selected} />
+              </Paper>
+            </motion.div>
+          </Grid>
+
+          <Grid item xs={6}>
+            <motion.div
+              style={{ height: '100%' }}
+              whileHover={{
+                scale: 1.1,
+
+                borderRadius: '25px',
+                border: '2px solid #39d1e6',
+              }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <Paper
+                className={classes.paper}
+                style={{
+                  height: '100%',
+                }}
+                elevation={7}
+              >
+                <Graphs3 record={selected.bridge_opportunity_span_m} />
+              </Paper>
+            </motion.div>
           </Grid>
 
           <Paper
@@ -508,43 +590,57 @@ export default function EnhancedTable() {
         <Divider />
 
         <List style={{ color: 'white' }}>
-          <ListItem>Bridge Name: {selected.bridge_name}</ListItem>
-          <Divider />
-          <ListItem>Entry By: {selected.form_created_by}</ListItem>
-          <Divider />
-          <ListItem>Date: {selected.form_form_name}</ListItem>
-          <Divider />
-          <ListItem>
+          <ListItem style={{ textAlign: 'center' }}>
+            Bridge Name: {selected.bridge_name}
+          </ListItem>
+          <Divider style={{ backgroundColor: '#39d1e6' }} />
+          <ListItem style={{ textAlign: 'center' }}>
+            Entry By: {selected.form_created_by}
+          </ListItem>
+          <Divider style={{ backgroundColor: '#39d1e6' }} />
+          <ListItem style={{ textAlign: 'center' }}>
+            Date: {selected.form_form_name}
+          </ListItem>
+          <Divider style={{ backgroundColor: '#39d1e6' }} />
+          <ListItem style={{ textAlign: 'center' }}>
             Flagged for rejection: {selected.flag_for_rejection}
           </ListItem>
-          <Divider />
-          <ListItem>
+          <Divider style={{ backgroundColor: '#39d1e6' }} />
+          <ListItem style={{ textAlign: 'center' }}>
             Opportuniry Stage: {selected.bridge_opportunity_stage}
           </ListItem>
-          <Divider />
-          <ListItem>Accessibility: {selected.four_wd_accessibility}</ListItem>
-          <Divider />
-          <ListItem>
+          <Divider style={{ backgroundColor: '#39d1e6' }} />
+          <ListItem style={{ textAlign: 'center' }}>
+            Accessibility: {selected.four_wd_accessibility}
+          </ListItem>
+          <Divider style={{ backgroundColor: '#39d1e6' }} />
+          <ListItem style={{ textAlign: 'center' }}>
             All weather crossing : {selected.nearest_all_weather_crossing_point}
           </ListItem>
-          <Divider />
-          <ListItem>
-            Social Information: {selected.notes_on_social_information}
-          </ListItem>
-          <Divider />
+          <Divider style={{ backgroundColor: '#39d1e6' }} />
         </List>
         <Divider />
-        <MiniMap record={viewport} />
+        <MiniMap record={selected} />
         <Divider />
         <List style={{ color: 'white' }}>
-          <Divider />
-          <ListItem>Bridge Name: {selected.primary_crops_grown}</ListItem>
-          <Divider />
-          <ListItem>Entry By: {selected.primary_occupations}</ListItem>
-          <Divider />
-          <ListItem>Date: {selected.incident_descriptions}</ListItem>
-          <Divider />
-          <ListItem>
+          <Divider style={{ backgroundColor: '#39d1e6' }} />
+          <ListItem style={{ textAlign: 'center' }}>
+            Bridge Name: {selected.primary_crops_grown}
+          </ListItem>
+          <Divider style={{ backgroundColor: '#39d1e6' }} />
+          <ListItem style={{ textAlign: 'center' }}>
+            Social Information: {selected.notes_on_social_information}
+          </ListItem>
+          <Divider style={{ backgroundColor: '#39d1e6' }} />
+          <ListItem style={{ textAlign: 'center' }}>
+            Entry By: {selected.primary_occupations}
+          </ListItem>
+          <Divider style={{ backgroundColor: '#39d1e6' }} />
+          <ListItem style={{ textAlign: 'center' }}>
+            Date: {selected.incident_descriptions}
+          </ListItem>
+          <Divider style={{ backgroundColor: '#39d1e6' }} />
+          <ListItem style={{ textAlign: 'center' }}>
             Flagged for rejection: {selected.market_access_blocked_by_river}
           </ListItem>
         </List>

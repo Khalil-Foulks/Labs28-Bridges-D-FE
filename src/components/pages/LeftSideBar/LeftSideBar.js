@@ -14,6 +14,8 @@ import {
 import '../Map/map.css';
 import './LeftSideBar.css';
 
+import { BrowserRouter as Router, Link } from 'react-router-dom';
+
 const LeftSideBar = () => {
   const [visible, setVisible] = useState(true);
 
@@ -101,7 +103,7 @@ const LeftSideBar = () => {
         <div className="b2pLogo">
           <img src="B2P_Symbol_Green.svg" alt="B2P Logo" />
         </div>
-
+        <Link to="/data">Go To Dashboard</Link>
         {/* Render search component */}
         <Search />
 
