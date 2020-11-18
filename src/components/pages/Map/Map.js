@@ -17,9 +17,12 @@ import axios from 'axios';
 import './mapbox-gl.css';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Drawer } from 'antd';
+
 import {
   Context,
   ContextStatus,
+  ContextRejectedFilter,
+  ContextCompleteFilter,
   ContextActiveFilters,
   ContextStyle,
   ContextMargin,
@@ -27,53 +30,76 @@ import {
   ContextLong,
   ContextLat,
   ContextView,
+  ContextDataDetails,
 } from '../Store';
 import './map.css';
 import LeftSideBar from '../LeftSideBar/LeftSideBar';
 import Footer from '../Footer/Footer';
+
 const Map = () => {
   const mapRef = useRef();
+
   const handleViewportChange = useCallback(
     newViewport => setViewport(newViewport),
     []
   );
+
   const showDrawer = () => {
     // if (visible === true) setVisible(false);
     if (visible === false) setVisible(true);
   };
+
   const [visible, setVisible] = useState(false);
+
   const onClose = () => {
     setVisible(false);
   };
+
+  const [cardDetails, setCardDetails] = useContext(ContextDataDetails);
+
   //state of longitude and latitude for fly to function
   const [long, setLong] = useContext(ContextLong);
   const [lat, setLat] = useContext(ContextLat);
+
   //initial state of view when the map first renders
   const [viewport, setViewport] = useContext(ContextView);
+
   //initial data that it pulled in from web-endpoint
   const [data, setData] = useState([]);
+
   //data passed to search bar in map component
   const [searchData, setSearchData] = useContext(ContextSearchData);
+
   //state of currently clicked on bridge marker
   const [selectedBridge, setSelectedBridge] = useState(null);
+
   //state of selected bridge passed to Sidebar
   const [state, setState] = useContext(Context);
+
   //toggle state for changing view to satellite
   const [toggle, setToggle] = useState(false);
+
   //state for filtering bridge by project status
   const [status, setStatus] = useContext(ContextStatus);
+
   //state for changing the map style attribute
   const [style, setStyle] = useContext(ContextStyle);
+
   //margin state for moving the button that controls the sidebar
   const [collapseMargin, setCollapseMargin] = useContext(ContextMargin);
+
   //state of filter that are active
   const [activeFilters, setActiveFilters] = useContext(ContextActiveFilters);
+
   //array that all the bridge data is pushed to before formatted to GeoJson
   const array = [];
+
   //hits endpoint and gets all bridges
   useEffect(() => {
     axios
-      .get('https://b2ptc.herokuapp.com/bridges')
+      .get(
+        'http://b2p2018-finalmerge1.eba-4apifgmz.us-east-1.elasticbeanstalk.com/all_data'
+      )
       .then(response => {
         response.data.map(element => {
           //pushes every element to array variable
@@ -86,56 +112,65 @@ const Map = () => {
         console.error(error);
       });
   }, []);
+
   // Function to toggle map style state with toggle switch
   const mapStyle = () => {
     if (
       style === 'mapbox://styles/bridgestoprosperity/ckh3x490s06uf1atng20ald51'
     )
       setStyle('mapbox://styles/bridgestoprosperity/ckf5rf05204ln19o7o0sdv860');
+
     if (
       style === 'mapbox://styles/bridgestoprosperity/ckf5rf05204ln19o7o0sdv860'
     )
       setStyle('mapbox://styles/bridgestoprosperity/ckh3x490s06uf1atng20ald51');
   };
+
   //function to convert json data to geojson
   var bridge = {
     type: 'FeatureCollection',
     features: [],
   };
+
   //checkes if input word is in activeFilters
   const filterBy = word => {
     if (activeFilters.includes(word) === true) {
       return word;
     }
   };
+
   for (let i = 0; i < data.length; i++) {
     //if statement filters bridges based on status
     if (
-      data[i].project_stage === filterBy('Complete') ||
-      data[i].project_stage === filterBy('Under Construction') ||
-      data[i].project_stage === filterBy('Confirmed') ||
-      data[i].project_stage === filterBy('Prospecting') ||
-      data[i].project_stage === filterBy('Identified') ||
-      data[i].project_stage === filterBy('Rejected')
+      data[i].bridge_opportunity_stage === filterBy('Complete') ||
+      data[i].bridge_opportunity_stage === filterBy('Under Construction') ||
+      data[i].bridge_opportunity_stage === filterBy('Confirmed') ||
+      data[i].bridge_opportunity_stage === filterBy('Prospecting') ||
+      data[i].bridge_opportunity_stage === filterBy('Identified') ||
+      data[i].bridge_opportunity_stage === filterBy('Rejected')
     ) {
       bridge.features.push({
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [data[i].latitude, data[i].longitude],
+          coordinates: [
+            data[i].bridge_opportunity_gps_latitude,
+            data[i].bridge_opportunity_gps_longitude,
+          ],
         },
         properties: {
-          id: data[i].id,
-          project_code: data[i].project_code,
+          // id: data[i].id,
+          project_code: data[i].bridge_opportunity_project_code,
           bridge_name: data[i].bridge_name,
-          bridge_type: data[i].bridge_type,
-          district_id: data[i].district_id,
-          district_name: data[i].district_name,
-          province_id: data[i].province_id,
-          province_name: data[i].province_name,
-          project_stage: data[i].project_stage,
-          individuals_served: data[i].individuals_served,
-          bridge_image: data[i].bridge_image,
+          bridge_type: data[i].bridge_opportunity_bridge_type,
+          // district_id: data[i].district_id,
+          district_name: data[i].bridge_opportunity_level2_government,
+          // province_id: data[i].province_id,
+          province_name: data[i].bridge_opportunity_level1_government,
+          project_stage: data[i].bridge_opportunity_stage,
+          individuals_served:
+            data[i].bridge_opportunity_individuals_directly_served,
+          // bridge_image: data[i].bridge_image,
         },
       });
     }
@@ -145,13 +180,13 @@ const Map = () => {
     type: 'Feature',
     properties: {
       cluster: false,
-      id: point.properties.id,
+      // id: point.properties.id,
       project_code: point.properties.project_code,
       bridge_type: point.properties.bridge_type,
       project_stage: point.properties.project_stage,
       bridge_name: point.properties.bridge_name,
       district_name: point.properties.district_name,
-      province_id: point.properties.province_id,
+      // province_id: point.properties.province_id,
       province_name: point.properties.province_name,
     },
     geometry: {
@@ -162,6 +197,7 @@ const Map = () => {
       ],
     },
   }));
+
   // add bounds
   const bounds = mapRef.current
     ? mapRef.current
@@ -170,6 +206,7 @@ const Map = () => {
         .toArray()
         .flat()
     : null;
+
   //get clusters
   const { clusters, supercluster } = useSupercluster({
     points,
@@ -177,6 +214,7 @@ const Map = () => {
     zoom: viewport.zoom,
     options: { radius: 75, maxZoom: 20 },
   });
+
   // allows user to press "ESC" key to exit popup
   useEffect(() => {
     const listener = e => {
@@ -186,26 +224,6 @@ const Map = () => {
     };
     window.addEventListener('keydown', listener);
   }, []);
-  function handleHover(e) {
-    console.log('MOUSE OVER', e);
-    // console.log(e.features);
-    // if (e.features && e.features.length > 0) {
-    //   e.features[0].state['hover'] = true;
-    // }
-    if (e.features && e.features.length > 0) {
-      if (hoveredStateId) {
-        e.features[0].source = 'rwanda';
-        e.features[0].id = hoveredStateId;
-        e.features[0].state['hover'] = false;
-      }
-      hoveredStateId = e.features[0].id;
-      e.features[0].source = 'rwanda';
-      e.features[0].id = hoveredStateId;
-      e.features[0].state['hover'] = true;
-      console.log(hoveredStateId);
-    }
-  }
-  let hoveredStateId = null;
 
   return (
     <ReactMapGL
@@ -216,56 +234,11 @@ const Map = () => {
       mapStyle={style}
       //enable dragging
       onViewportChange={handleViewportChange}
-      onHover={handleHover}
-      interactiveLayerIds={['color_layer']}
     >
-      {/* The Source tileset */}
       <Source
-        id="rwanda"
+        id="village-bounds"
         type="vector"
         url="mapbox://bridgestoprosperity.bmo6bmeu"
-      />
-      {/* Applies a colored layer to tileset */}
-      {/* <Layer
-        id="color_layer"
-        type="fill"
-        source="rwanda"
-        source-layer="Rwanda_Village_Boundaries-8eo00i"
-        paint={{
-          'fill-color': [
-            'rgb',
-            ['%', ['*', 100, ['to-number', ['get', 'Village_ID']]], 256],
-            ['%', ['*', 757, ['to-number', ['get', 'Village_ID']]], 256],
-            ['%', ['*', 911, ['to-number', ['get', 'Village_ID']]], 256],
-          ],
-          'fill-opacity': 0.07,
-        }}
-      /> */}
-      <Layer
-        id="color_layer"
-        type="fill"
-        source="rwanda"
-        source-layer="Rwanda_Village_Boundaries-8eo00i"
-        paint={{
-          'fill-color': '#627BC1',
-          'fill-opacity': [
-            'case',
-            ['boolean', ['feature-state', 'hover'], false],
-            1,
-            0.2,
-          ],
-        }}
-      />
-      {/* Applies a border layer to tileset */}
-      <Layer
-        id="village_border_layer"
-        type="line"
-        source="rwanda"
-        source-layer="Rwanda_Village_Boundaries-8eo00i"
-        paint={{
-          'line-color': '#627BC1',
-          'line-width': 1,
-        }}
       />
       <div className="sidebar">
         <LeftSideBar />
@@ -276,6 +249,7 @@ const Map = () => {
           cluster: isCluster,
           point_count: pointCount,
         } = cluster.properties;
+
         //there is a cluster to render
         if (isCluster) {
           return (
@@ -312,10 +286,11 @@ const Map = () => {
             </Marker>
           );
         }
+
         //there is a single point to render
         return (
           <Marker
-            key={`bridge-${cluster.properties.id}`}
+            key={`bridge-${cluster.properties.project_code}`}
             latitude={latitude}
             longitude={longitude}
           >
@@ -343,6 +318,7 @@ const Map = () => {
           </Marker>
         );
       })}
+
       <div className="footerHolder">
         <Footer />
       </div>
@@ -372,6 +348,7 @@ const Map = () => {
           </div>
         )}
       </div>
+
       <Drawer
         className="infoDrawer"
         title={<h2>Bridge Info</h2>}
@@ -386,7 +363,7 @@ const Map = () => {
       >
         <h3>Bridge Name: {state.cluster.properties.bridge_name}</h3>
         <h3>Province: {state.cluster.properties.province_name}</h3>
-        <h3>District: {state.cluster.properties.district_name}</h3>
+        {/* <h3>District: {state.cluster.properties.district_name}</h3> */}
         <h3>Project Stage: {state.cluster.properties.project_stage}</h3>
         <h3>Project Code: {state.cluster.properties.project_code}</h3>
         <h3>Bridge Type: {state.cluster.properties.bridge_type}</h3>
@@ -397,4 +374,5 @@ const Map = () => {
     </ReactMapGL>
   );
 };
+
 export default Map;
