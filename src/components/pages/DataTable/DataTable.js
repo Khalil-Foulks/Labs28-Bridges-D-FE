@@ -174,9 +174,7 @@ export default function EnhancedTable() {
   //Axios call to get the Bridge Data
   useEffect(() => {
     axios
-      .get(
-        'http://b2p2018-finalmerge1.eba-4apifgmz.us-east-1.elasticbeanstalk.com/all_data'
-      )
+      .get('https://b2pmergefinal.bridgestoprosperity.dev/all_data')
       .then(res => {
         setData(res.data);
         setCurrentData(res.data);

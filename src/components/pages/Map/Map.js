@@ -97,9 +97,7 @@ const Map = () => {
   //hits endpoint and gets all bridges
   useEffect(() => {
     axios
-      .get(
-        'http://b2p2018-finalmerge1.eba-4apifgmz.us-east-1.elasticbeanstalk.com/all_data'
-      )
+      .get('https://b2pmergefinal.bridgestoprosperity.dev/all_data')
       .then(response => {
         response.data.map(element => {
           //pushes every element to array variable
