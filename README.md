@@ -1,8 +1,9 @@
 #  Bridges to Prosperity
 
-### https://youtu.be/fYHp5s21uws --- Stakeholder Demo at end of Labs25
-### https://youtu.be/yhBqqsxCLm4 --- Demo for Labs27 Team
+[![Bridges To Prosperity Video](http://img.youtube.com/vi/1qVVODfPtto/0.jpg)](http://www.youtube.com/watch?v=1qVVODfPtto " Bridges To Prosperity Product Demonstration")
 
+# Video archive
+[Video Archive](Archive-Videos.md)
 
 # Contributors
 - [Project Contributors](Contributors.md)
