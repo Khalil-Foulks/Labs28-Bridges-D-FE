@@ -9,8 +9,6 @@ import ReactMapGL, {
   Marker,
   NavigationControl,
   FlyToInterpolator,
-  Layer,
-  Source,
 } from 'react-map-gl';
 import useSupercluster from 'use-supercluster';
 import axios from 'axios';
@@ -20,17 +18,12 @@ import { Drawer } from 'antd';
 
 import {
   Context,
-  ContextStatus,
   ContextRejectedFilter,
   ContextCompleteFilter,
   ContextActiveFilters,
   ContextStyle,
-  ContextMargin,
   ContextSearchData,
-  ContextLong,
-  ContextLat,
   ContextView,
-  ContextDataDetails,
 } from '../Store';
 import './map.css';
 import LeftSideBar from '../LeftSideBar/LeftSideBar';
@@ -45,7 +38,6 @@ const Map = () => {
   );
 
   const showDrawer = () => {
-    // if (visible === true) setVisible(false);
     if (visible === false) setVisible(true);
   };
 
@@ -54,12 +46,6 @@ const Map = () => {
   const onClose = () => {
     setVisible(false);
   };
-
-  const [cardDetails, setCardDetails] = useContext(ContextDataDetails);
-
-  //state of longitude and latitude for fly to function
-  const [long, setLong] = useContext(ContextLong);
-  const [lat, setLat] = useContext(ContextLat);
 
   //initial state of view when the map first renders
   const [viewport, setViewport] = useContext(ContextView);
@@ -79,14 +65,8 @@ const Map = () => {
   //toggle state for changing view to satellite
   const [toggle, setToggle] = useState(false);
 
-  //state for filtering bridge by project status
-  const [status, setStatus] = useContext(ContextStatus);
-
   //state for changing the map style attribute
   const [style, setStyle] = useContext(ContextStyle);
-
-  //margin state for moving the button that controls the sidebar
-  const [collapseMargin, setCollapseMargin] = useContext(ContextMargin);
 
   //state of filter that are active
   const [activeFilters, setActiveFilters] = useContext(ContextActiveFilters);
@@ -157,34 +137,28 @@ const Map = () => {
           ],
         },
         properties: {
-          // id: data[i].id,
           project_code: data[i].bridge_opportunity_project_code,
           bridge_name: data[i].bridge_name,
           bridge_type: data[i].bridge_opportunity_bridge_type,
-          // district_id: data[i].district_id,
           district_name: data[i].bridge_opportunity_level2_government,
-          // province_id: data[i].province_id,
           province_name: data[i].bridge_opportunity_level1_government,
           project_stage: data[i].bridge_opportunity_stage,
           individuals_served:
             data[i].bridge_opportunity_individuals_directly_served,
-          // bridge_image: data[i].bridge_image,
         },
       });
     }
   }
-  // add points
+  // map points needed to form clusters
   const points = bridge.features.map(point => ({
     type: 'Feature',
     properties: {
       cluster: false,
-      // id: point.properties.id,
       project_code: point.properties.project_code,
       bridge_type: point.properties.bridge_type,
       project_stage: point.properties.project_stage,
       bridge_name: point.properties.bridge_name,
       district_name: point.properties.district_name,
-      // province_id: point.properties.province_id,
       province_name: point.properties.province_name,
     },
     geometry: {
@@ -196,7 +170,7 @@ const Map = () => {
     },
   }));
 
-  // add bounds
+  // find map bounds for clustering
   const bounds = mapRef.current
     ? mapRef.current
         .getMap()
@@ -205,7 +179,7 @@ const Map = () => {
         .flat()
     : null;
 
-  //get clusters
+  // gathers clusters from points and bounds
   const { clusters, supercluster } = useSupercluster({
     points,
     bounds,
@@ -233,11 +207,6 @@ const Map = () => {
       //enable dragging
       onViewportChange={handleViewportChange}
     >
-      <Source
-        id="village-bounds"
-        type="vector"
-        url="mapbox://bridgestoprosperity.bmo6bmeu"
-      />
       <div className="sidebar">
         <LeftSideBar />
       </div>
@@ -273,7 +242,7 @@ const Map = () => {
                     longitude,
                     zoom: expansionZoom,
                     transitionInterpolator: new FlyToInterpolator({
-                      speed: 2,
+                      speed: 3,
                     }),
                     transitionDuration: 'auto',
                   });
@@ -361,7 +330,7 @@ const Map = () => {
       >
         <h3>Bridge Name: {state.cluster.properties.bridge_name}</h3>
         <h3>Province: {state.cluster.properties.province_name}</h3>
-        {/* <h3>District: {state.cluster.properties.district_name}</h3> */}
+        <h3>District: {state.cluster.properties.district_name}</h3>
         <h3>Project Stage: {state.cluster.properties.project_stage}</h3>
         <h3>Project Code: {state.cluster.properties.project_code}</h3>
         <h3>Bridge Type: {state.cluster.properties.bridge_type}</h3>
