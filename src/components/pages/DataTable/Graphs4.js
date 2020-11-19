@@ -4,7 +4,6 @@ import {
   Radar,
   RadarChart,
   PolarGrid,
-  Legend,
   PolarAngleAxis,
   PolarRadiusAxis,
 } from 'recharts';

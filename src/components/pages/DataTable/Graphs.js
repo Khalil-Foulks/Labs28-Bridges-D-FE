@@ -1,9 +1,8 @@
-import React, { PureComponent, useState } from 'react';
+import React from 'react';
 import './graphs.css';
 import {
   BarChart,
   Bar,
-  Cell,
   XAxis,
   YAxis,
   CartesianGrid,

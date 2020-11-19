@@ -1,19 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { ContextDataDetails } from '../Store';
-import * as d3 from 'd3';
-import { FlyToInterpolator } from 'react-map-gl';
-import {
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Button,
-  Typography,
-  makeStyles,
-  Grid,
-  Paper,
-} from '@material-ui/core';
+
+import { makeStyles, Grid } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {

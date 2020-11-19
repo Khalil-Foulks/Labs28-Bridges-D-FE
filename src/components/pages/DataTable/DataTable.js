@@ -1,15 +1,13 @@
-import React, { useState, useEffect, useMemo, useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect, useMemo } from 'react';
+
 import * as d3 from 'd3';
 import { FlyToInterpolator } from 'react-map-gl';
 import { motion } from 'framer-motion';
 
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { BrowserRouter as Link } from 'react-router-dom';
 
 import { columns } from './HeaderColumns';
 import './datatable.css';
-
-import { ContextView } from '../Store';
 
 import axios from 'axios';
 import {
@@ -36,12 +34,7 @@ import {
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import MuiTableCell from '@material-ui/core/TableCell';
-import { ThemeProvider } from '@material-ui/core';
-import { createMuiTheme } from '@material-ui/core/styles';
 
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import TablePage from '../../common/TablePage';
-import DetailsCard from './DetailsCard.js';
 import MiniMap from './MiniMap.js';
 import Graphs from './Graphs.js';
 import Graphs2 from './Graphs2.js';
@@ -91,11 +84,10 @@ const stableSort = (array, comparator) => {
 const EnhancedTableHead = props => {
   const {
     classes,
-    onSelectAllClick,
+
     order,
     orderBy,
-    numSelected,
-    rowCount,
+
     onRequestSort,
   } = props;
   const createSortHandler = property => event => {
@@ -133,9 +125,7 @@ const EnhancedTableHead = props => {
 
 export default function EnhancedTable() {
   const [data, setData] = useState([]);
-  const [expanded, setExpanded] = useState(false);
-  const [rowSize, setRowSize] = useState(7);
-  const [rowSize2, setRowSize2] = useState(5);
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [order, setOrder] = useState();
@@ -170,8 +160,7 @@ export default function EnhancedTable() {
     });
   }, [currentData, search]);
 
-  // const[cardDetails, setCardDetails] = useContext(ContextDataDetails);
-  //Axios call to get the Bridge Data
+  // Axios call to get the Bridge Data
   useEffect(() => {
     axios
       .get('https://b2pmergefinal.bridgestoprosperity.dev/all_data')
@@ -291,28 +280,6 @@ export default function EnhancedTable() {
     },
   }));
 
-  const CssTextField = withStyles({
-    root: {
-      '& label.Mui-focused': {
-        color: 'green',
-      },
-      '& .MuiInput-underline:after': {
-        borderBottomColor: 'green',
-      },
-      '& .MuiOutlinedInput-root': {
-        '& fieldset': {
-          borderColor: 'red',
-        },
-        '&:hover fieldset': {
-          borderColor: 'yellow',
-        },
-        '&.Mui-focused fieldset': {
-          borderColor: 'green',
-        },
-      },
-    },
-  })(TextField);
-
   const classes = useStyles();
 
   const FlyTo = (x, y) => {
@@ -375,7 +342,7 @@ export default function EnhancedTable() {
       >
         <div className={classes.toolbar} />
         <Grid container spacing={3}>
-          <Grid item direction="row" item xs={4} style={{ width: '80%' }}>
+          <Grid item direction="row" xs={4} style={{ width: '80%' }}>
             <motion.div
               whileHover={{
                 scale: 1.1,
@@ -434,17 +401,7 @@ export default function EnhancedTable() {
               }}
               whileTap={{ scale: 0.9 }}
             >
-              <Paper
-                className={classes.graph4}
-                // style={{
-                //   maxHeight: '200px',
-                //   background:
-                //     'linear-gradient(93deg, rgba(41,66,122,1) 0%, rgba(91,69,133,1) 81%)',
-                //     paddingBottom:'5%',
-                //     paddingLeft:'8%',
-                // }}
-                elevation={7}
-              >
+              <Paper className={classes.graph4} elevation={7}>
                 <Graphs4 record={selected} />
               </Paper>
             </motion.div>
@@ -502,16 +459,10 @@ export default function EnhancedTable() {
                   {stableSort(tableData, getComparator(order, orderBy))
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) => {
-                      // const isItemSelected = isSelected(row);
-                      // console.log('can i see the index', index)
                       return (
                         <TableRow
                           hover
-                          // className ={tableRow1 }
-                          // index % 2 ? classes.tableRow0:classes.tableRow1
-
                           onClick={event => handleClick(event, row)}
-                          // aria-checked={isItemSelected}
                           style={
                             index % 2
                               ? {
@@ -524,7 +475,6 @@ export default function EnhancedTable() {
                                 }
                           }
                           key={row}
-                          // selected={isItemSelected}
                         >
                           <TableCell align="left">{row.country}</TableCell>
                           <TableCell align="left">
@@ -565,9 +515,7 @@ export default function EnhancedTable() {
                 backgroundColor: '#372d4a',
                 color: 'white',
                 boxShadow: '10px 10px 33px 1px rgba(0,0,0,0.75',
-                // borderStyle:'solid',
-                //  borderColor:'black',
-                //  bordrerWidth:'thin',
+
                 maxHeight: '50px',
               }}
             />
