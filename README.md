@@ -27,7 +27,7 @@
 
  #### Bridges to Prosperity is a nonprofit that helps build footbridges in east african communities. They have collected a lot of data about various villages and we need to match it to government data. Afterwards, we will create predictions and visualizations as to where are the best places for footbridges.
 
-### 4️⃣ Key Features
+### Key Features
 
 - Visulize Bridge Data on a Map
 - Ability to filter through different bridge completion stages
@@ -50,6 +50,14 @@ Trello Board - https://trello.com/b/Tz8190EG/labs-28-bridges-to-prosperity-d
 #### Rwanda Administrative Levels and Codes
 - https://bridges.app.box.com/s/21mix7vjnoi0v7q099fbr9ojl1gyy29j
 
+## Component Tree
+
+https://whimsical.com/bridgesd-archicture-FLKAKdVCjQuf94pmCpgWac
+
+![Component Tree Image](https://github.com/Lambda-School-Labs/Labs28-Bridges-D-FE/blob/feature/update-README/public/Bridges_To_Prosperity_Component%20Tree.png)
+
+
+
 ## Tech Stack
  UX Design files - Files provided by stakeholder 
     Brand Guide and Assets 
@@ -59,7 +67,7 @@ Trello Board - https://trello.com/b/Tz8190EG/labs-28-bridges-to-prosperity-d
     Rwanda Administrative Levels and Codes 
          https://bridges.app.box.com/s/21mix7vjnoi0v7q099fbr9ojl1gyy29j
 
-## 1️⃣ Tech Stack
+## Tech Stack
 
 ### Front end built using:
 - [React](https://reactjs.org/)
