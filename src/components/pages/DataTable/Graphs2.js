@@ -48,19 +48,6 @@ const Graphs2 = () => {
       });
   }, []);
 
-  let count = data => {
-    // const theLength = data.filter(item=> item === 'Complete')
-    let hold = [];
-    const newCount = data.map(obj =>
-      Object.values(obj).map((x, index) => x === 'Complete')
-    );
-
-    return newCount;
-  };
-  // console.log('the count', count(data))
-
-  //   console.log('thedata', data)
-  const classes = useStyles();
   return (
     <div>
       <div>
@@ -79,10 +66,6 @@ const Graphs2 = () => {
           <Tooltip />
         </PieChart>
       </div>
-      {/* <div className={classes.root}>
-        <BorderLinearProgress variant="determinate" value={70} />
-        <div>Bridge Span</div>
-      </div> */}
     </div>
   );
 };

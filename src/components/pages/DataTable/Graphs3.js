@@ -30,26 +30,6 @@ const useStyles = makeStyles({
 
 const Graphs3 = ({ record }) => {
   console.log('bridg', record);
-  const newData = data => {
-    const newCurrentData = data.map(obj =>
-      Object.keys(obj)
-        .filter(x => obj[x] !== null)
-        .reduce((o, e) => {
-          o[e] = obj[e];
-          return o;
-        }, {})
-    );
-    const noUnderfined = newCurrentData.map(obj =>
-      Object.keys(obj)
-        .filter(x => obj[x] !== undefined)
-        .reduce((o, e) => {
-          o[e] = obj[e];
-          return o;
-        }, {})
-    );
-
-    return noUnderfined;
-  };
 
   const classes = useStyles();
   return (
