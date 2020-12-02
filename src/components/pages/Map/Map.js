@@ -16,6 +16,8 @@ import './mapbox-gl.css';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Drawer } from 'antd';
 
+import VillagesDummyData from './dummydata';
+
 import {
   Context,
   ContextRejectedFilter,
@@ -75,20 +77,27 @@ const Map = () => {
   const array = [];
 
   //hits endpoint and gets all bridges
+  // useEffect(() => {
+  //   axios
+  //     .get('https://b2pmergefinal.bridgestoprosperity.dev/all_data')
+  //     .then(response => {
+  //       response.data.map(element => {
+  //         //pushes every element to array variable
+  //         array.push(element);
+  //       });
+  //       setData(array);
+  //       setSearchData(array);
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  // }, []);
+
+  // using dummy data until DS API is redeployed
+
   useEffect(() => {
-    axios
-      .get('https://b2pmergefinal.bridgestoprosperity.dev/all_data')
-      .then(response => {
-        response.data.map(element => {
-          //pushes every element to array variable
-          array.push(element);
-        });
-        setData(array);
-        setSearchData(array);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    setData(VillagesDummyData);
+    setSearchData(VillagesDummyData);
   }, []);
 
   // Function to toggle map style state with toggle switch

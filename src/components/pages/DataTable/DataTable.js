@@ -43,6 +43,8 @@ import Graphs3 from './Graphs3';
 import Graphs4 from './Graphs4';
 import Graph5 from './Graph5';
 
+import VillagesDummyData from '../Map/dummydata';
+
 const TableCell = withStyles({
   root: {
     borderColor: '#372d4a',
@@ -161,13 +163,19 @@ export default function EnhancedTable() {
   }, [currentData, search]);
 
   // Axios call to get the Bridge Data
+  // useEffect(() => {
+  //   axios
+  //     .get('https://b2pmergefinal.bridgestoprosperity.dev/all_data')
+  //     .then(res => {
+  //       setData(res.data);
+  //       setCurrentData(res.data);
+  //     });
+  // }, []);
+
+  // using dummy data until DS API is redeployed
   useEffect(() => {
-    axios
-      .get('https://b2pmergefinal.bridgestoprosperity.dev/all_data')
-      .then(res => {
-        setData(res.data);
-        setCurrentData(res.data);
-      });
+    setData(VillagesDummyData);
+    setCurrentData(VillagesDummyData);
   }, []);
 
   //Show new page When table is updated
