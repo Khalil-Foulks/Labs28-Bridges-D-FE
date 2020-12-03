@@ -96,7 +96,7 @@ https://whimsical.com/bridgesd-archicture-FLKAKdVCjQuf94pmCpgWac
 
 - React allows for reusable components allowing for **DRY** code and everyone on the team already had experience with React.
 
-#### Front end deployment: [Here](https://d.bridgestoprosperity.dev/main)
+#### Front end deployment: [Here](https://labs28-bridges-d-fe.vercel.app/main)
 
 #### Back end repo: [Here](https://github.com/Lambda-School-Labs/Labs28-Bridges-D-BE)
 
